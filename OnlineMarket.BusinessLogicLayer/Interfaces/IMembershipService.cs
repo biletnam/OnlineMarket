@@ -3,16 +3,18 @@ using System.Collections.Generic;
 
 namespace OnlineMarket.BusinessLogicLayer.Interfaces
 {
-    public interface IUserService
+    public interface IMembershipService
     {
-        IList<User> GetUsers();
+        User CreateUser(string email, string password);
 
-        void AddUser(User user);
+        IList<User> GetUsers();
 
         void MoveUserToUnbannedGroup(User user);
 
         void MoveUserToBannedGroup(User user);
 
         void RemoveUser(User user);
+
+        MembershipContext ValidateUser(string username, string password);
     }
 }
