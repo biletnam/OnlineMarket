@@ -9,5 +9,7 @@ namespace OnlineMarket.DataAccessLayer
         { }
 
         public DbSet<User> Users { get; set; }
+
+        public DbSet<Deal> Deals { get; set; }
     }
 }
