@@ -1,8 +1,9 @@
 ﻿using OnlineMarket.DataAccessLayer.Entities;
+using System;
 
 namespace OnlineMarket.DataAccessLayer.Interfaces
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork : IDisposable
     {
         IRepository<Deal> DealRepository { get; }
 
