@@ -9,6 +9,8 @@ namespace OnlineMarket.BusinessLogicLayer.Interfaces
 
         void AddUser(User user);
 
+        void MoveUserToUnbannedGroup(User user);
+
         void MoveUserToBannedGroup(User user);
 
         void RemoveUser(User user);

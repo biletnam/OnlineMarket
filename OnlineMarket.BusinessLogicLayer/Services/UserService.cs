@@ -39,6 +39,13 @@ namespace OnlineMarket.BusinessLogicLayer.Services
             _unitOfWork.SaveChanges();
         }
 
+        public void MoveUserToUnbannedGroup(User user)
+        {
+            user.RoleId = (int)Roles.User;
+            _unitOfWork.UserRepository.Update(user);
+            _unitOfWork.SaveChanges();
+        }
+
         public void RemoveUser(User user)
         {
             _unitOfWork.UserRepository.Remove(user);
