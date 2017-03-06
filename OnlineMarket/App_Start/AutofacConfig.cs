@@ -34,26 +34,21 @@ namespace OnlineMarket.App_Start
                    .As<DbContext>()
                    .InstancePerRequest();
 
-            builder.RegisterGeneric(typeof(IRepository<User>))
-                    .As(typeof(UserRepository))
-                    .InstancePerRequest();
+            builder.RegisterType<UserRepository>()
+                .As<IRepository<User>>()
+                .InstancePerRequest();
 
-            builder.RegisterGeneric(typeof(IRepository<Deal>))
-                    .As(typeof(DealRepository))
-                    .InstancePerRequest();
+            builder.RegisterType<DealRepository>()
+               .As<IRepository<Deal>>()
+               .InstancePerRequest();
 
-            builder.RegisterGeneric(typeof(IRepository<Resource>))
-                    .As(typeof(Resource))
-                    .InstancePerRequest();
+            builder.RegisterType<ResourceRepository>()
+               .As<IRepository<Resource>>()
+               .InstancePerRequest();
 
             builder.RegisterType<UnitOfWork>()
                 .As<IUnitOfWork>()
                 .InstancePerRequest();
-
-            builder.RegisterType<UnitOfWork>()
-                .As<IUnitOfWork>()
-                .InstancePerRequest();
-
             
             builder.RegisterType<EncryptionService>()
                 .As<IEncryptionService>()
