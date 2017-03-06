@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineMarket", "OnlineMarket\OnlineMarket.csproj", "{E075BFE0-2CC9-4816-B0E0-57B9355CEA07}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineMarket.DataAccessLayer", "OnlineMarket.DataAccessLayer\OnlineMarket.DataAccessLayer.csproj", "{4056EC74-150E-4CA4-AED0-82B72B77B388}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineMarket.BusinessLogicLayer", "OnlineMarket.BusinessLogicLayer\OnlineMarket.BusinessLogicLayer.csproj", "{A4FA720C-D4A9-4FDE-8A53-66379735C87C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{E075BFE0-2CC9-4816-B0E0-57B9355CEA07}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E075BFE0-2CC9-4816-B0E0-57B9355CEA07}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E075BFE0-2CC9-4816-B0E0-57B9355CEA07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4056EC74-150E-4CA4-AED0-82B72B77B388}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4056EC74-150E-4CA4-AED0-82B72B77B388}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4056EC74-150E-4CA4-AED0-82B72B77B388}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4056EC74-150E-4CA4-AED0-82B72B77B388}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4FA720C-D4A9-4FDE-8A53-66379735C87C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4FA720C-D4A9-4FDE-8A53-66379735C87C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4FA720C-D4A9-4FDE-8A53-66379735C87C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4FA720C-D4A9-4FDE-8A53-66379735C87C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
