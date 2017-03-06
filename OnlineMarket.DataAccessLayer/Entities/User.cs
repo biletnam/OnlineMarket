@@ -16,5 +16,7 @@ namespace OnlineMarket.DataAccessLayer.Entities
 
         [ForeignKey("RoleId")]
         public virtual Role Role { get; set; }
+
+        public double Balance { get; set; }
     }
 }
