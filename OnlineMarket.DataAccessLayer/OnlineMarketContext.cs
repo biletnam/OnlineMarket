@@ -16,6 +16,6 @@ namespace OnlineMarket.DataAccessLayer
 
         public DbSet<Role> Roles { get; set; }
 
-        public DbSet<DealType> DealTypes { get; set}
+        public DbSet<DealType> DealTypes { get; set; }
     }
 }
