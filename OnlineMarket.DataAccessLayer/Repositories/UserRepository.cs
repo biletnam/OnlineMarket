@@ -18,12 +18,12 @@ namespace OnlineMarket.DataAccessLayer.Repositories
 
         public IList<User> GetAll()
         {
-            return _context.Users.ToList();
+            return _context.Users.Include("Role").ToList();
         }
 
         public IList<User> Find(Func<User, bool> condition)
         {
-            return _context.Users.Where(condition).ToList();
+            return _context.Users.Include("Role").Where(condition).ToList();
         }
 
         public void Add(User item)
