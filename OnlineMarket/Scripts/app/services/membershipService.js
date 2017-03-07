@@ -16,9 +16,9 @@
         }
 
         function login(user, completed) {
-            apiService.post('/api/account/authenticate', user,
+            apiService.post('/api/account/login', user,
             completed,
-            loginFailed);
+            null);
         }
 
         function register(user, completed) {

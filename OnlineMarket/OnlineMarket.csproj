@@ -184,6 +184,7 @@
     </Compile>
     <Compile Include="Infrastructure\Extensions\RequestMessageExtensions.cs" />
     <Compile Include="Infrastructure\OnlineMarketAuthHandler.cs" />
+    <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\RegistrationViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -220,6 +221,8 @@
     <Content Include="Scripts\angular-touch.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\app\account\login.html" />
+    <Content Include="Scripts\app\account\loginCtrl.js" />
     <Content Include="Scripts\app\account\register.html" />
     <Content Include="Scripts\app\account\registerCtrl.js" />
     <Content Include="Scripts\app\app.js" />

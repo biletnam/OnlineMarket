@@ -1,4 +1,5 @@
-﻿using OnlineMarket.BusinessLogicLayer.Interfaces;
+﻿using OnlineMarket.BusinessLogicLayer;
+using OnlineMarket.BusinessLogicLayer.Interfaces;
 using OnlineMarket.DataAccessLayer.Entities;
 using OnlineMarket.Models;
 using System.Net;
@@ -15,6 +16,20 @@ namespace OnlineMarket.Controllers
         public AccountController(IMembershipService membershipService)
         {
             _membershipService = membershipService;
+        }
+
+        [AllowAnonymous]
+        [Route("login")]
+        [HttpPost]
+        public HttpResponseMessage Login(HttpRequestMessage request, LoginViewModel loginViewModel)
+        {
+            if (!ModelState.IsValid) return request.CreateResponse(HttpStatusCode.BadRequest, new { success = false });
+
+            MembershipContext membershipContext = _membershipService.ValidateUser(loginViewModel.Email, loginViewModel.Password);
+
+            if (membershipContext.User == null) return request.CreateResponse(HttpStatusCode.OK, new { success = false });
+
+            return request.CreateResponse(HttpStatusCode.OK, new { success = true });
         }
 
         [AllowAnonymous]

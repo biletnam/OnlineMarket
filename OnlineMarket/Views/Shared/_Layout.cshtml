@@ -14,6 +14,7 @@
             <div class="navbar-header">
                 @Html.ActionLink("Online market", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 <a ng-href="/register">Register</a>
+                <a ng-href="/login">Login</a>
             </div>
         </div>
     </div>
@@ -33,6 +34,7 @@
     @Scripts.Render("~/Scripts/app/services/apiService.js")
     @Scripts.Render("~/Scripts/app/services/membershipService.js")
     @Scripts.Render("~/Scripts/app/home/indexCtrl.js")
+    @Scripts.Render("~/Scripts/app/account/loginCtrl.js")
     @Scripts.Render("~/Scripts/app/account/registerCtrl.js")
     @RenderSection("scripts", required: false)
 </body>
