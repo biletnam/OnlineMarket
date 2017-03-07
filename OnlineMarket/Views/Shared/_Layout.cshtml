@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+    <base href="/">
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -12,16 +13,24 @@
         <div class="container">
             <div class="navbar-header">
                 @Html.ActionLink("Online market", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <a ng-href="/register">Register</a>
             </div>
         </div>
     </div>
 
-    <div class="container body-content">
+    <div class="container body-content" ng-view>
         @RenderBody()
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+
+    @Scripts.Render("~/Scripts/angular.js")
+    @Scripts.Render("~/Scripts/angular-route.js")
+    @Scripts.Render("~/Scripts/angular-cookies.js")
+    @Scripts.Render("~/Scripts/app/app.js")
+    @Scripts.Render("~/Scripts/app/home/indexCtrl.js")
+    @Scripts.Render("~/Scripts/app/account/registerCtrl.js")
     @RenderSection("scripts", required: false)
 </body>
 </html>
