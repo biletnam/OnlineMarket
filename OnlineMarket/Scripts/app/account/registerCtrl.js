@@ -3,10 +3,25 @@
 
     app.controller('registerCtrl', registerCtrl);
 
-    registerCtrl.$inject = ['$scope'];
+    registerCtrl.$inject = ['$scope', 'membershipService', '$rootScope', '$location'];
 
-    function registerCtrl($scope) {
-        $scope.title = 'register here!';
+    function registerCtrl($scope, membershipService, $rootScope, $location) {
+        $scope.register = register;
+        $scope.user = {};
+
+        function register() {
+            membershipService.register($scope.user, registerCompleted)
+        }
+
+        function registerCompleted(result) {
+            if (result.data.success) {
+                membershipService.saveCredentials($scope.user);
+                $location.path('/');
+            }
+            else {
+                notificationService.displayError('Registration failed. Try again.');
+            }
+        }
     }
 
 })(angular.module('onlineMarket'));

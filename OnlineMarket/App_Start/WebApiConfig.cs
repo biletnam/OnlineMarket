@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OnlineMarket.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -9,9 +10,9 @@ namespace OnlineMarket
     {
         public static void Register(HttpConfiguration config)
         {
-            // Web API configuration and services
 
-            // Web API routes
+            config.MessageHandlers.Add(new OnlineMarketAuthHandler());
+
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(

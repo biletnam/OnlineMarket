@@ -5,8 +5,13 @@ namespace OnlineMarket.DataAccessLayer
 {
     public class OnlineMarketContext : DbContext
     {
-        public OnlineMarketContext() : base("OrderingFoodDB")
+        public OnlineMarketContext() : base("OnlineMarketDB")
         { }
+
+        static OnlineMarketContext()
+        {
+            Database.SetInitializer(new DbInitializer());
+        }
 
         public DbSet<User> Users { get; set; }
 

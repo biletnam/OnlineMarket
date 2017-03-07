@@ -28,10 +28,7 @@ namespace OnlineMarket.App_Start
 
         private static IContainer RegisterServices(ContainerBuilder builder)
         {
-            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
-            
             builder.RegisterType<OnlineMarketContext>()
-                   .As<DbContext>()
                    .InstancePerRequest();
 
             builder.RegisterType<UserRepository>()
@@ -49,7 +46,7 @@ namespace OnlineMarket.App_Start
             builder.RegisterType<UnitOfWork>()
                 .As<IUnitOfWork>()
                 .InstancePerRequest();
-            
+
             builder.RegisterType<EncryptionService>()
                 .As<IEncryptionService>()
                 .InstancePerRequest();
@@ -57,6 +54,8 @@ namespace OnlineMarket.App_Start
             builder.RegisterType<MembershipService>()
                 .As<IMembershipService>()
                 .InstancePerRequest();
+
+            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
             Container = builder.Build();
 
