@@ -6,7 +6,6 @@
     archiveCtrl.$inject = ['$scope', 'apiService'];
 
     function archiveCtrl($scope, apiService) {
-        $scope.title = "wwww";
         getarchive();
 
         function getarchive() {
