@@ -7,9 +7,11 @@ namespace OnlineMarket.DataAccessLayer.Interfaces
     {
         IRepository<Deal> DealRepository { get; }
 
-        IRepository<Resource> ResourceRepository { get; }
+        IRepository<UserResources> ResourceRepository { get; }
 
         IRepository<User> UserRepository { get; }
+
+        IRepository<UserResources> UserResourcesRepository { get; }
 
         void SaveChanges();
     }

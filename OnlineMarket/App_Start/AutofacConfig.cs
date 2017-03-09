@@ -40,7 +40,7 @@ namespace OnlineMarket.App_Start
                .InstancePerRequest();
 
             builder.RegisterType<ResourceRepository>()
-               .As<IRepository<Resource>>()
+               .As<IRepository<UserResources>>()
                .InstancePerRequest();
 
             builder.RegisterType<UnitOfWork>()

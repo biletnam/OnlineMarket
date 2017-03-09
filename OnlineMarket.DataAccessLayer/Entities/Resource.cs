@@ -2,7 +2,7 @@
 
 namespace OnlineMarket.DataAccessLayer.Entities
 {
-    public class Resource
+    public class UserResources
     {
         [Key]
         public int Id { get; set; }

@@ -17,10 +17,12 @@ namespace OnlineMarket.DataAccessLayer
 
         public DbSet<Deal> Deals { get; set; }
 
-        public DbSet<Resource> Resources { get; set; }
+        public DbSet<UserResources> Resources { get; set; }
 
         public DbSet<Role> Roles { get; set; }
 
         public DbSet<DealType> DealTypes { get; set; }
+
+        public DbSet<UserResources> UserResources { get; set; }
     }
 }

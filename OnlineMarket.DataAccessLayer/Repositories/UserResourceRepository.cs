@@ -1,39 +1,39 @@
-﻿using OnlineMarket.DataAccessLayer.Entities;
-using OnlineMarket.DataAccessLayer.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
+using OnlineMarket.DataAccessLayer.Entities;
+using OnlineMarket.DataAccessLayer.Interfaces;
 using System.Linq;
+using System.Data.Entity;
 
 namespace OnlineMarket.DataAccessLayer.Repositories
 {
-    public class ResourceRepository : IRepository<UserResources>
+    public class UserResourceRepository : IRepository<UserResources>
     {
         private OnlineMarketContext _context;
 
-        public ResourceRepository(OnlineMarketContext context)
+        public UserResourceRepository(OnlineMarketContext context)
         {
             _context = context;
         }
 
         public void Add(UserResources item)
         {
-            _context.Resources.Add(item);
+            _context.UserResources.Add(item);
         }
 
         public IList<UserResources> Find(Func<UserResources, bool> condition)
         {
-            return _context.Resources.Where(condition).ToList();
+            return _context.UserResources.Include("User").Include("Resource").Where(condition).ToList();
         }
 
         public IList<UserResources> GetAll()
         {
-            return _context.Resources.ToList();
+            return _context.UserResources.Include("User").Include("Resource").ToList();
         }
 
         public void Remove(UserResources item)
         {
-            _context.Resources.Remove(item);
+            _context.UserResources.Remove(item);
         }
 
         public void Update(UserResources item)
