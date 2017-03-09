@@ -228,6 +228,7 @@
     <Content Include="Scripts\app\app.js" />
     <Content Include="Scripts\app\home\index.html" />
     <Content Include="Scripts\app\home\indexCtrl.js" />
+    <Content Include="Scripts\app\rootCtrl.js" />
     <Content Include="Scripts\app\services\apiService.js" />
     <Content Include="Scripts\app\services\membershipService.js" />
     <Content Include="Scripts\bootstrap.js" />

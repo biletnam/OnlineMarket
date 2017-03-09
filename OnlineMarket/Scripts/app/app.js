@@ -7,7 +7,6 @@
 
     config.$inject = ['$routeProvider', '$locationProvider'];
 
-
     function config($routeProvider, $locationProvider) {
         $locationProvider.html5Mode(true);
         $routeProvider
@@ -30,13 +29,19 @@
     run.$inject = ['$rootScope', '$location', '$cookieStore', '$http'];
 
     function run($rootScope, $location, $cookieStore, $http) {
-        // handle page refreshes
         $rootScope.repository = $cookieStore.get('repository') || {};
         if ($rootScope.repository.loggedUser) {
             $http.defaults.headers.common['Authorization'] = $rootScope.repository.loggedUser.authdata;
         }
+    }
 
-        
+    isAuthenticated.$inject = ['membershipService', '$rootScope','$location'];
+     
+    function isAuthenticated(membershipService, $rootScope, $location) {
+        if (!membershipService.isUserLoggedIn()) {
+            $rootScope.previousState = $location.path();
+            $location.path('/login');
+        }
     }
 
 })();

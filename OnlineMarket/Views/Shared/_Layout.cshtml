@@ -8,7 +8,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body>
+<body ng-controller="rootCtrl">
     <div class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -22,15 +22,13 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    @if (!User.Identity.IsAuthenticated)
-                    {
-                        <li><a ng-href="/register">Sign up</a></li>
-                        <li><a ng-href="/login">Sign in</a></li>
-                    }
-                    else
-                    {
-                        <li><a ng-href="/">Index</a></li>
-                    }
+                        <li><a ng-href="/register" ng-if="!userData.isUserLoggedIn">Sign up</a></li>
+                        <li><a ng-href="/login" ng-if="!userData.isUserLoggedIn">Sign in</a></li>
+                        <li><a ng-href="#" ng-click="" ng-if="!userData.isUserLoggedIn">Try demo</a></li>
+
+                        <li><a ng-href="/" ng-if="userData.isUserLoggedIn">Index</a></li>
+                        <li><a ng-href="#" ng-click="logout()" ng-if="userData.isUserLoggedIn">Log out</a></li>
+                    
                 </ul>
             </div>
         </div>
@@ -48,6 +46,7 @@
     @Scripts.Render("~/Scripts/angular-cookies.js")
     @Scripts.Render("~/Scripts/angular-base64.js")
     @Scripts.Render("~/Scripts/app/app.js")
+    @Scripts.Render("~/Scripts/app/rootCtrl.js")
     @Scripts.Render("~/Scripts/app/services/apiService.js")
     @Scripts.Render("~/Scripts/app/services/membershipService.js")
     @Scripts.Render("~/Scripts/app/home/indexCtrl.js")
