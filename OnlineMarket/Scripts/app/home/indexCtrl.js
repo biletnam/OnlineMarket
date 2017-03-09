@@ -6,7 +6,7 @@
     indexCtrl.$inject = ['$scope'];
 
     function indexCtrl($scope) {
-        $scope.title = "Hello, visitor!";
+
     }
 
 

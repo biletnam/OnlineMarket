@@ -14,6 +14,15 @@
                 templateUrl: "scripts/app/home/index.html",
                 controller: "indexCtrl"
             })
+            .when("/operations", {
+                templateUrl: "scripts/app/home/index.html",
+                controller: "indexCtrl"
+            })
+
+            .when("/archive", {
+                templateUrl: "scripts/app/home/archive.html",
+                controller: "archiveCtrl"
+            })
             .when("/login", {
                 templateUrl: "scripts/app/account/login.html",
                 controller: "loginCtrl"

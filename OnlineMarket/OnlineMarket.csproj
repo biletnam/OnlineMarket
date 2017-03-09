@@ -226,6 +226,8 @@
     <Content Include="Scripts\app\account\register.html" />
     <Content Include="Scripts\app\account\registerCtrl.js" />
     <Content Include="Scripts\app\app.js" />
+    <Content Include="Scripts\app\home\archive.html" />
+    <Content Include="Scripts\app\home\archiveCtrl.js" />
     <Content Include="Scripts\app\home\index.html" />
     <Content Include="Scripts\app\home\indexCtrl.js" />
     <Content Include="Scripts\app\rootCtrl.js" />
