@@ -1,19 +1,26 @@
 ﻿<div class="row">
-    <form class="form-signin" role="form"  name="userLoginForm" ng-submit="login()" ng-controller="loginCtrl">
-        <h3 class="form-signin-heading">Sign in</h3>
-        <div class="form-group">
-            <label for="inputUsername" class="sr-only">Username</label>
-            <input type="email" name="inputEmail" class="form-control" ng-model="user.email" placeholder="Email address"
-                   validate-on="blur" required required-message="'Email is required'">
-        </div>
-        <div class="form-group">
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" id="inputPassword" name="inputPassword" class="form-control" ng-model="user.password" placeholder="Password"
-                   validate-on="blur" required required-message="'Password is required'">
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        <div class="pull-right">
-            <a ng-href="#/register" class="control-label">Register</a>
-        </div>
-    </form>
+    <div class="col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
+        <form class="form-signin" role="form" name="userLoginForm" ng-submit="login()" ng-controller="loginCtrl">
+
+            <h3 class="form-signin-heading">Sign in</h3>
+
+            <div class="form-group">
+                <label for="email" class="sr-only">Username</label>
+                <input type="email" name="email" class="form-control" ng-model="user.email" placeholder="Email address"
+                       validate-on="blur" required required-message="'Email is required'">
+            </div>
+
+            <div class="form-group">
+                <label for="password" class="sr-only">Password</label>
+                <input type="password" name="password" class="form-control" ng-model="user.password" placeholder="Password"
+                       validate-on="blur" required required-message="'Password is required'">
+            </div>
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+
+            <div class="form-group">
+                    <a ng-href="#/register" class="control-label">Create a new account</a>
+            </div>
+        </form>
+    </div>
 </div>
