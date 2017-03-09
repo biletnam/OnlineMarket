@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace OnlineMarket.BusinessLogicLayer.Services
 {
-    class UserResourcesService : IUserResourcesService
+    public class UserResourcesService : IUserResourcesService
     {
         private IUnitOfWork _unitOfWork;
 

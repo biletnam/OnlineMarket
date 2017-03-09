@@ -5,8 +5,8 @@ namespace OnlineMarket.BusinessLogicLayer.Interfaces
 {
     public interface IResourceService
     {
-        IList<UserResources> GetResources();
+        IList<Resource> GetResources();
 
-        void ModifyResourcePrice(UserResources resource, double price);
+        void ModifyResourcePrice(Resource resource, double price);
     }
 }

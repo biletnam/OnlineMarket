@@ -10,7 +10,7 @@ namespace OnlineMarket.DataAccessLayer
 
         private IRepository<Deal> _dealRepository;
 
-        private IRepository<UserResources> _resourceRepository;
+        private IRepository<Resource> _resourceRepository;
 
         private IRepository<User> _userRepository;
 
@@ -18,7 +18,7 @@ namespace OnlineMarket.DataAccessLayer
 
         private bool _disposed = false;
 
-        public UnitOfWork(OnlineMarketContext context, IRepository<Deal> dealRepository, IRepository<UserResources> resourceRepository, IRepository<User> userRepository, IRepository<UserResources> userResourcesRepository)
+        public UnitOfWork(OnlineMarketContext context, IRepository<Deal> dealRepository, IRepository<Resource> resourceRepository, IRepository<User> userRepository, IRepository<UserResources> userResourcesRepository)
         {
             _context = context;
             _dealRepository = dealRepository;
@@ -37,7 +37,7 @@ namespace OnlineMarket.DataAccessLayer
             }
         }
 
-        public IRepository<UserResources> ResourceRepository
+        public IRepository<Resource> ResourceRepository
         {
             get
             {

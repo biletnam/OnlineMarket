@@ -17,7 +17,7 @@ namespace OnlineMarket.DataAccessLayer.Entities
         public int ResourceId { get; set; }
 
         [ForeignKey("ResourceId")]
-        public virtual UserResources Resource { get; set; }
+        public virtual Resource Resource { get; set; }
 
         public int DealTypeId { get; set; }
 

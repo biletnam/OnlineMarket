@@ -1,9 +1,13 @@
-﻿<div class="row">
+﻿<div class="row" ng-if="userData.isUserLoggedIn">
     <div class="col-lg-7">
         <ul class="nav nav-tabs">
             <li role="presentation" class="active"><a ng-href="/">Operations</a></li>
             <li role="presentation"><a ng-href="/archive">Archive</a></li>
         </ul>
+
+        <div class="col-lg-2" ng-repeat="buy in resourcesToBuy">
+            {{buy.Title}}
+        </div>
 
         <div class="row">
             <div class="col-lg-12">

@@ -7,11 +7,11 @@ using System.Data.Entity;
 
 namespace OnlineMarket.DataAccessLayer.Repositories
 {
-    public class UserResourceRepository : IRepository<UserResources>
+    public class UserResourcesRepository : IRepository<UserResources>
     {
         private OnlineMarketContext _context;
 
-        public UserResourceRepository(OnlineMarketContext context)
+        public UserResourcesRepository(OnlineMarketContext context)
         {
             _context = context;
         }

@@ -7,7 +7,7 @@ namespace OnlineMarket.DataAccessLayer.Interfaces
     {
         IRepository<Deal> DealRepository { get; }
 
-        IRepository<UserResources> ResourceRepository { get; }
+        IRepository<Resource> ResourceRepository { get; }
 
         IRepository<User> UserRepository { get; }
 

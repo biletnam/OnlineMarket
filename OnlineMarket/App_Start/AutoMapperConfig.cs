@@ -11,7 +11,7 @@ namespace OnlineMarket
         {
             Mapper.Initialize(cfg =>
             {
-                cfg.CreateMap<UserResources, string>().ConstructUsing((resource) => resource.Title);
+                cfg.CreateMap<Resource, string>().ConstructUsing((resource) => resource.Title);
                 cfg.CreateMap<DealType, string>().ConstructUsing((dealtype) => dealtype.Type);
                 cfg.CreateMap<Deal, ArchiveViewModel>();
 

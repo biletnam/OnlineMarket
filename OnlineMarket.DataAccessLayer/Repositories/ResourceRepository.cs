@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace OnlineMarket.DataAccessLayer.Repositories
 {
-    public class ResourceRepository : IRepository<UserResources>
+    public class ResourceRepository : IRepository<Resource>
     {
         private OnlineMarketContext _context;
 
@@ -16,27 +16,27 @@ namespace OnlineMarket.DataAccessLayer.Repositories
             _context = context;
         }
 
-        public void Add(UserResources item)
+        public void Add(Resource item)
         {
             _context.Resources.Add(item);
         }
 
-        public IList<UserResources> Find(Func<UserResources, bool> condition)
+        public IList<Resource> Find(Func<Resource, bool> condition)
         {
             return _context.Resources.Where(condition).ToList();
         }
 
-        public IList<UserResources> GetAll()
+        public IList<Resource> GetAll()
         {
             return _context.Resources.ToList();
         }
 
-        public void Remove(UserResources item)
+        public void Remove(Resource item)
         {
             _context.Resources.Remove(item);
         }
 
-        public void Update(UserResources item)
+        public void Update(Resource item)
         {
             _context.Entry(item).State = EntityState.Modified;
         }

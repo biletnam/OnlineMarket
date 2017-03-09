@@ -40,6 +40,10 @@ namespace OnlineMarket.App_Start
                .InstancePerRequest();
 
             builder.RegisterType<ResourceRepository>()
+               .As<IRepository<Resource>>()
+               .InstancePerRequest();
+
+            builder.RegisterType<UserResourcesRepository>()
                .As<IRepository<UserResources>>()
                .InstancePerRequest();
 
@@ -55,8 +59,16 @@ namespace OnlineMarket.App_Start
                 .As<IMembershipService>()
                 .InstancePerRequest();
 
+            builder.RegisterType<ResourceService>()
+                .As<IResourceService>()
+                .InstancePerRequest();
+
             builder.RegisterType<DealService>()
                 .As<IDealService>()
+                .InstancePerRequest();
+
+            builder.RegisterType<UserResourcesService>()
+                .As<IUserResourcesService>()
                 .InstancePerRequest();
 
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
