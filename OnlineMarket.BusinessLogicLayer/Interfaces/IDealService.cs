@@ -5,9 +5,7 @@ namespace OnlineMarket.BusinessLogicLayer.Interfaces
 {
     public interface IDealService
     {
-        IList<Deal> GetDeals();
-
-        IList<Deal> GetDealsByUserId(int userId);
+        IList<Deal> GetDealsByUser(string email);
 
         void AddPurchaseDeal(Deal deal);
 

@@ -55,6 +55,10 @@ namespace OnlineMarket.App_Start
                 .As<IMembershipService>()
                 .InstancePerRequest();
 
+            builder.RegisterType<DealService>()
+                .As<IDealService>()
+                .InstancePerRequest();
+
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
             Container = builder.Build();

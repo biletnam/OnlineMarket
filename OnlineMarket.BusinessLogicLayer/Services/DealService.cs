@@ -34,9 +34,9 @@ namespace OnlineMarket.BusinessLogicLayer.Services
             return _unitOfWork.DealRepository.GetAll();
         }
 
-        public IList<Deal> GetDealsByUserId(int userId)
+        public IList<Deal> GetDealsByUser(string email)
         {
-            return _unitOfWork.DealRepository.Find(d => d.UserId == userId);
+            return _unitOfWork.DealRepository.Find(d => d.User.Email == email);
         }
     }
 }

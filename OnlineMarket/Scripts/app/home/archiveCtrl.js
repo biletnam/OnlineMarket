@@ -3,10 +3,25 @@
 
     app.controller('archiveCtrl', archiveCtrl);
 
-    archiveCtrl.$inject = ['$scope'];
+    archiveCtrl.$inject = ['$scope', 'apiService'];
 
-    function archiveCtrl($scope) {
+    function archiveCtrl($scope, apiService) {
+        $scope.title = "wwww";
+        getarchive();
 
+        function getarchive() {
+            apiService.get('/api/archive/getarchive', { email: $scope.username },
+            archiveLoadComplete,
+            archiveLoadFailed);
+        }
+
+        function archiveLoadComplete(result) {
+            $scope.deals = result.data;
+        }
+
+        function archiveLoadFailed() {
+
+        }
     }
 
 

@@ -12,7 +12,7 @@
         };
 
         function get(url, config, success, failure) {
-            return $http.get(url, config)
+            return $http({ method: 'GET', url: url, params: config })
                     .then(function (result) {
                         success(result);
                     }, function (error) {

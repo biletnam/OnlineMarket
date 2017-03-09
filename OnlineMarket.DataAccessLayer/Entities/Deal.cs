@@ -26,6 +26,8 @@ namespace OnlineMarket.DataAccessLayer.Entities
 
         public int Quantity { get; set; }
 
+        public double Amount { get; set; }
+
         public DateTime Date { get; set; }
     }
 }

@@ -12,6 +12,7 @@ namespace OnlineMarket
         {
             AreaRegistration.RegisterAllAreas();
             AutofacConfig.Initialize(GlobalConfiguration.Configuration);
+            AutoMapperConfig.Initialize();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
