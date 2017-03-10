@@ -9,9 +9,8 @@
         $scope.buyResource = buyResource;
         $scope.sellResource = sellResource;
         $scope.quantity = 1;
-
         getResources();
-        
+   
         function getResources() {
             apiService.get('/api/operations', { email: $scope.username },
             resourcesLoadComplete,
@@ -31,6 +30,7 @@
             apiService.post('/api/deal', angular.toJson({ Email: $scope.username, ResourceId: resourceId, Quantity: quantity, Price: price, IsPurchase: true } ),
             dealComplete,
             dealFailed);
+            
         }
 
         function sellResource(resourceId, quantity, price) {

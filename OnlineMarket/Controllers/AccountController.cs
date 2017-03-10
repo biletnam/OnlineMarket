@@ -43,6 +43,12 @@ namespace OnlineMarket.Controllers
 
             return user != null ? request.CreateResponse(HttpStatusCode.OK, new { success = true }) : request.CreateResponse(HttpStatusCode.OK, new { success = false });
         }
+
+        [HttpGet]
+        public bool Get(string email)
+        {
+            return _membershipService.IsUserAdmin(email);
+        }
     }
 
 }

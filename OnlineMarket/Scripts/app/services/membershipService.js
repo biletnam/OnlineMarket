@@ -12,7 +12,8 @@
             register: register,
             saveCredentials: saveCredentials,
             removeCredentials: removeCredentials,
-            isUserLoggedIn: isUserLoggedIn
+            isUserLoggedIn: isUserLoggedIn,
+            isAdmin: isAdmin
         }
 
         function login(user, completed) {
@@ -58,6 +59,12 @@
 
         function isUserLoggedIn() {
             return $rootScope.repository.loggedUser != null;
+        }
+
+        function isAdmin(user, completed) {
+            apiService.get('/api/account', user,
+                completed,
+                null)
         }
 
         return service;

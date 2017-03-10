@@ -11,6 +11,8 @@ namespace OnlineMarket.BusinessLogicLayer.Interfaces
 
         User GetUserByEmail(string email);
 
+        bool IsUserAdmin(string email);
+
         void MoveUserToUnbannedGroup(User user);
 
         void MoveUserToBannedGroup(User user);

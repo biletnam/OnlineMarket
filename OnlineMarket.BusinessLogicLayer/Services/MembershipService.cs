@@ -54,6 +54,11 @@ namespace OnlineMarket.BusinessLogicLayer.Services
             return _unitOfWork.UserRepository.Find(u => u.Email == email).First();
         }
 
+        public bool IsUserAdmin(string email)
+        {
+            return GetUserByEmail(email).RoleId == (int)Roles.Administrator;
+        }
+
         public void MoveUserToBannedGroup(User user)
         {
             user.RoleId = (int)Roles.Banned;
