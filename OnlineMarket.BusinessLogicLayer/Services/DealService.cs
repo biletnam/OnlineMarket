@@ -11,6 +11,7 @@ namespace OnlineMarket.BusinessLogicLayer.Services
         private IUnitOfWork _unitOfWork;
 
         private enum DealTypes { Purchase = 1, Sale}
+
         public DealService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -38,6 +39,22 @@ namespace OnlineMarket.BusinessLogicLayer.Services
         public IList<Deal> GetDealsByUser(string email)
         {
             return _unitOfWork.DealRepository.Find(d => d.User.Email == email);
+        }
+
+        public double[] GetProfits(string email)
+        {
+            var deals = GetDealsByUser(email);
+            var resources = _unitOfWork.ResourceRepository.GetAll();
+            var profits = new double[resources.Count];
+
+            foreach(var deal in deals)
+            {
+                var i = resources.IndexOf(resources.Where(r => r.Id == deal.ResourceId).First());
+                profits[i] = deal.DealTypeId == (int)DealTypes.Purchase ? profits[i] - deal.Amount : profits[i] + deal.Amount;
+                
+            }
+
+            return profits;
         }
     }
 }

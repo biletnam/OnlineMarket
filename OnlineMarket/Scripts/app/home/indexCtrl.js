@@ -9,8 +9,9 @@
         $scope.buyResource = buyResource;
         $scope.sellResource = sellResource;
         $scope.quantity = 1;
-        getResources();
 
+        getResources();
+        
         function getResources() {
             apiService.get('/api/operations', { email: $scope.username },
             resourcesLoadComplete,
@@ -19,6 +20,7 @@
 
         function resourcesLoadComplete(result) {
             $scope.resources = result.data;
+            profitSum();
         }
 
         function resourcesLoadFailed() {
@@ -43,6 +45,16 @@
 
         function dealFailed() {
 
+        }
+
+        function profitSum()
+        {
+            $scope.profitSum = 0;
+            var profits = $scope.resources.Profit;
+            for(var i in profits)
+            {
+                $scope.profitSum += profits[i];
+            }
         }
     }
 })(angular.module('onlineMarket'));

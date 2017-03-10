@@ -10,10 +10,13 @@ namespace OnlineMarket.Controllers
 
         private IUserResourcesService _userResourcesService;
 
-        public OperationsController(IResourceService resourceService, IUserResourcesService userResourcesService)
+        private IDealService _dealService;
+
+        public OperationsController(IResourceService resourceService, IUserResourcesService userResourcesService, IDealService dealService)
         {
             _resourceService = resourceService;
             _userResourcesService = userResourcesService;
+            _dealService = dealService;
         }
 
         [HttpGet]
@@ -21,8 +24,8 @@ namespace OnlineMarket.Controllers
         {
             var resourcesToBuy = _resourceService.GetResources();
             var resourcesToSell = _userResourcesService.GetUserResources(email);
-
-            return new OperationsViewModel { ResourcesToBuy = resourcesToBuy, ResourcesToSell = resourcesToSell };
+            var profits = _dealService.GetProfits(email);
+            return new OperationsViewModel { ResourcesToBuy = resourcesToBuy, ResourcesToSell = resourcesToSell, Profit = profits };
         }
     }
 }

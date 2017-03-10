@@ -11,6 +11,6 @@ namespace OnlineMarket.Models
 
         public double Balance { get; set; }
 
-        public double Profit { get; set; }
+        public double[] Profit { get; set; }
     }
 }
