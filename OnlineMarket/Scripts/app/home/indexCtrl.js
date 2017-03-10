@@ -6,19 +6,42 @@
     indexCtrl.$inject = ['$scope', 'apiService'];
 
     function indexCtrl($scope, apiService) {
+        $scope.buyResource = buyResource;
+        $scope.sellResource = sellResource;
+        $scope.quantity = 1;
+        getResources();
 
-        getResourcesToBuy();
-        function getResourcesToBuy() {
-            apiService.get('/api/operations/operations', { email: $scope.username },
-            resourcesToBuyLoadComplete,
-            resourcesToBuyLoadFailed);
+        function getResources() {
+            apiService.get('/api/operations', { email: $scope.username },
+            resourcesLoadComplete,
+            resourcesLoadFailed);
         }
 
-        function resourcesToBuyLoadComplete(result) {
-            $scope.resourcesToBuy = result.data;
+        function resourcesLoadComplete(result) {
+            $scope.resources = result.data;
         }
 
-        function resourcesToBuyLoadFailed() {
+        function resourcesLoadFailed() {
+
+        }
+
+        function buyResource(resourceId, quantity, price) {
+            apiService.post('/api/deal', angular.toJson({ Email: $scope.username, ResourceId: resourceId, Quantity: quantity, Price: price, IsPurchase: true } ),
+            dealComplete,
+            dealFailed);
+        }
+
+        function sellResource(resourceId, quantity, price) {
+            apiService.post('/api/deal', angular.toJson({ Email: $scope.username, ResourceId: resourceId, Quantity: quantity, Price: price, IsPurchase: false }),
+            dealComplete,
+            dealFailed);
+        }
+
+        function dealComplete() {
+            location.reload();
+        }
+
+        function dealFailed() {
 
         }
     }

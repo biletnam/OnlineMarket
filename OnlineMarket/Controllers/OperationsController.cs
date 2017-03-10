@@ -17,13 +17,12 @@ namespace OnlineMarket.Controllers
         }
 
         [HttpGet]
-        public OperationsViewModel Operations(string email)
+        public OperationsViewModel Get(string email)
         {
             var resourcesToBuy = _resourceService.GetResources();
-            var resourcesToSale = _userResourcesService.GetUserResources(email);
+            var resourcesToSell = _userResourcesService.GetUserResources(email);
 
-            return new OperationsViewModel { ResourcesToBuyList = resourcesToBuy, ResourcesToSaleList = resourcesToSale };
+            return new OperationsViewModel { ResourcesToBuy = resourcesToBuy, ResourcesToSell = resourcesToSell };
         }
-
     }
 }

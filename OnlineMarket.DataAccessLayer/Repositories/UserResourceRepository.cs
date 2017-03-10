@@ -38,6 +38,8 @@ namespace OnlineMarket.DataAccessLayer.Repositories
 
         public void Update(UserResources item)
         {
+            //var userResources = _context.UserResources.Find(item.Id);
+            //userResources.Quantity = item.Quantity;
             _context.Entry(item).State = EntityState.Modified;
         }
     }

@@ -2,6 +2,7 @@
 using OnlineMarket.DataAccessLayer.Entities;
 using OnlineMarket.Models;
 using System.Web.Http;
+using System.Net.Http;
 
 namespace OnlineMarket.Controllers
 {
@@ -11,24 +12,30 @@ namespace OnlineMarket.Controllers
 
         private IUserResourcesService _userResourcesService;
 
-        public DealController(IDealService dealService, IUserResourcesService userResourcesService)
+        private IMembershipService _membershipService;
+
+        public DealController(IDealService dealService, IUserResourcesService userResourcesService, IMembershipService membershipService)
         {
             _dealService = dealService;
             _userResourcesService = userResourcesService;
+            _membershipService = membershipService;
         }
 
         [HttpPost]
-        public void AddDeal(DealViewModel dealViewModel)
+        public void Post([FromBody]DealViewModel dealViewModel)
         {
+            var user = _membershipService.GetUserByEmail(dealViewModel.Email);
+
             if (dealViewModel.IsPurchase)
             {
-                _dealService.AddPurchaseDeal(new Deal { UserId = dealViewModel.UserId, ResourceId = dealViewModel.ResourceId, Amount = dealViewModel.Amount, Quantity = dealViewModel.Quantity });
-                //update user resources
+                _dealService.AddPurchaseDeal(new Deal { UserId = user.Id, ResourceId = dealViewModel.ResourceId, Amount = dealViewModel.Price * dealViewModel.Quantity, Quantity = dealViewModel.Quantity });
             }
+            else
             {
-                _dealService.AddSaleDeal(new Deal { UserId = dealViewModel.UserId, ResourceId = dealViewModel.ResourceId, Amount = dealViewModel.Amount, Quantity = dealViewModel.Quantity });
-                //update user resources
+                _dealService.AddSaleDeal(new Deal { UserId = user.Id, ResourceId = dealViewModel.ResourceId, Amount = dealViewModel.Price * dealViewModel.Quantity, Quantity = dealViewModel.Quantity });
             }
+
+            _userResourcesService.UpdateUserResources(new UserResources { UserId = user.Id, ResourceId = dealViewModel.ResourceId, Quantity = dealViewModel.Quantity }, dealViewModel.IsPurchase);
         }
     }
 }

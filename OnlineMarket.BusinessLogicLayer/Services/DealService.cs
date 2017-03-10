@@ -2,6 +2,7 @@
 using OnlineMarket.DataAccessLayer.Entities;
 using OnlineMarket.DataAccessLayer.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OnlineMarket.BusinessLogicLayer.Services
 {

@@ -18,11 +18,16 @@ namespace OnlineMarket.BusinessLogicLayer.Services
         {
             return _unitOfWork.ResourceRepository.GetAll();
         }
-
-        //public IList<Resource> GetResourcesByUser(string email)
-        //{
-        //    return _unitOfWork.UserResourcesRepository.Find(ur => ur.User.Email == email);
-        //}
+        
+        public void AddResource(Resource resource)
+        {
+            _unitOfWork.ResourceRepository.Add(resource);
+            foreach(var user in _unitOfWork.UserRepository.GetAll())
+            {
+                _unitOfWork.UserResourcesRepository.Add(new UserResources { UserId = user.Id, ResourceId = resource.Id, Quantity = 0 });
+            }
+            _unitOfWork.SaveChanges();
+        }
 
         public void ModifyResourcePrice(Resource resource, double price)
         {

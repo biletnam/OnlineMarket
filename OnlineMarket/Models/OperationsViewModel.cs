@@ -5,9 +5,9 @@ namespace OnlineMarket.Models
 {
     public class OperationsViewModel
     {
-        public IList<Resource> ResourcesToBuyList { get; set; }
+        public IList<Resource> ResourcesToBuy { get; set; }
 
-        public IList<UserResources> ResourcesToSaleList { get; set; }
+        public IList<UserResources> ResourcesToSell { get; set; }
 
         public double Balance { get; set; }
 

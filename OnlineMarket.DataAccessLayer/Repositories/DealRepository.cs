@@ -18,6 +18,7 @@ namespace OnlineMarket.DataAccessLayer.Repositories
 
         public void Add(Deal item)
         {
+            item.Date = DateTime.Today;
             _context.Deals.Add(item);
         }
 

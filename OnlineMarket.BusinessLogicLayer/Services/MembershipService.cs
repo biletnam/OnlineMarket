@@ -24,7 +24,7 @@ namespace OnlineMarket.BusinessLogicLayer.Services
 
         public User CreateUser(string email, string password)
         {
-            var existingUser = _unitOfWork.UserRepository.Find(u => u.Email == email); 
+            var existingUser = _unitOfWork.UserRepository.Find(u => u.Email == email);
 
             if (existingUser == null) throw new Exception("Username is already in use");
 
@@ -38,6 +38,7 @@ namespace OnlineMarket.BusinessLogicLayer.Services
                 RoleId = (int)Roles.User
             };
             _unitOfWork.UserRepository.Add(user);
+            AddUserResources(user);
             _unitOfWork.SaveChanges();
 
             return user;
@@ -46,6 +47,11 @@ namespace OnlineMarket.BusinessLogicLayer.Services
         public IList<User> GetUsers()
         {
             return _unitOfWork.UserRepository.GetAll();
+        }
+
+        public User GetUserByEmail(string email)
+        {
+            return _unitOfWork.UserRepository.Find(u => u.Email == email).First();
         }
 
         public void MoveUserToBannedGroup(User user)
@@ -71,14 +77,15 @@ namespace OnlineMarket.BusinessLogicLayer.Services
         public MembershipContext ValidateUser(string email, string password)
         {
             var membershipContext = new MembershipContext();
-            var user = _unitOfWork.UserRepository.Find(u => u.Email == email).First();
 
-            if (user != null && isUserValid(user, password))
-            {
-                membershipContext.User = user;
-                var identity = new GenericIdentity(user.Email);
-                membershipContext.Principal = new GenericPrincipal(identity, new []{ user.Role.Title });
-            }
+            var userList = _unitOfWork.UserRepository.Find(u => u.Email == email);
+
+            if (userList.Count == 0 || !isUserValid(userList.First(), password)) return membershipContext;
+
+            var user = userList.First();
+            membershipContext.User = user;
+            var identity = new GenericIdentity(user.Email);
+            membershipContext.Principal = new GenericPrincipal(identity, new[] { user.Role.Title });
 
             return membershipContext;
         }
@@ -91,6 +98,14 @@ namespace OnlineMarket.BusinessLogicLayer.Services
         private bool isUserValid(User user, string password)
         {
             return isPasswordValid(user, password) ? !(user.RoleId == (int)Roles.Banned) : false;
+        }
+
+        private void AddUserResources(User user)
+        {
+            foreach (var resource in _unitOfWork.ResourceRepository.GetAll())
+            {
+                _unitOfWork.UserResourcesRepository.Add(new UserResources { UserId = user.Id, ResourceId = resource.Id, Quantity = 0 });
+            }
         }
     }
 }

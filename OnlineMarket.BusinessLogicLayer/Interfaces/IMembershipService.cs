@@ -9,6 +9,8 @@ namespace OnlineMarket.BusinessLogicLayer.Interfaces
 
         IList<User> GetUsers();
 
+        User GetUserByEmail(string email);
+
         void MoveUserToUnbannedGroup(User user);
 
         void MoveUserToBannedGroup(User user);

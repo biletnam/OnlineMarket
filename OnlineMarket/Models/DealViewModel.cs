@@ -2,13 +2,13 @@
 {
     public class DealViewModel
     {
-        public int UserId { get; set; }
+        public string Email { get; set; }
        
         public int ResourceId{ get; set; }
 
         public int Quantity { get; set; }
 
-        public double Amount { get; set; }
+        public double Price { get; set; }
 
         public bool IsPurchase { get; set; }
     }
