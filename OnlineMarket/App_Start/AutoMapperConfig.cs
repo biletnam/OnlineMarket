@@ -14,10 +14,6 @@ namespace OnlineMarket
                 cfg.CreateMap<Resource, string>().ConstructUsing((resource) => resource.Title);
                 cfg.CreateMap<DealType, string>().ConstructUsing((dealtype) => dealtype.Type);
                 cfg.CreateMap<Deal, ArchiveViewModel>();
-            });
-
-            Mapper.Initialize(cfg =>
-            {
                 cfg.CreateMap<Role, string>().ConstructUsing((role) => role.Title);
                 cfg.CreateMap<User, UserViewModel>();
             });
