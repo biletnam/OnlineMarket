@@ -56,20 +56,15 @@ namespace OnlineMarket.BusinessLogicLayer.Services
 
         public bool IsUserAdmin(string email)
         {
+            var r = GetUserByEmail(email).RoleId == (int)Roles.Administrator;
             return GetUserByEmail(email).RoleId == (int)Roles.Administrator;
         }
 
-        public void MoveUserToBannedGroup(User user)
+        public void ChangeUserRole(int userId, int roleId)
         {
-            user.RoleId = (int)Roles.Banned;
-            _unitOfWork.UserRepository.Update(user);
-            _unitOfWork.SaveChanges();
-        }
-
-        public void MoveUserToUnbannedGroup(User user)
-        {
-            user.RoleId = (int)Roles.User;
-            _unitOfWork.UserRepository.Update(user);
+            var existingUser = _unitOfWork.UserRepository.Find(u => u.Id == userId).First();
+            existingUser.RoleId = roleId;
+            _unitOfWork.UserRepository.Update(existingUser);
             _unitOfWork.SaveChanges();
         }
 

@@ -9,17 +9,18 @@
         $scope.userData.displayUserInfo = displayUserInfo;
         $scope.logout = logout;
         $scope.userData.displayUserInfo();
+        $scope.isAdmin = false;
 
         function displayUserInfo() {
             $scope.userData.isUserLoggedIn = membershipService.isUserLoggedIn();
             if ($scope.userData.isUserLoggedIn) {
                 $scope.username = $rootScope.repository.loggedUser.username;
-                membershipService.isAdmin({email : $scope.username}, isAdmin)    
+                membershipService.isUserAdmin({email : $scope.username}, isUserAdmin)    
             }
         }
 
-        function isAdmin() {
-            $scope.isAdmin = true;
+        function isUserAdmin(result) {
+            $scope.isAdmin = result.data;
         }
 
         function logout() {

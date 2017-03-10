@@ -13,9 +13,7 @@ namespace OnlineMarket.BusinessLogicLayer.Interfaces
 
         bool IsUserAdmin(string email);
 
-        void MoveUserToUnbannedGroup(User user);
-
-        void MoveUserToBannedGroup(User user);
+        void ChangeUserRole(int userId, int roleId);
 
         void RemoveUser(User user);
 

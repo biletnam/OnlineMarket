@@ -187,6 +187,7 @@
     <Compile Include="Controllers\DealController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OperationsController.cs" />
+    <Compile Include="Controllers\UserManagerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -198,6 +199,7 @@
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\OperationsViewModel.cs" />
     <Compile Include="Models\RegistrationViewModel.cs" />
+    <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -237,6 +239,8 @@
     <Content Include="Scripts\app\account\loginCtrl.js" />
     <Content Include="Scripts\app\account\register.html" />
     <Content Include="Scripts\app\account\registerCtrl.js" />
+    <Content Include="Scripts\app\usermanage\users.html" />
+    <Content Include="Scripts\app\usermanage\usersCtrl.js" />
     <Content Include="Scripts\app\app.js" />
     <Content Include="Scripts\app\home\archive.html" />
     <Content Include="Scripts\app\home\archiveCtrl.js" />
