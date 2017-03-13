@@ -24,7 +24,7 @@
                 <ul class="nav navbar-nav">
                         <li><a ng-href="/register" ng-if="!userData.isUserLoggedIn">Sign up</a></li>
                         <li><a ng-href="/login" ng-if="!userData.isUserLoggedIn">Sign in</a></li>
-                        <li><a ng-href="#" ng-click="" ng-if="!userData.isUserLoggedIn">Try demo</a></li>
+                        <li><a ng-href="/demo" ng-click="" ng-if="!userData.isUserLoggedIn">Try demo</a></li>
 
                         <li><a ng-href="/" ng-if="userData.isUserLoggedIn">Index</a></li>
                         <li><a ng-href="#" ng-click="logout()" ng-if="userData.isUserLoggedIn">Log out</a></li>
@@ -54,6 +54,7 @@
     @Scripts.Render("~/Scripts/app/usermanage/usersCtrl.js")
     @Scripts.Render("~/Scripts/app/account/loginCtrl.js")
     @Scripts.Render("~/Scripts/app/account/registerCtrl.js")
+    @Scripts.Render("~/Scripts/app/demo/demoCtrl.js")
     @RenderSection("scripts", required: false)
 </body>
 </html>

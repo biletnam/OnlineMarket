@@ -33,7 +33,10 @@
             .when("/register", {
                 templateUrl: "scripts/app/account/register.html",
                 controller: "registerCtrl"
-
+            })
+            .when("/demo", {
+                templateUrl: "scripts/app/demo/demo.html",
+                controller: "demoCtrl"
             })
             .otherwise({ redirectTo: "/" });
     }
