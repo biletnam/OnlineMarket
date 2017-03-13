@@ -7,6 +7,8 @@ namespace OnlineMarket.BusinessLogicLayer.Interfaces
     {
         IList<Deal> GetDealsByUser(string email);
 
+        IList<Deal> GetActivities(int count);
+
         void AddPurchaseDeal(Deal deal);
 
         void AddSaleDeal(Deal deal);

@@ -1,6 +1,6 @@
 ﻿<div class="row">
 
-    <div class="col-lg-7">
+    <div class="col-lg-9">
         <ul class="nav nav-tabs">
             <li role="presentation"><a ng-href="/">Operations</a></li>
             <li role="presentation" class="active"><a ng-href="/archive">Archive</a></li>
@@ -34,10 +34,15 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-5">
+    <div class="col-lg-3">
         <ul class="nav nav-tabs">
             <li role="presentation" class="active"><a ng-href="#">Recent Activities</a></li>
 
         </ul>
+        <div class="row" style="padding-top: 20px">
+            <div class="col-lg-10 col-lg-offset-1">
+                <p ng-repeat="activity in activities track by $index">{{activity}}</p>
+            </div>
+        </div>
     </div>
 </div>

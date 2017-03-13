@@ -31,9 +31,11 @@ namespace OnlineMarket.BusinessLogicLayer.Services
             _unitOfWork.SaveChanges();
         }
 
-        public IList<Deal> GetDeals()
+        public IList<Deal> GetActivities(int count)
         {
-            return _unitOfWork.DealRepository.GetAll();
+            var activities = _unitOfWork.DealRepository.GetAll();
+
+            return activities.Skip(activities.Count - count).ToList();
         }
 
         public IList<Deal> GetDealsByUser(string email)
