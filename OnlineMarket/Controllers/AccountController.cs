@@ -37,11 +37,19 @@ namespace OnlineMarket.Controllers
         [HttpPost]
         public HttpResponseMessage Register(HttpRequestMessage request, RegistrationViewModel registrationViewModel)
         {
-            if (!ModelState.IsValid) return request.CreateResponse(HttpStatusCode.BadRequest, new { success = false });
+            try
+            {
+                if (!ModelState.IsValid) return request.CreateResponse(HttpStatusCode.BadRequest, new { success = false });
 
-            User user = _membershipService.CreateUser(registrationViewModel.Email, registrationViewModel.Password);
+                var tryFindUser = _membershipService.GetUserByEmail(registrationViewModel.Email);
 
-            return user != null ? request.CreateResponse(HttpStatusCode.OK, new { success = true }) : request.CreateResponse(HttpStatusCode.OK, new { success = false });
+                return request.CreateResponse(HttpStatusCode.OK, new { success = false });   
+            }
+            catch
+            {
+                User user = _membershipService.CreateUser(registrationViewModel.Email, registrationViewModel.Password);
+                return user != null ? request.CreateResponse(HttpStatusCode.OK, new { success = true }) : request.CreateResponse(HttpStatusCode.OK, new { success = false });
+            }
         }
 
         [HttpGet]
