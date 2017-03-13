@@ -9,19 +9,19 @@
         $scope.userData.displayUserInfo = displayUserInfo;
         $scope.logout = logout;
         $scope.userData.displayUserInfo();
-        $scope.isAdmin = false;
+        $scope.userData.isAdmin = false;
         getRecentActivities();
 
         function displayUserInfo() {
             $scope.userData.isUserLoggedIn = membershipService.isUserLoggedIn();
             if ($scope.userData.isUserLoggedIn) {
-                $scope.username = $rootScope.repository.loggedUser.username;
-                membershipService.isUserAdmin({email : $scope.username}, isUserAdmin)    
+                $scope.userData.username = $rootScope.repository.loggedUser.username;
+                membershipService.isUserAdmin({ email: $scope.userData.username }, userIsAdmin)
             }
         }
 
-        function isUserAdmin(result) {
-            $scope.isAdmin = result.data;
+        function userIsAdmin(result) {
+            $scope.userData.isAdmin = result.data;
         }
 
         function getRecentActivities() {

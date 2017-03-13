@@ -8,11 +8,13 @@
     function indexCtrl($scope, apiService) {
         $scope.buyResource = buyResource;
         $scope.sellResource = sellResource;
+        $scope.refillBalance = refillBalance;
         $scope.quantity = 1;
+        $scope.amount = 10;
         getResources();
-   
+
         function getResources() {
-            apiService.get('/api/operations', { email: $scope.username },
+            apiService.get('/api/operations', { email: $scope.userData.username },
             resourcesLoadComplete,
             resourcesLoadFailed);
         }
@@ -27,16 +29,22 @@
         }
 
         function buyResource(resourceId, quantity, price) {
-            apiService.post('/api/deal', angular.toJson({ Email: $scope.username, ResourceId: resourceId, Quantity: quantity, Price: price, IsPurchase: true } ),
-            dealComplete,
-            dealFailed);
-            
+            apiService.post('/api/deal', { Email: $scope.userData.username, ResourceId: resourceId, Quantity: quantity, Price: price, IsPurchase: true },
+                dealComplete,
+                dealFailed);
+
         }
 
         function sellResource(resourceId, quantity, price) {
-            apiService.post('/api/deal', angular.toJson({ Email: $scope.username, ResourceId: resourceId, Quantity: quantity, Price: price, IsPurchase: false }),
-            dealComplete,
-            dealFailed);
+            apiService.post('/api/deal', { Email: $scope.userData.username, ResourceId: resourceId, Quantity: quantity, Price: price, IsPurchase: false },
+                dealComplete,
+                dealFailed);
+        }
+
+        function refillBalance(amount) {
+            apiService.post('/api/account/refillbalance', { Amount: amount, Email: $scope.userData.username },
+                dealComplete,
+                dealFailed);
         }
 
         function dealComplete() {
@@ -47,12 +55,10 @@
 
         }
 
-        function profitSum()
-        {
+        function profitSum() {
             $scope.profitSum = 0;
             var profits = $scope.resources.Profit;
-            for(var i in profits)
-            {
+            for (var i in profits) {
                 $scope.profitSum += profits[i];
             }
         }

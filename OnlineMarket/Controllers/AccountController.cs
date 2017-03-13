@@ -49,6 +49,13 @@ namespace OnlineMarket.Controllers
         {
             return _membershipService.IsUserAdmin(email);
         }
+
+        [HttpPost]
+        public void RefillBalance([FromBody]UpdateBalanceViewModel updateBalanceViewModel)
+        {
+            var user = _membershipService.GetUserByEmail(updateBalanceViewModel.Email);
+            _membershipService.UpdateUserBalance(user, updateBalanceViewModel.Amount, true);
+        }
     }
 
 }

@@ -1,5 +1,6 @@
 ﻿using OnlineMarket.BusinessLogicLayer.Interfaces;
 using OnlineMarket.Models;
+using System.Linq;
 using System.Web.Http;
 
 namespace OnlineMarket.Controllers
@@ -25,7 +26,7 @@ namespace OnlineMarket.Controllers
             var resourcesToBuy = _resourceService.GetResources();
             var resourcesToSell = _userResourcesService.GetUserResources(email);
             var profits = _dealService.GetProfits(email);
-            return new OperationsViewModel { ResourcesToBuy = resourcesToBuy, ResourcesToSell = resourcesToSell, Profit = profits };
+            return new OperationsViewModel { ResourcesToBuy = resourcesToBuy, ResourcesToSell = resourcesToSell, Profit = profits, Balance = resourcesToSell.First().User.Balance };
         }
     }
 }

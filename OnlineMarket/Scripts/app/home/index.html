@@ -3,7 +3,7 @@
         <ul class="nav nav-tabs">
             <li role="presentation" class="active"><a ng-href="/">Operations</a></li>
             <li role="presentation"><a ng-href="/archive">Archive</a></li>
-            <li ng-if="isAdmin" role="presentation"><a ng-href="/users">Users</a></li>
+            <li ng-if="userData.isAdmin" role="presentation"><a ng-href="/users">Users</a></li>
         </ul>
 
         <div class="row" style="padding-top: 20px">
@@ -12,7 +12,7 @@
                     <h3>{{buy.Title}}</h3>
                     <p>Price: {{buy.Price | currency}}</p>
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{buy.Id}}buy">
+                    <button ng-if="resources.Balance > 0 "type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{buy.Id}}buy">
                         Buy
                     </button>
                     <!-- Modal -->
@@ -51,7 +51,34 @@
 
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <p>Balance: {{resources.ResourcesToSell[0].User.Balance | currency}}</p>
-                <button class="btn btn-default">Refill balance</button>
+                <button class="btn btn-default" data-toggle="modal" data-target="#refillBalance">Refill balance</button>
+                <!-- Modal -->
+                <div class="modal fade" id="refillBalance" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Refill balance</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 col-form-label">Enter amount: </label>
+                                        <div class="col-sm-9">
+                                            <input type="number" min="1" class="form-control" ng-model="amount" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="refillBalance(amount)">Update</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <br />
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">

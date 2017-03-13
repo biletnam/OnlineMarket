@@ -36,6 +36,7 @@ namespace OnlineMarket.Controllers
             }
 
             _userResourcesService.UpdateUserResources(new UserResources { UserId = user.Id, ResourceId = dealViewModel.ResourceId, Quantity = dealViewModel.Quantity }, dealViewModel.IsPurchase);
+            _membershipService.UpdateUserBalance(user, dealViewModel.Price * dealViewModel.Quantity, !dealViewModel.IsPurchase);
         }
     }
 }

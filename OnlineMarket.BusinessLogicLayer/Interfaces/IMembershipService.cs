@@ -18,5 +18,7 @@ namespace OnlineMarket.BusinessLogicLayer.Interfaces
         void RemoveUser(User user);
 
         MembershipContext ValidateUser(string username, string password);
+
+        void UpdateUserBalance(User user, double amount, bool add);
     }
 }

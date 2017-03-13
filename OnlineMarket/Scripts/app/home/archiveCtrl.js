@@ -9,7 +9,7 @@
         getarchive();
 
         function getarchive() {
-            apiService.get('/api/archive/getarchive', { email: $scope.username },
+            apiService.get('/api/archive/getarchive', { email: $scope.userData.username },
             archiveLoadComplete,
             archiveLoadFailed);
         }

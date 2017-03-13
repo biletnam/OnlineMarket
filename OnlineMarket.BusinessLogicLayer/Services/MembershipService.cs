@@ -107,5 +107,12 @@ namespace OnlineMarket.BusinessLogicLayer.Services
                 _unitOfWork.UserResourcesRepository.Add(new UserResources { UserId = user.Id, ResourceId = resource.Id, Quantity = 0 });
             }
         }
+
+        public void UpdateUserBalance(User user, double amount, bool add)
+        {
+            user.Balance = add ? user.Balance + amount : user.Balance - amount;
+            _unitOfWork.UserRepository.Update(user);
+            _unitOfWork.SaveChanges();
+        }
     }
 }
