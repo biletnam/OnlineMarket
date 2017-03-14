@@ -6,6 +6,8 @@
     archiveCtrl.$inject = ['$scope', 'apiService'];
 
     function archiveCtrl($scope, apiService) {
+        $scope.pageSize = 5;
+        $scope.currentPage = 1;
         getarchive();
 
         function getarchive() {

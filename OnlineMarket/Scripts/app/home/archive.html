@@ -1,6 +1,5 @@
 ﻿<div class="row">
-
-    <div class="col-lg-9">
+    <div class="col-lg-9 col-md-9 col-sm-8">
         <ul class="nav nav-tabs">
             <li role="presentation"><a ng-href="/">Operations</a></li>
             <li role="presentation" class="active"><a ng-href="/archive">Archive</a></li>
@@ -21,8 +20,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr dir-paginate="deal in deals|itemsPerPage:5">
-                            <td>{{$index + 1}}</td>
+                        <tr dir-paginate="deal in deals|itemsPerPage: pageSize" current-Page="currentPage">
+                            <td>{{$index + 1 + (currentPage - 1) * pageSize}}</td>
                             <td>{{deal.ResourceTitle}}</td>
                             <td>{{deal.DealType}}</td>
                             <td>{{deal.Quantity}}</td>
@@ -38,7 +37,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-3 col-md-3 col-sm-4">
         <ul class="nav nav-tabs">
             <li role="presentation" class="active"><a ng-href="#">Recent Activities</a></li>
 

@@ -7,7 +7,8 @@
 
     function usersCtrl($scope, apiService) {
         $scope.changeRole = changeRole;
-
+        $scope.pageSize = 5;
+        $scope.currentPage = 1;
         getUsers();
 
         function getUsers() {
