@@ -9,7 +9,7 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <table class="table">
+                <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -21,7 +21,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="deal in deals">
+                        <tr dir-paginate="deal in deals|itemsPerPage:5">
                             <td>{{$index + 1}}</td>
                             <td>{{deal.ResourceTitle}}</td>
                             <td>{{deal.DealType}}</td>
@@ -31,6 +31,10 @@
                         </tr>
                     </tbody>
                 </table>
+                <dir-pagination-controls max-size="5"
+                                         direction-links="true"
+                                         boundary-links="true">
+                </dir-pagination-controls>
             </div>
         </div>
     </div>

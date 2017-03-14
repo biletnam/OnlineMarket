@@ -9,7 +9,7 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <table class="table">
+                <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -20,7 +20,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="user in users">
+                        <tr dir-paginate="user in users|itemsPerPage:5">
                             <td>{{$index + 1}}</td>
                             <td>{{user.Email}}</td>
                             <td>{{user.Balance}}</td>
@@ -60,6 +60,10 @@
                         </tr>
                     </tbody>
                 </table>
+                <dir-pagination-controls max-size="5"
+                                         direction-links="true"
+                                         boundary-links="true">
+                </dir-pagination-controls>
             </div>
         </div>
     </div>

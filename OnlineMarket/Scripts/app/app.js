@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('onlineMarket', ['ngRoute', 'ngCookies', 'base64'])
+    angular.module('onlineMarket', ['ngRoute', 'ngCookies', 'base64', 'angularUtils.directives.dirPagination'])
         .config(config)
         .run(run)
 
