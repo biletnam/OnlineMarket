@@ -40,7 +40,27 @@
         function addResource(resource) {
             var tr = db.transaction("userResources", "readwrite");
             var store = tr.objectStore("userResources");
-            var request = store.put(resource);
+            var request = store.get(resource.title);
+            request.onsuccess = function () {
+                var oldresource = request.result;
+                var newresource = { title: resource.title, quantity: oldresource.quantity + resource.quantity }
+                var tr = db.transaction("userResources", "readwrite");
+                var store = tr.objectStore("userResources");
+                store.put(newresource);
+            }
+        }
+
+        function removeResource(resource) {
+            var tr = db.transaction("userResources", "readwrite");
+            var store = tr.objectStore("userResources");
+            var request = store.get(resource.title);
+            request.onsuccess = function () {
+                var oldresource = request.result;
+                var newresource = { title: resource.title, quantity: oldresource.quantity - resource.quantity }
+                var tr = db.transaction("userResources", "readwrite");
+                var store = tr.objectStore("userResources");
+                store.put(newresource);
+            }
         }
 
         function addMultiple(resources) {
@@ -52,13 +72,13 @@
 
         }
 
-        function buy(deal, buyLoadComplete) {
+        function deal(deal, dealLoadComplete) {
             if (db != null) {
                 var tr = db.transaction(["deals"], "readwrite");
                 var store = tr.objectStore("deals");
                 var request = store.add(deal);
                 request.onsuccess = function (event) {
-                    buyLoadComplete(deal);
+                    dealLoadComplete(deal);
                 }
             }
         }
@@ -66,10 +86,10 @@
         var service = {
             init: init,
             addResource: addResource,
+            removeResource: removeResource,
             addMultiple: addMultiple,
             get: get,
-            buy: buy,
-            //sell: sell
+            deal: deal,
         };
 
         return service;
