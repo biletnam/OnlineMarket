@@ -4,6 +4,8 @@ using OnlineMarket.Models;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 
 namespace OnlineMarket.Controllers
@@ -24,18 +26,34 @@ namespace OnlineMarket.Controllers
         }
 
         [HttpGet]
-        public OperationsViewModel Get(string email)
+        public HttpResponseMessage Get(HttpRequestMessage request, string email)
         {
-            var resourcesToBuy = _resourceService.GetResources();
-            var resourcesToSell = _userResourcesService.GetUserResources(email);
-            var profits = _dealService.GetProfits(email);
-            return new OperationsViewModel { ResourcesToBuy = resourcesToBuy, ResourcesToSell = resourcesToSell, Profit = profits, Balance = resourcesToSell.First().User.Balance };
+            try
+            {
+                var resourcesToBuy = _resourceService.GetResources();
+                var resourcesToSell = _userResourcesService.GetUserResources(email);
+                var profits = _dealService.GetProfits(email);
+                var operationViewModel =  new OperationsViewModel { ResourcesToBuy = resourcesToBuy, ResourcesToSell = resourcesToSell, Profit = profits, Balance = resourcesToSell.First().User.Balance };
+                return request.CreateResponse(HttpStatusCode.OK, new { success = true, operations = operationViewModel });
+            }
+            catch
+            {
+                return request.CreateResponse(HttpStatusCode.OK, new { success = false, message = "Can't get resources and profits." });
+            }
+           
         }
 
         [HttpGet]
-        public IList<Resource> Get()
+        public HttpResponseMessage Get(HttpRequestMessage request)
         {
-            return _resourceService.GetResources();
+            try
+            {
+                return request.CreateResponse(HttpStatusCode.OK, new { success = true, resources = _resourceService.GetResources() });
+            }
+            catch
+            {
+                return request.CreateResponse(HttpStatusCode.OK, new { success = false, message = "Can't get resources" });
+            }
         }
     }
 }

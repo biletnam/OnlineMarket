@@ -31,11 +31,16 @@
         }
 
         function resourcesLoadComplete(result) {
-            $scope.resourcesToBuy = result.data;
-            indexedDbService.init.then(function () {
-                indexedDbService.get(checkResults, loadFailed);
-                indexedDbService.getDeals(getBalance, loadFailed);
-            }, loadFailed)
+            if (result.data.success) {
+                $scope.resourcesToBuy = result.data.resources;
+                indexedDbService.init.then(function () {
+                    indexedDbService.get(checkResults, loadFailed);
+                    indexedDbService.getDeals(getBalance, loadFailed);
+                }, loadFailed)
+            } else {
+                alert(result.data.message);
+            }
+           
         }
 
         function checkResults(results) {
@@ -51,7 +56,7 @@
 
         function loadFailed(result) {
             $timeout(function () {
-                $scope.mistake = "Something is wrong, please, try later."
+                alert("Something is wrong, please, try later.");
             })
         }
 

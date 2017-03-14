@@ -9,7 +9,7 @@
                 <h3>{{buy.Title}}</h3>
                 <p>Price: {{buy.Price | currency}}</p>
                 <!-- Button trigger modal -->
-                <button ng-if="balance > 0 " type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{buy.Id}}buy">
+                <button ng-if="balance > buy.Price " type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{buy.Id}}buy">
                     Buy
                 </button>
                 <!-- Modal -->

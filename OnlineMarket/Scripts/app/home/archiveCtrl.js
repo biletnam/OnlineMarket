@@ -22,13 +22,11 @@
             } else {
                 alert(result.data.message);
             }
-            
         }
 
         function archiveLoadFailed() {
             alert("Something went wrong.");
         }
     }
-
 
 })(angular.module('onlineMarket'));

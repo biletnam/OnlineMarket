@@ -14,18 +14,24 @@
         getResources();
 
         function getResources() {
-            apiService.get('/api/operations', { email: $scope.userData.username },
-            resourcesLoadComplete,
-            resourcesLoadFailed);
+            if ($scope.userData.username != null) {
+                apiService.get('/api/operations', { email: $scope.userData.username },
+                resourcesLoadComplete,
+                loadFailed);
+            }
         }
 
         function resourcesLoadComplete(result) {
-            $scope.resources = result.data;
-            profitSum();
+            if (result.data.success) {
+                $scope.resources = result.data.operations;
+                profitSum();
+            } else {
+                alert(result.data.message);
+            }
         }
 
-        function resourcesLoadFailed() {
-            alert("Can't load resources. Something went wrong.");
+        function loadFailed() {
+            alert("Something went wrong.");
         }
 
         function buyResource(resourceId, quantity, price) {
@@ -44,7 +50,7 @@
         function refillBalance(amount) {
             apiService.post('/api/account/refillbalance', { Amount: amount, Email: $scope.userData.username },
                 dealComplete,
-                dealFailed);
+                loadFailed);
         }
 
         function dealComplete(result) {
@@ -67,10 +73,6 @@
             } else {
                 alert(result.data.message);
             } 
-        }
-
-        function dealFailed() {
-            alert("Can't execute the deal. Something went wrong.");
         }
 
         function profitSum() {
