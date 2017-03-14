@@ -10,9 +10,7 @@
 
         var init = new Promise(function (resolve, reject) {
             var request = window.indexedDB.open("onlineMarket2", 2);
-            request.onerror = function (event) {
-
-            };
+            request.onerror = reject;
             request.onupgradeneeded = function (event) {
                 db = event.target.result;
                 db.createObjectStore("deals", { keyPath: "id", autoIncrement: true });
@@ -24,7 +22,7 @@
             }
         });
 
-        function get(resolve) {
+        function get(resolve, loadFailed) {
             var results;
             var tr = db.transaction("userResources", "readwrite");
             var store = tr.objectStore("userResources");
@@ -33,9 +31,10 @@
                 results = request.result;
                 resolve(results);
             };
+            request.onerror = loadFailed;
         }
 
-        function addResource(resource) {
+        function addResource(resource, loadFailed) {
             var tr = db.transaction("userResources", "readwrite");
             var store = tr.objectStore("userResources");
             var request = store.get(resource.title);
@@ -44,11 +43,12 @@
                 var newresource = { title: resource.title, quantity: oldresource.quantity + resource.quantity }
                 var tr = db.transaction("userResources", "readwrite");
                 var store = tr.objectStore("userResources");
-                store.put(newresource);
+                store.put(newresource).onerror = loadFailed;
             }
+            request.onerror = loadFailed;
         }
 
-        function removeResource(resource) {
+        function removeResource(resource, loadFailed) {
             var tr = db.transaction("userResources", "readwrite");
             var store = tr.objectStore("userResources");
             var request = store.get(resource.title);
@@ -57,8 +57,9 @@
                 var newresource = { title: resource.title, quantity: oldresource.quantity - resource.quantity }
                 var tr = db.transaction("userResources", "readwrite");
                 var store = tr.objectStore("userResources");
-                store.put(newresource);
+                store.put(newresource).onerror = loadFailed;
             }
+            request.onerror = loadFailed;
         }
 
         function addMultiple(resources) {
@@ -67,10 +68,9 @@
                 var store = tr.objectStore("userResources");
                 store.add(resources[i]);
             }
-
         }
 
-        function deal(deal, dealLoadComplete) {
+        function deal(deal, dealLoadComplete, loadFailed) {
             if (db != null) {
                 var tr = db.transaction(["deals"], "readwrite");
                 var store = tr.objectStore("deals");
@@ -78,15 +78,21 @@
                 request.onsuccess = function (event) {
                     dealLoadComplete(deal);
                 }
+                request.onerror = function () {
+                    loadFailed();
+                }
             }
         }
 
-        function getDeals(allDealsLoadComplete) {
+        function getDeals(allDealsLoadComplete, loadFailed) {
             var tr = db.transaction("deals", "readwrite");
             var store = tr.objectStore("deals");
             var request = store.getAll();
             request.onsuccess = function () {
                 allDealsLoadComplete(request.result);
+            }
+            request.onerror = function () {
+                loadFailed();
             }
         }
 

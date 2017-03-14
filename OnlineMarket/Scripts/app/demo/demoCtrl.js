@@ -12,14 +12,14 @@
         $scope.sellResource = sellResource;
         $scope.quantity = 1;
         $scope.balance = 10000;
+        $scope.mistake = "";
 
         getResources();
-
 
         function getResources() {
             apiService.get('/api/operations', null,
             resourcesLoadComplete,
-            resourcesLoadFailed);
+            loadFailed);
         }
 
         function getBalance(deals) {
@@ -33,9 +33,9 @@
         function resourcesLoadComplete(result) {
             $scope.resourcesToBuy = result.data;
             indexedDbService.init.then(function () {
-                indexedDbService.get(checkResults);
-                indexedDbService.getDeals(getBalance);
-            })
+                indexedDbService.get(checkResults, loadFailed);
+                indexedDbService.getDeals(getBalance, loadFailed);
+            }, loadFailed)
         }
 
         function checkResults(results) {
@@ -49,8 +49,10 @@
             })
         }
 
-        function resourcesLoadFailed(result) {
-
+        function loadFailed(result) {
+            $timeout(function () {
+                $scope.mistake = "Something is wrong, please, try later."
+            })
         }
 
         function initializeResourcesToSell() {
@@ -60,18 +62,18 @@
         }
 
         function buyResource(title, quantity, price) {
-            indexedDbService.deal({ title: title, quantity: quantity, amount: quantity * price, purchase: true }, buyResourceComplete)
+            indexedDbService.deal({ title: title, quantity: quantity, amount: quantity * price, purchase: true }, buyResourceComplete, loadFailed)
         }
 
         function sellResource(title, quantity) {
             var price = $scope.resourcesToBuy[indexOf($scope.resourcesToBuy, title)].Price;
-            indexedDbService.deal({ title: title, quantity: quantity, amount: quantity * price, purchase: false }, sellResourceComplete)
+            indexedDbService.deal({ title: title, quantity: quantity, amount: quantity * price, purchase: false }, sellResourceComplete, loadFailed)
         }
 
         function buyResourceComplete(deal) {
             $timeout(function () {
                 $scope.balance -= deal.amount;
-                indexedDbService.addResource({ title: deal.title, quantity: deal.quantity });
+                indexedDbService.addResource({ title: deal.title, quantity: deal.quantity }, loadFailed);
                 $scope.resourcesToSell[indexOf($scope.resourcesToSell, deal.title)].quantity += deal.quantity;
             });
         }
@@ -79,7 +81,7 @@
         function sellResourceComplete(deal) {
             $timeout(function () {
                 $scope.balance += deal.amount;
-                indexedDbService.removeResource({ title: deal.title, quantity: deal.quantity });
+                indexedDbService.removeResource({ title: deal.title, quantity: deal.quantity }, loadFailed);
                 $scope.resourcesToSell[indexOf($scope.resourcesToSell, deal.title)].quantity -= deal.quantity;
             })
         }
