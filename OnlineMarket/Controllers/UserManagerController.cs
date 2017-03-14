@@ -3,6 +3,8 @@ using OnlineMarket.BusinessLogicLayer.Interfaces;
 using OnlineMarket.DataAccessLayer.Entities;
 using OnlineMarket.Models;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 
 namespace OnlineMarket.Controllers
@@ -17,16 +19,31 @@ namespace OnlineMarket.Controllers
         }
 
         [HttpGet]
-        public IList<UserViewModel> Get()
+        public HttpResponseMessage Get(HttpRequestMessage request)
         {
-            var users = Mapper.Map<IList<UserViewModel>>(_membershipService.GetUsers());
-            return Mapper.Map<IList<UserViewModel>>(_membershipService.GetUsers());
+            try
+            {
+                var users = Mapper.Map<IList<UserViewModel>>(_membershipService.GetUsers());
+                return request.CreateResponse(HttpStatusCode.OK, new { success = true, users = users });
+            }
+            catch
+            {
+                return request.CreateResponse(HttpStatusCode.OK, new { success = false, message = "Can't load users." });
+            }
         }
 
         [HttpPost]
-        public void Post([FromBody]UserViewModel userViewModel)
+        public HttpResponseMessage Post(HttpRequestMessage request, [FromBody]UserViewModel userViewModel)
         {
-            _membershipService.ChangeUserRole(userViewModel.Id, userViewModel.RoleId);
+            try
+            {
+                _membershipService.ChangeUserRole(userViewModel.Id, userViewModel.RoleId);
+                return request.CreateResponse(HttpStatusCode.OK, new { success = true }); 
+            }
+            catch
+            {
+                return request.CreateResponse(HttpStatusCode.OK, new { success = false, message = "Can't change role." });
+            }
         }
     }
 }

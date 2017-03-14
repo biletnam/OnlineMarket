@@ -14,29 +14,31 @@
         function getUsers() {
             apiService.get('/api/usermanager', null,
             usersLoadComplete,
-            usersLoadFailed);
+            loadFailed);
         }
 
         function usersLoadComplete(result) {
-            $scope.users = result.data;
+            if (result.data.success) {
+                $scope.users = result.data.users;
+            } else {
+                alert(result.data.message);
+            }
         }
 
-        function usersLoadFailed() {
-
+        function loadFailed() {
+            alert("Something went wrong");
         }
 
         function changeRole(userId, role) {
             apiService.post('/api/usermanager', angular.toJson({ Id: userId, RoleId: role}),
             changingComplete,
-            changingFailed);
+            loadFailed);
         }
 
-        function changingComplete() {
-            location.reload();
-        }
-
-        function changingFailed() {
-
+        function changingComplete(result) {
+            if (!result.data.success) {
+                alert(result.data.message);
+            }
         }
     }
 
