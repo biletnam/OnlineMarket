@@ -21,7 +21,11 @@
         }
 
         function userIsAdmin(result) {
-            $scope.userData.isAdmin = result.data;
+            if (result.data.success) {
+                $scope.userData.isAdmin = result.data.isAdmin;
+            } else {
+                alert(result.data.message);
+            }
         }
 
         function getRecentActivities() {

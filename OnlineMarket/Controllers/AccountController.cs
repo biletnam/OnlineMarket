@@ -51,9 +51,16 @@ namespace OnlineMarket.Controllers
         }
 
         [HttpGet]
-        public bool Get(string email)
+        public HttpResponseMessage Get(HttpRequestMessage request, string email)
         {
-            return _membershipService.IsUserAdmin(email);
+            try
+            {
+                return request.CreateResponse(HttpStatusCode.OK, new { success = true, isAdmin = _membershipService.IsUserAdmin(email)});
+            }
+            catch
+            {
+                return request.CreateResponse(HttpStatusCode.OK, new { success = false, message = "Can't check user's rights." });
+            }
         }
 
         [Route("refillbalance")]
