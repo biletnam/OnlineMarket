@@ -6,8 +6,6 @@
     indexedDbService.$inject = ['apiService', '$timeout'];
 
     function indexedDbService(apiService, $timeout) {
-
-
         var db = null;
 
         var init = new Promise(function (resolve, reject) {
@@ -83,12 +81,22 @@
             }
         }
 
+        function getDeals(allDealsLoadComplete) {
+            var tr = db.transaction("deals", "readwrite");
+            var store = tr.objectStore("deals");
+            var request = store.getAll();
+            request.onsuccess = function () {
+                allDealsLoadComplete(request.result);
+            }
+        }
+
         var service = {
             init: init,
             addResource: addResource,
             removeResource: removeResource,
             addMultiple: addMultiple,
             get: get,
+            getDeals: getDeals,
             deal: deal,
         };
 

@@ -22,10 +22,19 @@
             resourcesLoadFailed);
         }
 
+        function getBalance(deals) {
+            $timeout(function () {
+                for (var i in deals) {
+                    $scope.balance = deals[i].purchase ? $scope.balance - deals[i].amount : $scope.balance + deals[i].amount;
+                }
+            }) 
+        }
+
         function resourcesLoadComplete(result) {
             $scope.resourcesToBuy = result.data;
             indexedDbService.init.then(function () {
                 indexedDbService.get(checkResults);
+                indexedDbService.getDeals(getBalance);
             })
         }
 
