@@ -26,11 +26,20 @@
 
         function getRecentActivities() {
             apiService.get("/api/archive/getactivities", null,
-                activitiesLoadComplete);
+                activitiesLoadComplete,
+                activitiesLoadFailed);
         }
 
         function activitiesLoadComplete(result) {
-            $scope.activities = result.data;
+            if (result.data.success) {
+                $scope.activities = result.data.activities;
+            } else {
+                alert(result.data.message);
+            }
+        }
+
+        function activitiesLoadFailed() {
+            alert("Something went wrong");
         }
 
         function logout() {

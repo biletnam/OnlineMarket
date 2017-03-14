@@ -17,11 +17,16 @@
         }
 
         function archiveLoadComplete(result) {
-            $scope.deals = result.data;
+            if (result.data.success) {
+                $scope.deals = result.data.archive;
+            } else {
+                alert(result.data.message);
+            }
+            
         }
 
         function archiveLoadFailed() {
-
+            alert("Something went wrong.");
         }
     }
 

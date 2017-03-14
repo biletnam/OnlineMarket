@@ -2,6 +2,8 @@
 using OnlineMarket.BusinessLogicLayer.Interfaces;
 using OnlineMarket.Models;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Web.Http;
 
@@ -18,27 +20,40 @@ namespace OnlineMarket.Controllers
             _dealService = dealService;
         }
 
-        //[Authorize]
         [HttpGet]
-        public IList<ArchiveViewModel> GetArchive(string email)
+        public HttpResponseMessage GetArchive(HttpRequestMessage request, string email)
         {
-            var deals = _dealService.GetDealsByUser(email);
-            return Mapper.Map<IList<ArchiveViewModel>>(deals);
+            try
+            {
+                var deals = _dealService.GetDealsByUser(email);
+                return request.CreateResponse(HttpStatusCode.OK, new { success = true, archive = Mapper.Map<IList<ArchiveViewModel>>(deals)}); 
+            }
+            catch
+            {
+                return request.CreateResponse(HttpStatusCode.OK, new { success = false, message = "Can't load archive." });
+            }
         }
 
         [HttpGet]
-        public IList<string> GetRecentActivities()
+        public HttpResponseMessage GetRecentActivities(HttpRequestMessage request)
         {
-            var activities = _dealService.GetActivities(_recentActivitiesCount);
-            var activitiesToString = new List<string>();
-
-            for(var i = activities.Count - 1; i >= 0; i--)
+            try
             {
-                var dealType = activities[i].DealType.Type == "Purchase" ? "bought" : "sold";
-                activitiesToString.Add($"{activities[i].Quantity} items of {activities[i].Resource.Title} were {dealType}.");
-            }
+                var activities = _dealService.GetActivities(_recentActivitiesCount);
+                var activitiesToString = new List<string>();
 
-            return activitiesToString;
+                for (var i = activities.Count - 1; i >= 0; i--)
+                {
+                    var dealType = activities[i].DealType.Type == "Purchase" ? "bought" : "sold";
+                    activitiesToString.Add($"{activities[i].Quantity} items of {activities[i].Resource.Title} were {dealType}.");
+                }
+
+                return request.CreateResponse(HttpStatusCode.OK, new { success = true, activities = activitiesToString });
+            }
+            catch
+            {
+                return request.CreateResponse(HttpStatusCode.OK, new { success = false, message = "Can't load recent activities." });
+            }
         }
     }
 }
