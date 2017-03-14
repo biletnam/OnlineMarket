@@ -24,28 +24,28 @@
         function resourcesLoadComplete(result) {
             $scope.resourcesToBuy = result.data;
             indexedDbService.init.then(function () {
-                var results = indexedDbService.get();
+                indexedDbService.get(checkResults);
+            })
+        }
+
+        function checkResults(results) {
+            $timeout(function () {
                 if (results.length == 0) {
-                    for (var i in $scope.resourcesToBuy) {
-                        $scope.resourcesToSell.push({ title: $scope.resourcesToBuy[i].Title, quantity: 0 })
-                    }
-                    $timeout(function () {
-                        indexedDbService.addMultiple($scope.resourcesToSell);
-                    })
-                    
+                    initializeResourcesToSell();
+                    indexedDbService.addMultiple($scope.resourcesToSell);
                 } else {
                     $scope.resourcesToSell = results;
                 }
-            }); 
+            })
         }
 
         function resourcesLoadFailed(result) {
 
         }
 
-        function initializeResources() {
+        function initializeResourcesToSell() {
             for (var i in $scope.resourcesToBuy) {
-                $scope.resourcesToSell.push({ title: $scope.resourcesToBuy[i].title, quantity: 0 });
+                $scope.resourcesToSell.push({ title: $scope.resourcesToBuy[i].Title, quantity: 0 });
             }
         }
 
@@ -56,7 +56,8 @@
         function refreshList(deal) {
             $timeout(function () {
                 $scope.balance -= deal.amount;
-                //$scope.resourcesToSell[indexOf($scope.resourcesToSell, deal.title)].quantity += deal.quantity;
+                indexedDbService.addResource({ title: deal.title, quantity: deal.quantity });
+                $scope.resourcesToSell[indexOf($scope.resourcesToSell, deal.title)].quantity += deal.quantity;
             });
         }
 
