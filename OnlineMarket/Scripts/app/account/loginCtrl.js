@@ -23,7 +23,7 @@
                     $location.path('/');
             }
             else {
-                notificationService.displayError('Login failed. Try again.');
+                alert(result.data.message);
             }
         }
     }

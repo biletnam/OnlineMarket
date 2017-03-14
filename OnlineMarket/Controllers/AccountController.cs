@@ -18,37 +18,35 @@ namespace OnlineMarket.Controllers
             _membershipService = membershipService;
         }
 
-        [AllowAnonymous]
         [Route("login")]
         [HttpPost]
         public HttpResponseMessage Login(HttpRequestMessage request, LoginViewModel loginViewModel)
         {
-            if (!ModelState.IsValid) return request.CreateResponse(HttpStatusCode.BadRequest, new { success = false });
+            if (!ModelState.IsValid) return request.CreateResponse(HttpStatusCode.BadRequest, new { success = false, message = "Input all fields." });
 
             MembershipContext membershipContext = _membershipService.ValidateUser(loginViewModel.Email, loginViewModel.Password);
 
-            if (membershipContext.User == null) return request.CreateResponse(HttpStatusCode.OK, new { success = false });
+            if (membershipContext.User == null) return request.CreateResponse(HttpStatusCode.OK, new { success = false, message = "Check email and password" });
 
             return request.CreateResponse(HttpStatusCode.OK, new { success = true });
         }
 
-        [AllowAnonymous]
         [Route("register")]
         [HttpPost]
         public HttpResponseMessage Register(HttpRequestMessage request, RegistrationViewModel registrationViewModel)
         {
             try
             {
-                if (!ModelState.IsValid) return request.CreateResponse(HttpStatusCode.BadRequest, new { success = false });
+                if (!ModelState.IsValid) return request.CreateResponse(HttpStatusCode.BadRequest, new { success = false, message = "Input all fields." });
 
                 var tryFindUser = _membershipService.GetUserByEmail(registrationViewModel.Email);
 
-                return request.CreateResponse(HttpStatusCode.OK, new { success = false });   
+                return request.CreateResponse(HttpStatusCode.OK, new { success = false, message = "You can't use this login." });   
             }
             catch
             {
                 User user = _membershipService.CreateUser(registrationViewModel.Email, registrationViewModel.Password);
-                return user != null ? request.CreateResponse(HttpStatusCode.OK, new { success = true }) : request.CreateResponse(HttpStatusCode.OK, new { success = false });
+                return user != null ? request.CreateResponse(HttpStatusCode.OK, new { success = true }) : request.CreateResponse(HttpStatusCode.OK, new { success = false, message="Can't create user." });
             }
         }
 
@@ -58,11 +56,20 @@ namespace OnlineMarket.Controllers
             return _membershipService.IsUserAdmin(email);
         }
 
+        [Route("refillbalance")]
         [HttpPost]
-        public void RefillBalance([FromBody]UpdateBalanceViewModel updateBalanceViewModel)
+        public HttpResponseMessage RefillBalance(HttpRequestMessage request, [FromBody]UpdateBalanceViewModel updateBalanceViewModel)
         {
-            var user = _membershipService.GetUserByEmail(updateBalanceViewModel.Email);
-            _membershipService.UpdateUserBalance(user, updateBalanceViewModel.Amount, true);
+            try
+            {
+                var user = _membershipService.GetUserByEmail(updateBalanceViewModel.Email);
+                _membershipService.UpdateUserBalance(user, updateBalanceViewModel.Amount, true);
+                return request.CreateResponse(HttpStatusCode.OK, new { success = true, amount = updateBalanceViewModel.Amount, add = true });
+            }
+            catch
+            {
+                return request.CreateResponse(HttpStatusCode.OK, new { success = false, message = "Can't refill balance" });
+            }
         }
     }
 

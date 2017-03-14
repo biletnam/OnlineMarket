@@ -20,7 +20,7 @@
                 $location.path('/');
             }
             else {
-                notificationService.displayError('Registration failed. Try again.');
+                alert(result.data.message);
             }
         }
     }
