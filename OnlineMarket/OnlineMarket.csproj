@@ -242,6 +242,7 @@
     <Content Include="Scripts\app\account\registerCtrl.js" />
     <Content Include="Scripts\app\demo\demo.html" />
     <Content Include="Scripts\app\demo\demoCtrl.js" />
+    <Content Include="Scripts\app\services\indexedDbService.js" />
     <Content Include="Scripts\app\usermanage\users.html" />
     <Content Include="Scripts\app\usermanage\usersCtrl.js" />
     <Content Include="Scripts\app\app.js" />

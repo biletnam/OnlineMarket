@@ -3,56 +3,71 @@
 
     app.controller('demoCtrl', demoCtrl);
 
-    demoCtrl.$inject = ['$scope', 'apiService', '$timeout'];
+    demoCtrl.$inject = ['$scope', 'apiService', 'indexedDbService', '$timeout'];
 
-    function demoCtrl($scope, apiService, $timeout) {
-        $scope.resourcesToBuy = [{ title: 'Wood', price: 14.5 }, { title: "Iron", price: 18.5 }, { title: "Oil", price: 60.8 }];
+    function demoCtrl($scope, apiService, indexedDbService, $timeout) {
         $scope.resourcesToSell = [];
+
         $scope.buyResource = buyResource;
         $scope.quantity = 1;
+        $scope.balance = 10000;
 
-        var db = null;
-        const dbName = "onlineMarket";
+        getResources();
 
-        initialize();
 
-        function initialize() {
-            $scope.balance = 10000;
-            var request = indexedDB.open(dbName, 3);
-            request.onerror = function (event) {
-            };
-            request.onupgradeneeded = function (event) {
-                db = event.target.result;
+        function getResources() {
+            apiService.get('/api/operations', null,
+            resourcesLoadComplete,
+            resourcesLoadFailed);
+        }
 
-                db.createObjectStore("deals", { keyPath: "id", autoIncrement: true });
+        function resourcesLoadComplete(result) {
+            $scope.resourcesToBuy = result.data;
+            indexedDbService.init.then(function () {
+                var results = indexedDbService.get();
+                if (results.length == 0) {
+                    for (var i in $scope.resourcesToBuy) {
+                        $scope.resourcesToSell.push({ title: $scope.resourcesToBuy[i].Title, quantity: 0 })
+                    }
+                    $timeout(function () {
+                        indexedDbService.addMultiple($scope.resourcesToSell);
+                    })
+                    
+                } else {
+                    $scope.resourcesToSell = results;
+                }
+            }); 
+        }
 
-                db.createObjectStore("userResources", { keyPath: "id" });
-            };
-            request.onsuccess = function (event) {
-                db = event.target.result;
+        function resourcesLoadFailed(result) {
+
+        }
+
+        function initializeResources() {
+            for (var i in $scope.resourcesToBuy) {
+                $scope.resourcesToSell.push({ title: $scope.resourcesToBuy[i].title, quantity: 0 });
             }
         }
 
         function buyResource(title, quantity, price) {
-            if (db == null) {
-                alert("There is no database");
-            } else {
-                var deal = { title: title, quantity: quantity, amount: quantity * price };
-                var tr = db.transaction(["deals"], "readwrite");
-                var store = tr.objectStore("deals");
-                var request = store.add(deal);
-                request.onsuccess = function (event) {
-                    refreshList(deal);
-                }
-            }
+            indexedDbService.buy({ title: title, quantity: quantity, amount: quantity * price, purchase: true }, refreshList)
         }
 
         function refreshList(deal) {
             $timeout(function () {
                 $scope.balance -= deal.amount;
+                //$scope.resourcesToSell[indexOf($scope.resourcesToSell, deal.title)].quantity += deal.quantity;
             });
         }
-        
+
+        function indexOf(resources, title) {
+            for (var i = 0; i < resources.length; i++) {
+                if (resources[i].title == title) {
+                    return i;
+                }
+            }
+        }
+
     }
 
 })(angular.module('onlineMarket'));

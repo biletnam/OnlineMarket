@@ -6,14 +6,14 @@
         <div class="row" style="padding-top: 20px">
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" style="margin-bottom:20px" ng-repeat="buy in resourcesToBuy">
                 <div class="thumbnail text-center" style="padding-bottom: 20px">
-                    <h3>{{buy.title}}</h3>
-                    <p>Price: {{buy.price | currency}}</p>
+                    <h3>{{buy.Title}}</h3>
+                    <p>Price: {{buy.Price | currency}}</p>
                     <!-- Button trigger modal -->
-                    <button ng-if="balance > 0 " type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{buy.title}}buy">
+                    <button ng-if="balance > 0 " type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{buy.Id}}buy">
                         Buy
                     </button>
                     <!-- Modal -->
-                    <div class="modal fade" id="{{buy.title}}buy" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal fade" id="{{buy.Id}}buy" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -34,7 +34,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="buyResource(buy.title, quantity, buy.price)">Buy</button>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="buyResource(buy.Title, quantity, buy.Price)">Buy</button>
                                 </div>
                             </div>
                         </div>
@@ -81,13 +81,13 @@
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <div class="row" ng-repeat="sell in resourcesToSell">
                     <p>
-                        {{sell.Resource.Title}}: {{sell.Quantity}}
-                        <a ng-if="sell.Quantity > 0" data-toggle="modal" data-target="#{{sell.Id}}sell">
+                        {{sell.title}}: {{sell.quantity}}
+                        <a ng-if="sell.quantity > 0" data-toggle="modal" data-target="#{{sell.title}}sell">
                             Sell
                         </a>
                     </p>
                     <!-- Modal -->
-                    <div class="modal fade" id="{{sell.Id}}sell" tabindex="-2" role="dialog" aria-hidden="true">
+                    <div class="modal fade" id="{{sell.title}}sell" tabindex="-2" role="dialog" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -101,14 +101,14 @@
                                         <div class="form-group">
                                             <label class="col-sm-3 col-form-label">Enter quantity: </label>
                                             <div class="col-sm-9">
-                                                <input type="number" min="1" max="{{sell.Quantity}}" class="form-control" ng-model="quantity" />
+                                                <input type="number" min="1" max="{{sell.quantity}}" class="form-control" ng-model="quantity" />
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="sellResource(sell.Id,quantity,sell.Resource.Price)">Sell</button>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="sellResource(sell.title,quantity)">Sell</button>
                                 </div>
                             </div>
                         </div>
