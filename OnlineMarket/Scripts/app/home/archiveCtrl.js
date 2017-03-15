@@ -3,9 +3,9 @@
 
     app.controller('archiveCtrl', archiveCtrl);
 
-    archiveCtrl.$inject = ['$scope', 'apiService'];
+    archiveCtrl.$inject = ['$scope', "$rootScope", 'apiService'];
 
-    function archiveCtrl($scope, apiService) {
+    function archiveCtrl($scope, $rootScope, apiService) {
         $scope.pageSize = 5;
         $scope.currentPage = 1;
         getarchive();
@@ -18,7 +18,7 @@
 
         function archiveLoadComplete(result) {
             if (result.data.success) {
-                $scope.deals = result.data.archive;
+                $rootScope.deals = result.data.archive;
             } else {
                 alert(result.data.message);
             }

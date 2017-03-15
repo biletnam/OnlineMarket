@@ -1,4 +1,7 @@
-﻿using OnlineMarket.App_Start;
+﻿using Microsoft.AspNet.SignalR;
+using OnlineMarket.App_Start;
+using OnlineMarket.Interfaces;
+using OnlineMarket.Servicies;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -11,7 +14,7 @@ namespace OnlineMarket
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-            AutofacConfig.Initialize(GlobalConfiguration.Configuration);
+            AutofacConfig.Initialize(GlobalConfiguration.Configuration, GlobalHost.DependencyResolver);
             AutoMapperConfig.Initialize();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

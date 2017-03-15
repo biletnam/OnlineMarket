@@ -3,14 +3,20 @@
 
     app.controller('usersCtrl', usersCtrl);
 
-    usersCtrl.$inject = ['$scope', 'apiService'];
+    usersCtrl.$inject = ["$scope", "$rootScope", "apiService"];
 
-    function usersCtrl($scope, apiService) {
+    function usersCtrl($scope, $rootScope, apiService) {
         $scope.changeRole = changeRole;
         $scope.pageSize = 5;
         $scope.currentPage = 1;
         getUsers();
 
+        //var hub = $.connection.appHub;
+
+        //$.connection.hub.start().done(function () { });
+        //hub.client.addUser = function (user) {
+        //    $scope.users.push(user);
+        //};
         function getUsers() {
             apiService.get('/api/usermanager', null,
             usersLoadComplete,
@@ -19,7 +25,7 @@
 
         function usersLoadComplete(result) {
             if (result.data.success) {
-                $scope.users = result.data.users;
+                $rootScope.users = result.data.users;
             } else {
                 alert(result.data.message);
             }

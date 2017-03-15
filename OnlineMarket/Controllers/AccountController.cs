@@ -1,6 +1,9 @@
-﻿using OnlineMarket.BusinessLogicLayer;
+﻿using AutoMapper;
+using Microsoft.AspNet.SignalR;
+using OnlineMarket.BusinessLogicLayer;
 using OnlineMarket.BusinessLogicLayer.Interfaces;
 using OnlineMarket.DataAccessLayer.Entities;
+using OnlineMarket.Hubs;
 using OnlineMarket.Models;
 using System.Net;
 using System.Net.Http;
@@ -13,9 +16,12 @@ namespace OnlineMarket.Controllers
     {
         private IMembershipService _membershipService;
 
-        public AccountController(IMembershipService membershipService)
+        private IHubContext _appHub;
+
+        public AccountController(IMembershipService membershipService, IHubContext hubContext)
         {
             _membershipService = membershipService;
+            _appHub = hubContext;
         }
 
         [Route("login")]
@@ -27,6 +33,8 @@ namespace OnlineMarket.Controllers
             MembershipContext membershipContext = _membershipService.ValidateUser(loginViewModel.Email, loginViewModel.Password);
 
             if (membershipContext.User == null) return request.CreateResponse(HttpStatusCode.OK, new { success = false, message = "Check email and password" });
+
+            
 
             return request.CreateResponse(HttpStatusCode.OK, new { success = true });
         }
@@ -46,6 +54,9 @@ namespace OnlineMarket.Controllers
             catch
             {
                 User user = _membershipService.CreateUser(registrationViewModel.Email, registrationViewModel.Password);
+
+                _appHub.Clients.All.addUser(Mapper.Map<UserViewModel>(user));
+
                 return user != null ? request.CreateResponse(HttpStatusCode.OK, new { success = true }) : request.CreateResponse(HttpStatusCode.OK, new { success = false, message="Can't create user." });
             }
         }

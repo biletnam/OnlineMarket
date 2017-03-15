@@ -1,8 +1,4 @@
-﻿using OnlineMarket.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
 
 namespace OnlineMarket
 {
@@ -10,9 +6,6 @@ namespace OnlineMarket
     {
         public static void Register(HttpConfiguration config)
         {
-
-            config.MessageHandlers.Add(new OnlineMarketAuthHandler());
-
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(

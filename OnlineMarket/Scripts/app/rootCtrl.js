@@ -2,15 +2,41 @@
     'use strict';
 
     app.controller('rootCtrl', rootCtrl);
-    rootCtrl.$inject = ['$scope', '$location', 'membershipService', '$rootScope', 'apiService'];
+    rootCtrl.$inject = ['$scope', '$location', 'membershipService', '$rootScope', 'apiService', "$timeout"];
 
-    function rootCtrl($scope, $location, membershipService, $rootScope, apiService) {
+    function rootCtrl($scope, $location, membershipService, $rootScope, apiService, $timeout) {
         $scope.userData = {};
         $scope.userData.displayUserInfo = displayUserInfo;
         $scope.logout = logout;
         $scope.userData.displayUserInfo();
         $scope.userData.isAdmin = false;
         getRecentActivities();
+
+        var hub = $.connection.appHub;
+
+        $.connection.hub.start().done(function () {});
+
+        hub.client.addActivity = function (message) {
+            $timeout(function () {
+                $scope.activities.unshift(message);
+            })
+        }
+
+        hub.client.addUser = function (user) {
+            if ($rootScope.users != undefined) {
+                $rootScope.users.push(user);
+                $rootScope.$apply();
+            }
+        };
+
+        hub.client.addNewPrices = function (prices) {
+            $timeout(function () {
+                for (var i in $rootScope.resources.ResourcesToBuy) {
+                    $rootScope.resources.ResourcesToBuy[i].Price = prices[i];
+                }
+                $rootScope.$apply();
+            },10)
+        }
 
         function displayUserInfo() {
             $scope.userData.isUserLoggedIn = membershipService.isUserLoggedIn();

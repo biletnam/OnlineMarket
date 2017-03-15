@@ -3,9 +3,9 @@
 
     app.controller('indexCtrl', indexCtrl);
 
-    indexCtrl.$inject = ['$scope', 'apiService', "$timeout"];
+    indexCtrl.$inject = ['$scope', "$rootScope", 'apiService', "$timeout"];
 
-    function indexCtrl($scope, apiService, $timeout) {
+    function indexCtrl($scope, $rootScope, apiService, $timeout) {
         $scope.buyResource = buyResource;
         $scope.sellResource = sellResource;
         $scope.refillBalance = refillBalance;
@@ -23,9 +23,24 @@
 
         function resourcesLoadComplete(result) {
             if (result.data.success) {
-                $scope.resources = result.data.operations;
+                $rootScope.resources = result.data.operations;
                 profitSum();
+                getNewPrices();
             } else {
+                alert(result.data.message);
+            }
+        }
+
+        function getNewPrices() {
+            if ($scope.userData.username != null) {
+                apiService.get('/api/operations/sendcurrentprices', null,
+                pricesLoadComplete,
+                null);
+            }
+        }
+
+        function pricesLoadComplete(result) {
+            if (!(result.data.success)) {
                 alert(result.data.message);
             }
         }
@@ -34,17 +49,17 @@
             alert("Something went wrong.");
         }
 
-        function buyResource(resourceId, quantity, price) {
-            apiService.post('/api/deal', { Email: $scope.userData.username, ResourceId: resourceId, Quantity: quantity, Price: price, IsPurchase: true },
+        function buyResource(resourceId, resourceTitle, quantity, price) {
+            apiService.post('/api/deal', { Email: $scope.userData.username, ResourceId: resourceId, ResourceTitle: resourceTitle, Quantity: quantity, Price: price, IsPurchase: true },
                 dealComplete,
-                dealFailed);
+                loadFailed);
 
         }
 
-        function sellResource(resourceId, quantity, price) {
-            apiService.post('/api/deal', { Email: $scope.userData.username, ResourceId: resourceId, Quantity: quantity, Price: price, IsPurchase: false },
+        function sellResource(resourceId, resourceTitle, quantity, price) {
+            apiService.post('/api/deal', { Email: $scope.userData.username, ResourceId: resourceId, ResourceTitle: resourceTitle, Quantity: quantity, Price: price, IsPurchase: false },
                 dealComplete,
-                dealFailed);
+                loadFailed);
             }
 
         function refillBalance(amount) {
@@ -56,18 +71,18 @@
         function dealComplete(result) {
             if (result.data.success) {
                 if (result.data.add) {
-                    $scope.resources.Balance += result.data.amount;
+                    $rootScope.resources.Balance += result.data.amount;
                     if (result.data.id != null) {
                         $scope.profitSum += result.data.amount;
-                        $scope.resources.Profit[result.data.id - 1] += result.data.amount;
-                        $scope.resources.ResourcesToSell[result.data.id-1].Quantity -= result.data.quantity;
+                        $rootScope.resources.Profit[result.data.id - 1] += result.data.amount;
+                        $rootScope.resources.ResourcesToSell[result.data.id - 1].Quantity -= result.data.quantity;
                     }
                 } else {
-                    $scope.resources.Balance -= result.data.amount;
+                    $rootScope.resources.Balance -= result.data.amount;
                     if (result.data.id != null) {
                         $scope.profitSum -= result.data.amount;
-                        $scope.resources.Profit[result.data.id - 1] -= result.data.amount;
-                        $scope.resources.ResourcesToSell[result.data.id-1].Quantity += result.data.quantity;
+                        $rootScope.resources.Profit[result.data.id - 1] -= result.data.amount;
+                        $rootScope.resources.ResourcesToSell[result.data.id - 1].Quantity += result.data.quantity;
                     }
                 }
             } else {
@@ -77,7 +92,7 @@
 
         function profitSum() {
             $scope.profitSum = 0;
-            var profits = $scope.resources.Profit;
+            var profits = $rootScope.resources.Profit;
             for (var i in profits) {
                 $scope.profitSum += profits[i];
             }

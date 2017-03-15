@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="buyResource(buy.Id, quantity, buy.Price)">Buy</button>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="buyResource(buy.Id, buy.Title, quantity, buy.Price)">Buy</button>
                                 </div>
                             </div>
                         </div>
@@ -111,7 +111,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="sellResource(sell.Resource.Id,quantity,sell.Resource.Price)">Sell</button>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="sellResource(sell.Resource.Id, sell.Resource.Title, quantity,sell.Resource.Price)">Sell</button>
                                 </div>
                             </div>
                         </div>

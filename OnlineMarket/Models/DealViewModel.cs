@@ -6,6 +6,8 @@
        
         public int ResourceId{ get; set; }
 
+        public string ResourceTitle { get; set; }
+
         public int Quantity { get; set; }
 
         public double Price { get; set; }

@@ -1,11 +1,18 @@
 ﻿using Autofac;
+using Autofac.Core;
+using Autofac.Integration.SignalR;
 using Autofac.Integration.WebApi;
+using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Infrastructure;
 using OnlineMarket.BusinessLogicLayer.Interfaces;
 using OnlineMarket.BusinessLogicLayer.Services;
 using OnlineMarket.DataAccessLayer;
 using OnlineMarket.DataAccessLayer.Entities;
 using OnlineMarket.DataAccessLayer.Interfaces;
 using OnlineMarket.DataAccessLayer.Repositories;
+using OnlineMarket.Hubs;
+using OnlineMarket.Interfaces;
+using OnlineMarket.Servicies;
 using System.Data.Entity;
 using System.Reflection;
 using System.Web.Http;
@@ -16,20 +23,27 @@ namespace OnlineMarket.App_Start
     {
         public static IContainer Container;
 
-        public static void Initialize(HttpConfiguration config)
+        public static void Initialize(HttpConfiguration config, IDependencyResolver dependencyResolver)
         {
-            Initialize(config, RegisterServices(new ContainerBuilder()));
+            Initialize(config, dependencyResolver, RegisterServices(new ContainerBuilder(),dependencyResolver));
         }
 
-        public static void Initialize(HttpConfiguration config, IContainer container)
+        public static void Initialize(HttpConfiguration config, IDependencyResolver dependencyResolver, IContainer container)
         {
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
+            dependencyResolver = new AutofacDependencyResolver(container);
         }
 
-        private static IContainer RegisterServices(ContainerBuilder builder)
+        private static IContainer RegisterServices(ContainerBuilder builder, IDependencyResolver ds)
         {
+            builder.Register(i => ds.Resolve<IConnectionManager>().GetHubContext<AppHub>()).ExternallyOwned();
+
             builder.RegisterType<OnlineMarketContext>()
                    .InstancePerRequest();
+
+            builder.RegisterType<PricesGenerator>()
+                .As<IPricesGenerator>()
+                .InstancePerRequest();
 
             builder.RegisterType<UserRepository>()
                 .As<IRepository<User>>()
@@ -70,6 +84,8 @@ namespace OnlineMarket.App_Start
             builder.RegisterType<UserResourcesService>()
                 .As<IUserResourcesService>()
                 .InstancePerRequest();
+
+            builder.RegisterHubs(Assembly.GetExecutingAssembly());
 
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
