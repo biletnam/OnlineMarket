@@ -3,7 +3,6 @@ using Microsoft.AspNet.SignalR;
 using OnlineMarket.BusinessLogicLayer;
 using OnlineMarket.BusinessLogicLayer.Interfaces;
 using OnlineMarket.DataAccessLayer.Entities;
-using OnlineMarket.Hubs;
 using OnlineMarket.Models;
 using System.Net;
 using System.Net.Http;

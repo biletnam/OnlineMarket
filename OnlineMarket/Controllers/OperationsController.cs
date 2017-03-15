@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNet.SignalR;
 using OnlineMarket.BusinessLogicLayer.Interfaces;
-using OnlineMarket.DataAccessLayer.Entities;
 using OnlineMarket.Interfaces;
 using OnlineMarket.Models;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;

@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using OnlineMarket.BusinessLogicLayer.Interfaces;
-using OnlineMarket.DataAccessLayer.Entities;
 using OnlineMarket.Models;
 using System.Collections.Generic;
 using System.Net;

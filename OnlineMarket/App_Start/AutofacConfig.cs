@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using Autofac.Core;
 using Autofac.Integration.SignalR;
 using Autofac.Integration.WebApi;
 using Microsoft.AspNet.SignalR;
@@ -13,7 +12,6 @@ using OnlineMarket.DataAccessLayer.Repositories;
 using OnlineMarket.Hubs;
 using OnlineMarket.Interfaces;
 using OnlineMarket.Servicies;
-using System.Data.Entity;
 using System.Reflection;
 using System.Web.Http;
 

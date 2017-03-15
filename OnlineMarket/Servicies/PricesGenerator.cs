@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNet.SignalR;
 using OnlineMarket.BusinessLogicLayer.Interfaces;
-using OnlineMarket.Hubs;
 using OnlineMarket.Interfaces;
 using System;
 using System.Threading;

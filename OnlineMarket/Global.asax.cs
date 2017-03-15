@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNet.SignalR;
 using OnlineMarket.App_Start;
-using OnlineMarket.Interfaces;
-using OnlineMarket.Servicies;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;

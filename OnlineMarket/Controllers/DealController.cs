@@ -4,7 +4,6 @@ using OnlineMarket.Models;
 using System.Web.Http;
 using System.Net.Http;
 using System.Net;
-using OnlineMarket.Hubs;
 using Microsoft.AspNet.SignalR;
 
 namespace OnlineMarket.Controllers

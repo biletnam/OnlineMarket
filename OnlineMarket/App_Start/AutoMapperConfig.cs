@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using OnlineMarket.DataAccessLayer.Entities;
 using OnlineMarket.Models;
-using System.Collections.Generic;
 
 namespace OnlineMarket
 {
