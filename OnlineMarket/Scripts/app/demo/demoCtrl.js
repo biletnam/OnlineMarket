@@ -3,9 +3,9 @@
 
     app.controller('demoCtrl', demoCtrl);
 
-    demoCtrl.$inject = ['$scope', 'apiService', 'indexedDbService', '$timeout'];
+    demoCtrl.$inject = ['$scope', 'apiService', 'indexedDbService', '$timeout', "$rootScope"];
 
-    function demoCtrl($scope, apiService, indexedDbService, $timeout) {
+    function demoCtrl($scope, apiService, indexedDbService, $timeout, $rootScope) {
         $scope.resourcesToSell = [];
 
         $scope.buyResource = buyResource;
@@ -30,13 +30,29 @@
             }) 
         }
 
+        function getNewPrices() {
+            if ($scope.userData.username != null) {
+                apiService.get('/api/operations/sendcurrentprices', null,
+                pricesLoadComplete,
+                null);
+            }
+        }
+
+        function pricesLoadComplete(result) {
+            if (!(result.data.success)) {
+                alert(result.data.message);
+            }
+        }
+
         function resourcesLoadComplete(result) {
             if (result.data.success) {
-                $scope.resourcesToBuy = result.data.resources;
-                indexedDbService.init.then(function () {
-                    indexedDbService.get(checkResults, loadFailed);
-                    indexedDbService.getDeals(getBalance, loadFailed);
-                }, loadFailed)
+                $rootScope.resourcesToBuy = result.data.resources;
+                indexedDbService.init.then(function() {
+                        indexedDbService.get(checkResults, loadFailed);
+                        indexedDbService.getDeals(getBalance, loadFailed);
+                    },
+                    loadFailed);
+                getNewPrices();
             } else {
                 alert(result.data.message);
             }
@@ -61,8 +77,8 @@
         }
 
         function initializeResourcesToSell() {
-            for (var i in $scope.resourcesToBuy) {
-                $scope.resourcesToSell.push({ title: $scope.resourcesToBuy[i].Title, quantity: 0 });
+            for (var i in $rootScope.resourcesToBuy) {
+                $scope.resourcesToSell.push({ title: $rootScope.resourcesToBuy[i].Title, quantity: 0 });
             }
         }
 
@@ -71,7 +87,7 @@
         }
 
         function sellResource(title, quantity) {
-            var price = $scope.resourcesToBuy[indexOf($scope.resourcesToBuy, title)].Price;
+            var price = $rootScope.resourcesToBuy[indexOf($rootScope.resourcesToBuy, title)].Price;
             indexedDbService.deal({ title: title, quantity: quantity, amount: quantity * price, purchase: false }, sellResourceComplete, loadFailed)
         }
 
