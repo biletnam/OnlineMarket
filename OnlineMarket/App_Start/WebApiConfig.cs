@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using OnlineMarket.Filters;
+using System.Web.Http;
 
 namespace OnlineMarket
 {
@@ -6,6 +7,10 @@ namespace OnlineMarket
     {
         public static void Register(HttpConfiguration config)
         {
+            log4net.Config.XmlConfigurator.Configure();
+
+            config.Filters.Add(new LogActionFilterAttribute());
+
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
