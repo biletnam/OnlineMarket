@@ -5,6 +5,7 @@ using OnlineMarket.DataAccessLayer.Entities;
 using OnlineMarket.DataAccessLayer.Interfaces;
 using System.Linq;
 using System.Security.Principal;
+using OnlineMarket.Utilities.Interfaces;
 
 namespace OnlineMarket.BusinessLogicLayer.Services
 {

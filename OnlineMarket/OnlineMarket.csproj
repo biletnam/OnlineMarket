@@ -234,8 +234,8 @@
     <Compile Include="Models\RegistrationViewModel.cs" />
     <Compile Include="Models\UpdateBalanceViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Servicies\PricesGenerator.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1071,6 +1071,10 @@
     <ProjectReference Include="..\OnlineMarket.DataAccessLayer\OnlineMarket.DataAccessLayer.csproj">
       <Project>{4056ec74-150e-4ca4-aed0-82b72b77b388}</Project>
       <Name>OnlineMarket.DataAccessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OnlineMarket.Utilities\OnlineMarket.Utilities.csproj">
+      <Project>{D894B8B6-01C4-4B88-BE90-98D66BE044AF}</Project>
+      <Name>OnlineMarket.Utilities</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

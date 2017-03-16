@@ -1,4 +1,4 @@
-﻿namespace OnlineMarket.BusinessLogicLayer.Interfaces
+﻿namespace OnlineMarket.Utilities.Interfaces
 {
     public interface IEncryptionService
     {

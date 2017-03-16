@@ -1,9 +1,9 @@
-﻿using OnlineMarket.BusinessLogicLayer.Interfaces;
+﻿using OnlineMarket.Utilities.Interfaces;
 using System;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace OnlineMarket.BusinessLogicLayer.Services
+namespace OnlineMarket.Utilities.Servicies
 {
     public class EncryptionService : IEncryptionService
     {

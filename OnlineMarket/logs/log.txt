@@ -95,3 +95,25 @@ INFO  2017-03-16 10:11:15,345  7576ms gActionFilterAttribute OnActionExecuting  
 ERROR 2017-03-16 10:11:15,375  7606ms Object                 Login              - System.DivideByZeroException: Attempted to divide by zero.
    at OnlineMarket.Controllers.AccountController.Login(HttpRequestMessage request, LoginViewModel loginViewModel) in D:\Projects\OnlineMarket\OnlineMarket\Controllers\AccountController.cs:line 38
 INFO  2017-03-16 10:11:15,375  7606ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Account, action Login
+INFO  2017-03-16 10:20:28,927  2659ms gActionFilterAttribute OnActionExecuting  - Executing controller Archive, action GetRecentActivities
+INFO  2017-03-16 10:20:29,775  3507ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Archive, action GetRecentActivities
+INFO  2017-03-16 10:20:33,152  6884ms gActionFilterAttribute OnActionExecuting  - Executing controller Account, action Register
+INFO  2017-03-16 10:20:33,305  7037ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Account, action Register
+INFO  2017-03-16 10:20:33,339  7071ms gActionFilterAttribute OnActionExecuting  - Executing controller Account, action Get
+INFO  2017-03-16 10:20:33,339  7071ms gActionFilterAttribute OnActionExecuting  - Executing controller Operations, action Get
+INFO  2017-03-16 10:20:33,351  7083ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Account, action Get
+INFO  2017-03-16 10:20:33,469  7201ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Operations, action Get
+INFO  2017-03-16 10:20:33,510  7242ms gActionFilterAttribute OnActionExecuting  - Executing controller Operations, action SendCurrentPrices
+INFO  2017-03-16 10:20:33,512  7244ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Operations, action SendCurrentPrices
+INFO  2017-03-16 10:20:35,741  9473ms gActionFilterAttribute OnActionExecuting  - Executing controller Operations, action Get
+INFO  2017-03-16 10:20:35,755  9487ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Operations, action Get
+INFO  2017-03-16 10:20:35,767  9499ms gActionFilterAttribute OnActionExecuting  - Executing controller Operations, action SendCurrentPrices
+INFO  2017-03-16 10:20:35,767  9499ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Operations, action SendCurrentPrices
+INFO  2017-03-16 10:20:39,536 13268ms gActionFilterAttribute OnActionExecuting  - Executing controller Account, action Login
+INFO  2017-03-16 10:20:39,544 13276ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Account, action Login
+INFO  2017-03-16 10:20:39,576 13308ms gActionFilterAttribute OnActionExecuting  - Executing controller Account, action Get
+INFO  2017-03-16 10:20:39,600 13332ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Account, action Get
+INFO  2017-03-16 10:20:39,624 13356ms gActionFilterAttribute OnActionExecuting  - Executing controller Operations, action Get
+INFO  2017-03-16 10:20:39,646 13378ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Operations, action Get
+INFO  2017-03-16 10:20:40,653 14385ms gActionFilterAttribute OnActionExecuting  - Executing controller Operations, action SendCurrentPrices
+INFO  2017-03-16 10:20:40,653 14385ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Operations, action SendCurrentPrices

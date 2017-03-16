@@ -13,6 +13,8 @@ using OnlineMarket.DataAccessLayer.Repositories;
 using OnlineMarket.Hubs;
 using OnlineMarket.Interfaces;
 using OnlineMarket.Servicies;
+using OnlineMarket.Utilities.Interfaces;
+using OnlineMarket.Utilities.Servicies;
 using System;
 using System.Reflection;
 using System.Web.Http;

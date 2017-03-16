@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineMarket.BusinessLogicL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineMarket", "OnlineMarket\OnlineMarket.csproj", "{0AE2C6FF-2721-4AC1-AF4E-44975FBD6F13}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineMarket.Utilities", "OnlineMarket.Utilities\OnlineMarket.Utilities.csproj", "{D894B8B6-01C4-4B88-BE90-98D66BE044AF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{0AE2C6FF-2721-4AC1-AF4E-44975FBD6F13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AE2C6FF-2721-4AC1-AF4E-44975FBD6F13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AE2C6FF-2721-4AC1-AF4E-44975FBD6F13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D894B8B6-01C4-4B88-BE90-98D66BE044AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D894B8B6-01C4-4B88-BE90-98D66BE044AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D894B8B6-01C4-4B88-BE90-98D66BE044AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D894B8B6-01C4-4B88-BE90-98D66BE044AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
