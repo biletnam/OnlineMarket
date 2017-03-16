@@ -10,6 +10,7 @@ namespace OnlineMarket
             log4net.Config.XmlConfigurator.Configure();
 
             config.Filters.Add(new LogActionFilterAttribute());
+            config.Filters.Add(new LogExceptionFilterAttribute());
 
             config.MapHttpAttributeRoutes();
 
