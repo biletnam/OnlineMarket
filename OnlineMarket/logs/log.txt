@@ -56,3 +56,34 @@ INFO  2017-03-16 09:40:51,042 543150ms gActionFilterAttribute OnActionExecuting 
 INFO  2017-03-16 09:40:51,051 543159ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Archive, action GetRecentActivities
 INFO  2017-03-16 09:40:51,196 543304ms gActionFilterAttribute OnActionExecuting  - Executing controller Operations, action Get
 INFO  2017-03-16 09:40:51,199 543307ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Operations, action Get
+INFO  2017-03-16 09:45:21,693  2703ms gActionFilterAttribute OnActionExecuting  - Executing controller Archive, action GetRecentActivities
+INFO  2017-03-16 09:45:22,408  3418ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Archive, action GetRecentActivities
+INFO  2017-03-16 09:45:29,813 10823ms gActionFilterAttribute OnActionExecuting  - Executing controller Account, action Login
+ERROR 2017-03-16 09:45:29,833 10843ms Object                 Login              - Attempted to divide by zero.
+System.DivideByZeroException: Attempted to divide by zero.
+   at OnlineMarket.Controllers.AccountController.Login(HttpRequestMessage request, LoginViewModel loginViewModel) in D:\Projects\OnlineMarket\OnlineMarket\Controllers\AccountController.cs:line 38
+INFO  2017-03-16 09:45:29,833 10843ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Account, action Login
+INFO  2017-03-16 09:50:29,023  2834ms gActionFilterAttribute OnActionExecuting  - Executing controller Archive, action GetRecentActivities
+ 2017-03-16 09:50:29,023 INFO  Executing controller Archive, action GetRecentActivities
+ OnlineMarket.Filters.LogActionFilterAttribute D:\Projects\OnlineMarket\OnlineMarket\Filters\LogActionFilterAttribute.cs 15 OnActionExecuting OnlineMarket.Filters.LogActionFilterAttribute.OnActionExecuting(D:\Projects\OnlineMarket\OnlineMarket\Filters\LogActionFilterAttribute.cs:15) OnlineMarket.Filters.LogActionFilterAttribute stackINFO  2017-03-16 09:50:29,730  3541ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Archive, action GetRecentActivities
+ 2017-03-16 09:50:29,730 INFO  Finished executing controller Archive, action GetRecentActivities
+ OnlineMarket.Filters.LogActionFilterAttribute D:\Projects\OnlineMarket\OnlineMarket\Filters\LogActionFilterAttribute.cs 21 OnActionExecuted OnlineMarket.Filters.LogActionFilterAttribute.OnActionExecuted(D:\Projects\OnlineMarket\OnlineMarket\Filters\LogActionFilterAttribute.cs:21) OnlineMarket.Filters.LogActionFilterAttribute stackINFO  2017-03-16 09:50:30,953  4764ms gActionFilterAttribute OnActionExecuting  - Executing controller Account, action Login
+ 2017-03-16 09:50:30,953 INFO  Executing controller Account, action Login
+ OnlineMarket.Filters.LogActionFilterAttribute D:\Projects\OnlineMarket\OnlineMarket\Filters\LogActionFilterAttribute.cs 15 OnActionExecuting OnlineMarket.Filters.LogActionFilterAttribute.OnActionExecuting(D:\Projects\OnlineMarket\OnlineMarket\Filters\LogActionFilterAttribute.cs:15) OnlineMarket.Filters.LogActionFilterAttribute stackERROR 2017-03-16 09:50:30,992  4803ms Object                 Login              - Attempted to divide by zero.
+ 2017-03-16 09:50:30,992 ERROR Attempted to divide by zero.
+ OnlineMarket.Controllers.AccountController D:\Projects\OnlineMarket\OnlineMarket\Controllers\AccountController.cs 49 Login OnlineMarket.Controllers.AccountController.Login(D:\Projects\OnlineMarket\OnlineMarket\Controllers\AccountController.cs:49) OnlineMarket.Controllers.AccountController stackSystem.DivideByZeroException: Attempted to divide by zero.
+   at OnlineMarket.Controllers.AccountController.Login(HttpRequestMessage request, LoginViewModel loginViewModel) in D:\Projects\OnlineMarket\OnlineMarket\Controllers\AccountController.cs:line 38
+INFO  2017-03-16 09:50:30,998  4809ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Account, action Login
+ 2017-03-16 09:50:30,998 INFO  Finished executing controller Account, action Login
+ OnlineMarket.Filters.LogActionFilterAttribute D:\Projects\OnlineMarket\OnlineMarket\Filters\LogActionFilterAttribute.cs 21 OnActionExecuted OnlineMarket.Filters.LogActionFilterAttribute.OnActionExecuted(D:\Projects\OnlineMarket\OnlineMarket\Filters\LogActionFilterAttribute.cs:21) OnlineMarket.Filters.LogActionFilterAttribute stackINFO  2017-03-16 09:51:57,353  3077ms gActionFilterAttribute OnActionExecuting  - Executing controller Archive, action GetRecentActivities
+INFO  2017-03-16 09:51:58,154  3878ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Archive, action GetRecentActivities
+INFO  2017-03-16 09:52:03,418  9142ms gActionFilterAttribute OnActionExecuting  - Executing controller Account, action Login
+ERROR 2017-03-16 09:52:03,455  9179ms Object                 Login              - Attempted to divide by zero.
+INFO  2017-03-16 09:52:03,456  9180ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Account, action Login
+INFO  2017-03-16 09:56:08,303  2589ms gActionFilterAttribute OnActionExecuting  - Executing controller Archive, action GetRecentActivities
+INFO  2017-03-16 09:56:08,985  3271ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Archive, action GetRecentActivities
+INFO  2017-03-16 09:56:11,002  5288ms gActionFilterAttribute OnActionExecuting  - Executing controller Account, action Login
+ERROR 2017-03-16 09:56:11,045  5331ms Object                 Login              -    at OnlineMarket.Controllers.AccountController.Login(HttpRequestMessage request, LoginViewModel loginViewModel) in D:\Projects\OnlineMarket\OnlineMarket\Controllers\AccountController.cs:line 38
+System.DivideByZeroException: Attempted to divide by zero.
+   at OnlineMarket.Controllers.AccountController.Login(HttpRequestMessage request, LoginViewModel loginViewModel) in D:\Projects\OnlineMarket\OnlineMarket\Controllers\AccountController.cs:line 38
+INFO  2017-03-16 09:56:11,045  5331ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Account, action Login

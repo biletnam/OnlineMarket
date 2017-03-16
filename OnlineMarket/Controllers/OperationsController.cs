@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNet.SignalR;
+﻿using log4net;
+using Microsoft.AspNet.SignalR;
 using OnlineMarket.BusinessLogicLayer.Interfaces;
 using OnlineMarket.Interfaces;
 using OnlineMarket.Models;
+using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -22,13 +24,16 @@ namespace OnlineMarket.Controllers
 
         private IHubContext _appHub;
 
-        public OperationsController(IResourceService resourceService, IUserResourcesService userResourcesService, IDealService dealService, IPricesGenerator pricesGenerator, IHubContext hubContext)
+        private ILog _logger;
+
+        public OperationsController(IResourceService resourceService, IUserResourcesService userResourcesService, IDealService dealService, IPricesGenerator pricesGenerator, IHubContext hubContext, ILog logger)
         {
             _resourceService = resourceService;
             _userResourcesService = userResourcesService;
             _dealService = dealService;
             _pricesGenerator = pricesGenerator;
             _appHub = hubContext;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -39,12 +44,13 @@ namespace OnlineMarket.Controllers
                 var resourcesToBuy = _resourceService.GetResources();
                 var resourcesToSell = _userResourcesService.GetUserResources(email);
                 var profits = _dealService.GetProfits(email);
-                var operationViewModel =  new OperationsViewModel { ResourcesToBuy = resourcesToBuy, ResourcesToSell = resourcesToSell, Profit = profits, Balance = resourcesToSell.First().User.Balance };
-               
+                var operationViewModel = new OperationsViewModel { ResourcesToBuy = resourcesToBuy, ResourcesToSell = resourcesToSell, Profit = profits, Balance = resourcesToSell.First().User.Balance };
+
                 return request.CreateResponse(HttpStatusCode.OK, new { success = true, operations = operationViewModel });
             }
-            catch
+            catch(Exception e)
             {
+                _logger.Error(e);
                 return request.CreateResponse(HttpStatusCode.OK, new { success = false, message = "Can't get resources and profits." });
             }
         }
@@ -56,8 +62,9 @@ namespace OnlineMarket.Controllers
             {
                 return request.CreateResponse(HttpStatusCode.OK, new { success = true, resources = _resourceService.GetResources() });
             }
-            catch
+            catch(Exception e)
             {
+                _logger.Error(e);
                 return request.CreateResponse(HttpStatusCode.OK, new { success = false, message = "Can't get resources" });
             }
         }
@@ -71,8 +78,9 @@ namespace OnlineMarket.Controllers
                 _appHub.Clients.All.addNewPrices(_pricesGenerator.CurrentPrices);
                 return request.CreateResponse(HttpStatusCode.OK, new { success = true });
             }
-            catch
+            catch(Exception e)
             {
+                _logger.Error(e);
                 return request.CreateResponse(HttpStatusCode.OK, new { success = false, message = "Can't send new prices" });
             }
         }

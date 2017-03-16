@@ -5,6 +5,8 @@ using System.Web.Http;
 using System.Net.Http;
 using System.Net;
 using Microsoft.AspNet.SignalR;
+using log4net;
+using System;
 
 namespace OnlineMarket.Controllers
 {
@@ -18,12 +20,15 @@ namespace OnlineMarket.Controllers
 
         private IHubContext _appHub;
 
-        public DealController(IDealService dealService, IUserResourcesService userResourcesService, IMembershipService membershipService, IHubContext hubContext)
+        private ILog _logger;
+
+        public DealController(IDealService dealService, IUserResourcesService userResourcesService, IMembershipService membershipService, IHubContext hubContext, ILog logger)
         {
             _dealService = dealService;
             _userResourcesService = userResourcesService;
             _membershipService = membershipService;
             _appHub = hubContext;
+            _logger = logger;
         }
 
         [HttpPost]
@@ -45,8 +50,9 @@ namespace OnlineMarket.Controllers
 
                 return request.CreateResponse(HttpStatusCode.OK, new { success = true, amount = dealViewModel.Quantity * dealViewModel.Price, add = !dealViewModel.IsPurchase, id = dealViewModel.ResourceId, quantity = dealViewModel.Quantity });
             }
-            catch
+            catch(Exception e)
             {
+                _logger.Error(e);
                 return request.CreateResponse(HttpStatusCode.OK, new { success = false, message = "Can't execute deal." });
             }
         }

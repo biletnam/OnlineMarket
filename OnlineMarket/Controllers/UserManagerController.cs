@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using log4net;
 using OnlineMarket.BusinessLogicLayer.Interfaces;
 using OnlineMarket.Models;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
@@ -12,9 +14,12 @@ namespace OnlineMarket.Controllers
     {
         private IMembershipService _membershipService;
 
-        public UserManagerController(IMembershipService membershipService)
+        private ILog _logger;
+
+        public UserManagerController(IMembershipService membershipService, ILog logger)
         {
             _membershipService = membershipService;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -25,8 +30,9 @@ namespace OnlineMarket.Controllers
                 var users = Mapper.Map<IList<UserViewModel>>(_membershipService.GetUsers());
                 return request.CreateResponse(HttpStatusCode.OK, new { success = true, users = users });
             }
-            catch
+            catch(Exception e)
             {
+                _logger.Error(e);
                 return request.CreateResponse(HttpStatusCode.OK, new { success = false, message = "Can't load users." });
             }
         }
@@ -39,8 +45,9 @@ namespace OnlineMarket.Controllers
                 _membershipService.ChangeUserRole(userViewModel.Id, userViewModel.RoleId);
                 return request.CreateResponse(HttpStatusCode.OK, new { success = true }); 
             }
-            catch
+            catch(Exception e)
             {
+                _logger.Error(e);
                 return request.CreateResponse(HttpStatusCode.OK, new { success = false, message = "Can't change role." });
             }
         }

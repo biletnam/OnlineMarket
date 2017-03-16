@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using log4net;
 using Microsoft.AspNet.SignalR;
 using OnlineMarket.BusinessLogicLayer;
 using OnlineMarket.BusinessLogicLayer.Interfaces;
 using OnlineMarket.DataAccessLayer.Entities;
 using OnlineMarket.Models;
+using System;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -17,25 +19,34 @@ namespace OnlineMarket.Controllers
 
         private IHubContext _appHub;
 
-        public AccountController(IMembershipService membershipService, IHubContext hubContext)
+        private ILog _logger;
+
+        public AccountController(IMembershipService membershipService, IHubContext hubContext, ILog logger)
         {
             _membershipService = membershipService;
             _appHub = hubContext;
+            _logger = logger;
         }
 
         [Route("login")]
         [HttpPost]
         public HttpResponseMessage Login(HttpRequestMessage request, LoginViewModel loginViewModel)
         {
-            if (!ModelState.IsValid) return request.CreateResponse(HttpStatusCode.BadRequest, new { success = false, message = "Input all fields." });
+            try
+            {
+                if (!ModelState.IsValid) return request.CreateResponse(HttpStatusCode.BadRequest, new { success = false, message = "Input all fields." });
 
-            MembershipContext membershipContext = _membershipService.ValidateUser(loginViewModel.Email, loginViewModel.Password);
+                MembershipContext membershipContext = _membershipService.ValidateUser(loginViewModel.Email, loginViewModel.Password);
 
-            if (membershipContext.User == null) return request.CreateResponse(HttpStatusCode.OK, new { success = false, message = "Check email and password" });
+                if (membershipContext.User == null) return request.CreateResponse(HttpStatusCode.OK, new { success = false, message = "Check email and password" });
 
-            
-
-            return request.CreateResponse(HttpStatusCode.OK, new { success = true });
+                return request.CreateResponse(HttpStatusCode.OK, new { success = true });
+            }
+            catch (Exception e)
+            {
+                _logger.Error(e);
+                return request.CreateResponse(HttpStatusCode.OK, new { success = false, message = "Can't login." });
+            }
         }
 
         [Route("register")]
@@ -53,7 +64,6 @@ namespace OnlineMarket.Controllers
             catch
             {
                 User user = _membershipService.CreateUser(registrationViewModel.Email, registrationViewModel.Password);
-
                 _appHub.Clients.All.addUser(Mapper.Map<UserViewModel>(user));
 
                 return user != null ? request.CreateResponse(HttpStatusCode.OK, new { success = true }) : request.CreateResponse(HttpStatusCode.OK, new { success = false, message="Can't create user." });
@@ -67,8 +77,9 @@ namespace OnlineMarket.Controllers
             {
                 return request.CreateResponse(HttpStatusCode.OK, new { success = true, isAdmin = _membershipService.IsUserAdmin(email)});
             }
-            catch
+            catch(Exception e)
             {
+                _logger.Error(e);
                 return request.CreateResponse(HttpStatusCode.OK, new { success = false, message = "Can't check user's rights." });
             }
         }
@@ -83,8 +94,9 @@ namespace OnlineMarket.Controllers
                 _membershipService.UpdateUserBalance(user, updateBalanceViewModel.Amount, true);
                 return request.CreateResponse(HttpStatusCode.OK, new { success = true, amount = updateBalanceViewModel.Amount, add = true });
             }
-            catch
+            catch(Exception e)
             {
+                _logger.Error(e);
                 return request.CreateResponse(HttpStatusCode.OK, new { success = false, message = "Can't refill balance" });
             }
         }

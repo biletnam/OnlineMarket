@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Integration.SignalR;
 using Autofac.Integration.WebApi;
+using log4net;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Infrastructure;
 using OnlineMarket.BusinessLogicLayer.Interfaces;
@@ -12,6 +13,7 @@ using OnlineMarket.DataAccessLayer.Repositories;
 using OnlineMarket.Hubs;
 using OnlineMarket.Interfaces;
 using OnlineMarket.Servicies;
+using System;
 using System.Reflection;
 using System.Web.Http;
 
@@ -35,6 +37,8 @@ namespace OnlineMarket.App_Start
         private static IContainer RegisterServices(ContainerBuilder builder, IDependencyResolver ds)
         {
             builder.Register(i => ds.Resolve<IConnectionManager>().GetHubContext<AppHub>()).ExternallyOwned();
+
+            builder.Register(c => LogManager.GetLogger(typeof(Object))).As<ILog>();
 
             builder.RegisterType<OnlineMarketContext>()
                    .InstancePerRequest();

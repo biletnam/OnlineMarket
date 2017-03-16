@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using log4net;
 using OnlineMarket.BusinessLogicLayer.Interfaces;
 using OnlineMarket.Models;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
@@ -14,9 +16,12 @@ namespace OnlineMarket.Controllers
 
         private const int _recentActivitiesCount = 5;
 
-        public ArchiveController(IDealService dealService)
+        private ILog _logger;
+
+        public ArchiveController(IDealService dealService, ILog logger)
         {
             _dealService = dealService;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -27,8 +32,9 @@ namespace OnlineMarket.Controllers
                 var deals = _dealService.GetDealsByUser(email);
                 return request.CreateResponse(HttpStatusCode.OK, new { success = true, archive = Mapper.Map<IList<ArchiveViewModel>>(deals)}); 
             }
-            catch
+            catch(Exception e)
             {
+                _logger.Error(e);
                 return request.CreateResponse(HttpStatusCode.OK, new { success = false, message = "Can't load archive." });
             }
         }
@@ -49,8 +55,9 @@ namespace OnlineMarket.Controllers
 
                 return request.CreateResponse(HttpStatusCode.OK, new { success = true, activities = activitiesToString });
             }
-            catch
+            catch(Exception e)
             {
+                _logger.Error(e);
                 return request.CreateResponse(HttpStatusCode.OK, new { success = false, message = "Can't load recent activities." });
             }
         }
