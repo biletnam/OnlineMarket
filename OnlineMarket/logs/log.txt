@@ -40,3 +40,19 @@ INFO  2017-03-15 22:18:01,416 347661ms gActionFilterAttribute OnActionExecuting 
 INFO  2017-03-15 22:18:01,422 347667ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Archive, action GetRecentActivities
 INFO  2017-03-15 22:18:01,497 347742ms gActionFilterAttribute OnActionExecuting  - Executing controller Operations, action Get
 INFO  2017-03-15 22:18:01,500 347745ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Operations, action Get
+INFO  2017-03-16 09:31:51,041  3149ms gActionFilterAttribute OnActionExecuting  - Executing controller Archive, action GetRecentActivities
+INFO  2017-03-16 09:31:52,138  4246ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Archive, action GetRecentActivities
+INFO  2017-03-16 09:31:54,559  6667ms gActionFilterAttribute OnActionExecuting  - Executing controller Operations, action Get
+INFO  2017-03-16 09:31:54,562  6670ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Operations, action Get
+INFO  2017-03-16 09:32:10,676 22784ms gActionFilterAttribute OnActionExecuting  - Executing controller Archive, action GetRecentActivities
+INFO  2017-03-16 09:32:10,687 22795ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Archive, action GetRecentActivities
+INFO  2017-03-16 09:32:10,924 23032ms gActionFilterAttribute OnActionExecuting  - Executing controller Operations, action Get
+INFO  2017-03-16 09:32:10,966 23074ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Operations, action Get
+INFO  2017-03-16 09:40:30,387 522495ms gActionFilterAttribute OnActionExecuting  - Executing controller Archive, action GetRecentActivities
+INFO  2017-03-16 09:40:31,008 523116ms gActionFilterAttribute OnActionExecuting  - Executing controller Operations, action Get
+INFO  2017-03-16 09:40:31,019 523127ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Archive, action GetRecentActivities
+INFO  2017-03-16 09:40:31,025 523133ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Operations, action Get
+INFO  2017-03-16 09:40:51,042 543150ms gActionFilterAttribute OnActionExecuting  - Executing controller Archive, action GetRecentActivities
+INFO  2017-03-16 09:40:51,051 543159ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Archive, action GetRecentActivities
+INFO  2017-03-16 09:40:51,196 543304ms gActionFilterAttribute OnActionExecuting  - Executing controller Operations, action Get
+INFO  2017-03-16 09:40:51,199 543307ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Operations, action Get
