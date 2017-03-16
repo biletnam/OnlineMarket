@@ -38,7 +38,11 @@
                 templateUrl: "scripts/app/demo/demo.html",
                 controller: "demoCtrl"
             })
-            .otherwise({ redirectTo: "/" });
+            .when("/error", {
+                templateUrl: "scripts/app/error/notfound.html",
+                controller: "notfoundCtrl"
+            })
+            .otherwise({ redirectTo: "/error" });
     }
 
     run.$inject = ['$rootScope', '$location', '$cookieStore', '$http'];
