@@ -1,7 +1,7 @@
-﻿using OnlineMarket.Utilities.Interfaces;
-using System;
+﻿using System;
 using System.Security.Cryptography;
 using System.Text;
+using OnlineMarket.Utilities.Interfaces;
 
 namespace OnlineMarket.Utilities.Servicies
 {
@@ -22,8 +22,8 @@ namespace OnlineMarket.Utilities.Servicies
         {
             using (var sha256 = SHA256.Create())
             {
-                var saltedPassword = string.Format("{0}{1}", salt, password);
-                byte[] saltedPasswordAsBytes = Encoding.UTF8.GetBytes(saltedPassword);
+                var saltedPassword = $"{salt}{password}";
+                var saltedPasswordAsBytes = Encoding.UTF8.GetBytes(saltedPassword);
 
                 return Convert.ToBase64String(sha256.ComputeHash(saltedPasswordAsBytes));
             }
