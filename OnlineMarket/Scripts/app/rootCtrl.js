@@ -1,8 +1,8 @@
 ﻿(function (app) {
-    'use strict';
+    "use strict";
 
-    app.controller('rootCtrl', rootCtrl);
-    rootCtrl.$inject = ['$scope', '$location', 'membershipService', '$rootScope', 'apiService', "$timeout"];
+    app.controller("rootCtrl", rootCtrl);
+    rootCtrl.$inject = ["$scope", "$location", "membershipService", "$rootScope", "apiService", "$timeout"];
 
     function rootCtrl($scope, $location, membershipService, $rootScope, apiService, $timeout) {
         $scope.userData = {};
@@ -86,10 +86,10 @@
 
         function logout() {
             membershipService.removeCredentials();
-            $location.path('#/');
+            $location.path("#/");
             $scope.userData.displayUserInfo();
         }
     }
 
 
-})(angular.module('onlineMarket'));
+})(angular.module("onlineMarket"));

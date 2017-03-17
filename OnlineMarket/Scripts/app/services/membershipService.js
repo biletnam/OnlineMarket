@@ -1,9 +1,9 @@
 ﻿(function (app) {
-    'use strict';
+    "use strict";
 
-    app.factory('membershipService', membershipService);
+    app.factory("membershipService", membershipService);
 
-    membershipService.$inject = ['apiService', '$http', '$base64', '$cookieStore', '$rootScope'];
+    membershipService.$inject = ["apiService", "$http", "$base64", "$cookieStore", "$rootScope"];
 
     function membershipService(apiService, $http, $base64, $cookieStore, $rootScope) {
 
@@ -17,19 +17,19 @@
         }
 
         function login(user, completed) {
-            apiService.post('/api/account/login', user,
+            apiService.post("/api/account/login", user,
             completed,
             null);
         }
 
         function register(user, completed) {
-            apiService.post('/api/account/register', user,
+            apiService.post("/api/account/register", user,
             completed,
             null);
         }
 
         function saveCredentials(user) {
-            var membershipData = $base64.encode(user.email + ':' + user.password);
+            var membershipData = $base64.encode(user.email + ":" + user.password);
 
             $rootScope.repository = {
                 loggedUser: {
@@ -38,14 +38,14 @@
                 }
             };
 
-            $http.defaults.headers.common['Authorization'] = 'Basic ' + membershipData;
-            $cookieStore.put('repository', $rootScope.repository);
+            $http.defaults.headers.common["Authorization"] = "Basic " + membershipData;
+            $cookieStore.put("repository", $rootScope.repository);
         }
 
         function removeCredentials() {
             $rootScope.repository = {};
-            $cookieStore.remove('repository');
-            $http.defaults.headers.common.Authorization = '';
+            $cookieStore.remove("repository");
+            $http.defaults.headers.common.Authorization = "";
         };
 
         function loginFailed(response) {
@@ -54,7 +54,7 @@
 
         function registrationFailed(response) {
 
-            notificationService.displayError('Registration failed. Try again.');
+            notificationService.displayError("Registration failed. Try again.");
         }
 
         function isUserLoggedIn() {
@@ -62,11 +62,11 @@
         }
 
         function isUserAdmin(user, completed) {
-            apiService.get('/api/account', user,
+            apiService.get("/api/account", user,
                 completed,
                 null)
         }
 
         return service;
     }
-})(angular.module('onlineMarket'));
+})(angular.module("onlineMarket"));

@@ -1,9 +1,9 @@
 ﻿(function (app) {
-    'use strict';
+    "use strict";
 
-    app.controller('loginCtrl', loginCtrl);
+    app.controller("loginCtrl", loginCtrl);
 
-    loginCtrl.$inject = ['$scope', 'membershipService', '$rootScope', '$location'];
+    loginCtrl.$inject = ["$scope", "membershipService", "$rootScope", "$location"];
 
     function loginCtrl($scope, membershipService, $rootScope, $location) {
         $scope.login = login;
@@ -20,7 +20,7 @@
                 if ($rootScope.previousState)
                     $location.path($rootScope.previousState);
                 else
-                    $location.path('/');
+                    $location.path("/");
             }
             else {
                 alert(result.data.message);
@@ -28,4 +28,4 @@
         }
     }
 
-})(angular.module('onlineMarket'));
+})(angular.module("onlineMarket"));

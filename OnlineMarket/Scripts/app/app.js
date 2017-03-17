@@ -1,11 +1,11 @@
 ﻿(function () {
-    'use strict';
+    "use strict";
 
-    angular.module('onlineMarket', ['ngRoute', 'ngCookies', 'base64', 'angularUtils.directives.dirPagination'])
+    angular.module("onlineMarket", ["ngRoute", "ngCookies", "base64", "angularUtils.directives.dirPagination"])
         .config(config)
-        .run(run)
+        .run(run);
 
-    config.$inject = ['$routeProvider', '$locationProvider'];
+    config.$inject = ["$routeProvider", "$locationProvider"];
 
     function config($routeProvider, $locationProvider) {
         $locationProvider.html5Mode(true);
@@ -45,21 +45,21 @@
             .otherwise({ redirectTo: "/error" });
     }
 
-    run.$inject = ['$rootScope', '$location', '$cookieStore', '$http'];
+    run.$inject = ["$rootScope", "$location", "$cookieStore", "$http"];
 
     function run($rootScope, $location, $cookieStore, $http) {
-        $rootScope.repository = $cookieStore.get('repository') || {};
+        $rootScope.repository = $cookieStore.get("repository") || {};
         if ($rootScope.repository.loggedUser) {
-            $http.defaults.headers.common['Authorization'] = $rootScope.repository.loggedUser.authdata;
+            $http.defaults.headers.common["Authorization"] = $rootScope.repository.loggedUser.authdata;
         }
     }
 
-    isAuthenticated.$inject = ['membershipService', '$rootScope','$location'];
+    isAuthenticated.$inject = ["membershipService", "$rootScope","$location"];
      
     function isAuthenticated(membershipService, $rootScope, $location) {
         if (!membershipService.isUserLoggedIn()) {
             $rootScope.previousState = $location.path();
-            $location.path('/login');
+            $location.path("/login");
         }
     }
 

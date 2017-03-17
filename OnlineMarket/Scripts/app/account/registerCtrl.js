@@ -1,9 +1,9 @@
 ﻿(function (app) {
-    'use strict';
+    "use strict";
 
-    app.controller('registerCtrl', registerCtrl);
+    app.controller("registerCtrl", registerCtrl);
 
-    registerCtrl.$inject = ['$scope', 'membershipService', '$rootScope', '$location'];
+    registerCtrl.$inject = ["$scope", "membershipService", "$rootScope", "$location"];
 
     function registerCtrl($scope, membershipService, $rootScope, $location) {
         $scope.register = register;
@@ -17,7 +17,7 @@
             if (result.data.success) {
                 membershipService.saveCredentials($scope.user);
                 $scope.userData.displayUserInfo();
-                $location.path('/');
+                $location.path("/");
             }
             else {
                 alert(result.data.message);
@@ -25,4 +25,4 @@
         }
     }
 
-})(angular.module('onlineMarket'));
+})(angular.module("onlineMarket"));

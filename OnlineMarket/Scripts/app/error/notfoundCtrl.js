@@ -1,8 +1,8 @@
 ﻿(function (app) {
-    'use strict';
+    "use strict";
 
-    app.controller('notfoundCtrl', notfoundCtrl);
+    app.controller("notfoundCtrl", notfoundCtrl);
 
     function notfoundCtrl() {}
 
-})(angular.module('onlineMarket'));
+})(angular.module("onlineMarket"));

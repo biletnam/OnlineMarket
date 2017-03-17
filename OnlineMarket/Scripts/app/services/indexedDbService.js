@@ -1,9 +1,9 @@
 ﻿(function (app) {
-    'use strict';
+    "use strict";
 
-    app.factory('indexedDbService', indexedDbService);
+    app.factory("indexedDbService", indexedDbService);
 
-    indexedDbService.$inject = ['apiService', '$timeout'];
+    indexedDbService.$inject = ["apiService", "$timeout"];
 
     function indexedDbService(apiService, $timeout) {
         var db = null;
@@ -108,4 +108,4 @@
 
         return service;
     }
-})(angular.module('onlineMarket'));
+})(angular.module("onlineMarket"));

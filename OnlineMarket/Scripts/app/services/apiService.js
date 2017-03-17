@@ -1,9 +1,9 @@
 ﻿(function (app) {
-    'use strict';
+    "use strict";
 
-    app.factory('apiService', apiService);
+    app.factory("apiService", apiService);
 
-    apiService.$inject = ['$http', '$location', '$rootScope'];
+    apiService.$inject = ["$http", "$location", "$rootScope"];
 
     function apiService($http, $location, $rootScope) {
         var service = {
@@ -12,14 +12,13 @@
         };
 
         function get(url, config, success, failure) {
-            return $http({ method: 'GET', url: url, params: config })
+            return $http({ method: "GET", url: url, params: config })
                     .then(function (result) {
                         success(result);
                     }, function (error) {
-                        if (error.status == '401') {
-                            //notificationService.displayError('Authentication required.');
+                        if (error.status == "401") {
                             $rootScope.previousState = $location.path();
-                            $location.path('/login');
+                            $location.path("/login");
                         }
                         else if (failure != null) {
                             failure(error);
@@ -32,10 +31,9 @@
                     .then(function (result) {
                         success(result);
                     }, function (error) {
-                        if (error.status == '401') {
-                            //notificationService.displayError('Authentication required.');
+                        if (error.status == "401") {
                             $rootScope.previousState = $location.path();
-                            $location.path('/login');
+                            $location.path("/login");
                         }
                         else if (failure != null) {
                             failure(error);
@@ -45,4 +43,4 @@
 
         return service;
     }
-})(angular.module('onlineMarket'));
+})(angular.module("onlineMarket"));

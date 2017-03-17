@@ -279,7 +279,6 @@
     <Content Include="Scripts\app\demo\demoCtrl.js" />
     <Content Include="Scripts\app\error\notfoundCtrl.js" />
     <Content Include="Scripts\app\error\notfound.html" />
-    <Content Include="Scripts\app\services\hubService.js" />
     <Content Include="Scripts\app\services\indexedDbService.js" />
     <Content Include="Scripts\app\usermanage\users.html" />
     <Content Include="Scripts\app\usermanage\usersCtrl.js" />

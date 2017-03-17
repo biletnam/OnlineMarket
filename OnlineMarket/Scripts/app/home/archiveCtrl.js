@@ -1,9 +1,9 @@
 ﻿(function (app) {
-    'use strict';
+    "use strict";
 
-    app.controller('archiveCtrl', archiveCtrl);
+    app.controller("archiveCtrl", archiveCtrl);
 
-    archiveCtrl.$inject = ['$scope', "$rootScope", 'apiService'];
+    archiveCtrl.$inject = ["$scope", "$rootScope", "apiService"];
 
     function archiveCtrl($scope, $rootScope, apiService) {
         $scope.pageSize = 5;
@@ -11,7 +11,7 @@
         getarchive();
 
         function getarchive() {
-            apiService.get('/api/archive/getarchive', { email: $scope.userData.username },
+            apiService.get("/api/archive/getarchive", { email: $scope.userData.username },
             archiveLoadComplete,
             archiveLoadFailed);
         }
@@ -29,4 +29,4 @@
         }
     }
 
-})(angular.module('onlineMarket'));
+})(angular.module("onlineMarket"));

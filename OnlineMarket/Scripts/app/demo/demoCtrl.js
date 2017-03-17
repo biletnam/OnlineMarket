@@ -1,9 +1,9 @@
 ﻿(function (app) {
-    'use strict';
+    "use strict";
 
-    app.controller('demoCtrl', demoCtrl);
+    app.controller("demoCtrl", demoCtrl);
 
-    demoCtrl.$inject = ['$scope', 'apiService', 'indexedDbService', '$timeout', "$rootScope"];
+    demoCtrl.$inject = ["$scope", "apiService", "indexedDbService", "$timeout", "$rootScope"];
 
     function demoCtrl($scope, apiService, indexedDbService, $timeout, $rootScope) {
         $scope.resourcesToSell = [];
@@ -16,7 +16,7 @@
         getResources();
 
         function getResources() {
-            apiService.get('/api/operations', null,
+            apiService.get("/api/operations", null,
             resourcesLoadComplete,
             loadFailed);
         }
@@ -39,7 +39,7 @@
 
         function getNewPrices() {
             if ($scope.userData.username != null) {
-                apiService.get('/api/operations/sendcurrentprices', null,
+                apiService.get("/api/operations/sendcurrentprices", null,
                 pricesLoadComplete,
                 null);
             }
@@ -133,4 +133,4 @@
 
     }
 
-})(angular.module('onlineMarket'));
+})(angular.module("onlineMarket"));

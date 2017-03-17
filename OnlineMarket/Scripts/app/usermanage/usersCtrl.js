@@ -1,7 +1,7 @@
 ﻿(function (app) {
-    'use strict';
+    "use strict";
 
-    app.controller('usersCtrl', usersCtrl);
+    app.controller("usersCtrl", usersCtrl);
 
     usersCtrl.$inject = ["$scope", "$rootScope", "apiService"];
 
@@ -11,14 +11,8 @@
         $scope.currentPage = 1;
         getUsers();
 
-        //var hub = $.connection.appHub;
-
-        //$.connection.hub.start().done(function () { });
-        //hub.client.addUser = function (user) {
-        //    $scope.users.push(user);
-        //};
         function getUsers() {
-            apiService.get('/api/usermanager', null,
+            apiService.get("/api/usermanager", null,
             usersLoadComplete,
             loadFailed);
         }
@@ -36,7 +30,7 @@
         }
 
         function changeRole(userId, role) {
-            apiService.post('/api/usermanager', angular.toJson({ Id: userId, RoleId: role}),
+            apiService.post("/api/usermanager", angular.toJson({ Id: userId, RoleId: role}),
             changingComplete,
             loadFailed);
         }
@@ -49,4 +43,4 @@
     }
 
 
-})(angular.module('onlineMarket'));
+})(angular.module("onlineMarket"));

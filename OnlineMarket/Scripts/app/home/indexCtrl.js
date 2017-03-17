@@ -1,9 +1,9 @@
 ﻿(function (app) {
-    'use strict';
+    "use strict";
 
-    app.controller('indexCtrl', indexCtrl);
+    app.controller("indexCtrl", indexCtrl);
 
-    indexCtrl.$inject = ['$scope', "$rootScope", 'apiService', "$timeout"];
+    indexCtrl.$inject = ["$scope", "$rootScope", "apiService", "$timeout"];
 
     function indexCtrl($scope, $rootScope, apiService, $timeout) {
         $scope.buyResource = buyResource;
@@ -15,7 +15,7 @@
 
         function getResources() {
             if ($scope.userData.username != null) {
-                apiService.get('/api/operations', { email: $scope.userData.username },
+                apiService.get("/api/operations", { email: $scope.userData.username },
                 resourcesLoadComplete,
                 loadFailed);
             }
@@ -36,7 +36,7 @@
 
         function getNewPrices() {
             if ($scope.userData.username != null) {
-                apiService.get('/api/operations/sendcurrentprices', null,
+                apiService.get("/api/operations/sendcurrentprices", null,
                 pricesLoadComplete,
                 null);
             }
@@ -53,20 +53,20 @@
         }
 
         function buyResource(resourceId, resourceTitle, quantity, price) {
-            apiService.post('/api/deal', { Email: $scope.userData.username, ResourceId: resourceId, ResourceTitle: resourceTitle, Quantity: quantity, Price: price, IsPurchase: true },
+            apiService.post("/api/deal", { Email: $scope.userData.username, ResourceId: resourceId, ResourceTitle: resourceTitle, Quantity: quantity, Price: price, IsPurchase: true },
                 dealComplete,
                 loadFailed);
 
         }
 
         function sellResource(resourceId, resourceTitle, quantity, price) {
-            apiService.post('/api/deal', { Email: $scope.userData.username, ResourceId: resourceId, ResourceTitle: resourceTitle, Quantity: quantity, Price: price, IsPurchase: false },
+            apiService.post("/api/deal", { Email: $scope.userData.username, ResourceId: resourceId, ResourceTitle: resourceTitle, Quantity: quantity, Price: price, IsPurchase: false },
                 dealComplete,
                 loadFailed);
             }
 
         function refillBalance(amount) {
-            apiService.post('/api/account/refillbalance', { Amount: amount, Email: $scope.userData.username },
+            apiService.post("/api/account/refillbalance", { Amount: amount, Email: $scope.userData.username },
                 dealComplete,
                 loadFailed);
         }
@@ -109,4 +109,4 @@
             }
         }
     }
-})(angular.module('onlineMarket'));
+})(angular.module("onlineMarket"));
