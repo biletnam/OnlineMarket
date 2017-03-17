@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html ng-app="onlineMarket">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <base href="/">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body ng-controller="rootCtrl">
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" ng-href="/">Online Market</a>
+
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li><a ng-href="/register" ng-if="!userData.isUserLoggedIn">Sign up</a></li>
+                        <li><a ng-href="/login" ng-if="!userData.isUserLoggedIn">Sign in</a></li>
+                        <li><a ng-href="/demo" ng-click="" ng-if="!userData.isUserLoggedIn">Try demo</a></li>
+
+                        <li><a ng-href="/" ng-if="userData.isUserLoggedIn">Index</a></li>
+                        <li><a ng-href="#" ng-click="logout()" ng-if="userData.isUserLoggedIn">Log out</a></li>
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content" style="padding-top: 50px" ng-view>
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/jquery.signalR-2.2.1.js")
+    @Scripts.Render("~/signalr/hubs")
+    @Scripts.Render("~/Scripts/angular.js")
+    @Scripts.Render("~/Scripts/dirPagination.js")
+    @Scripts.Render("~/Scripts/angular-route.js")
+    @Scripts.Render("~/Scripts/angular-cookies.js")
+    @Scripts.Render("~/Scripts/angular-base64.js")
+    @Scripts.Render("~/Scripts/app/app.js")
+    @Scripts.Render("~/Scripts/app/rootCtrl.js")
+    @Scripts.Render("~/Scripts/app/services/apiService.js")
+    @Scripts.Render("~/Scripts/app/services/indexedDbService.js")
+    @Scripts.Render("~/Scripts/app/services/membershipService.js")
+    @Scripts.Render("~/Scripts/app/services/hubService.js")
+    @Scripts.Render("~/Scripts/app/home/indexCtrl.js")
+    @Scripts.Render("~/Scripts/app/home/archiveCtrl.js")
+    @Scripts.Render("~/Scripts/app/usermanage/usersCtrl.js")
+    @Scripts.Render("~/Scripts/app/account/loginCtrl.js")
+    @Scripts.Render("~/Scripts/app/account/registerCtrl.js")
+    @Scripts.Render("~/Scripts/app/demo/demoCtrl.js")
+    @Scripts.Render("~/Scripts/app/error/notfoundCtrl.js")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
