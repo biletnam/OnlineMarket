@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNet.SignalR;
+﻿using System;
+using System.Threading;
+using Microsoft.AspNet.SignalR;
 using OnlineMarket.BusinessLogicLayer.Interfaces;
 using OnlineMarket.Interfaces;
-using System;
-using System.Threading;
 
 namespace OnlineMarket.Servicies
 {
@@ -10,42 +10,36 @@ namespace OnlineMarket.Servicies
     {
         private static IPricesGenerator _instance;
 
-        private IResourceService _resourceService;
+        private readonly IHubContext _appHub;
 
-        private IHubContext _appHub;
+        private const double MinValue = 10.0;
 
-        private const double _minValue = 10.0;
+        private const double MaxValue = 50.0;
 
-        private const double _maxValue = 50.0;
-
-        private const int _timeInterval = 100000;
+        private const int TimeInterval = 100000;
 
         public double[] CurrentPrices { get; set; }
 
         private PricesGenerator(IResourceService resourceService, IHubContext hubContext)
         {
-            _resourceService = resourceService;
             _appHub = hubContext;
-            var count = _resourceService.GetResources().Count;
+            var count = resourceService.GetResources().Count;
             CurrentPrices = new double[count];
             ThreadPool.QueueUserWorkItem(Generate, count);
         }
 
         public static IPricesGenerator GetInstance(IResourceService resourceService, IHubContext hubContext)
         {
-            if (_instance == null)
-                _instance = new PricesGenerator(resourceService, hubContext);
-
-            return _instance;
+            return _instance ?? (_instance = new PricesGenerator(resourceService, hubContext));
         }
 
         private double[] GetNewPrices(int count, Random random)
         {
             var prices = new double[count];
 
-            for(var i =0; i< count; i++)
+            for (var i = 0; i < count; i++)
             {
-                prices[i] = random.NextDouble()*(_maxValue - _minValue) + _minValue;
+                prices[i] = random.NextDouble()*(MaxValue - MinValue) + MinValue;
             }
 
             CurrentPrices = prices;
@@ -55,10 +49,10 @@ namespace OnlineMarket.Servicies
         public void Generate(object count)
         {
             var random = new Random();
-            while(true)
+            while (true)
             {
-                _appHub.Clients.All.addNewPrices(GetNewPrices((int)count,random));
-                Thread.Sleep(_timeInterval);
+                _appHub.Clients.All.addNewPrices(GetNewPrices((int) count, random));
+                Thread.Sleep(TimeInterval);
             }
         }
     }

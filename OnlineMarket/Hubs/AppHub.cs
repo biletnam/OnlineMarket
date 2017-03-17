@@ -8,7 +8,5 @@ namespace OnlineMarket.Hubs
         {
             Clients.All.addMessage(message);
         }
-        
-
     }
 }

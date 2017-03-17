@@ -1,16 +1,17 @@
-﻿using log4net;
+﻿using System.Reflection;
 using System.Web.Http.Filters;
+using log4net;
 
 namespace OnlineMarket.Filters
 {
     public class LogExceptionFilterAttribute : ExceptionFilterAttribute
     {
-        protected static readonly ILog _logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        protected static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         public override void OnException(HttpActionExecutedContext actionExecutedContext)
         {
             var exception = actionExecutedContext.Exception;
-            _logger.Error(exception);
+            Logger.Error(exception);
 
             base.OnException(actionExecutedContext);
         }
