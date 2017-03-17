@@ -1,16 +1,17 @@
-﻿using OnlineMarket.DataAccessLayer.Entities;
-using System.Data.Entity;
+﻿using System.Data.Entity;
+using OnlineMarket.DataAccessLayer.Entities;
 
 namespace OnlineMarket.DataAccessLayer
 {
     public class OnlineMarketContext : DbContext
     {
-        public OnlineMarketContext() : base("OnlineMarketDB")
-        { }
-
         static OnlineMarketContext()
         {
             Database.SetInitializer(new DbInitializer());
+        }
+
+        public OnlineMarketContext() : base("OnlineMarketDB")
+        {
         }
 
         public DbSet<User> Users { get; set; }

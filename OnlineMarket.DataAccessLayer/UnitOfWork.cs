@@ -1,24 +1,26 @@
-﻿using OnlineMarket.DataAccessLayer.Entities;
+﻿using System;
+using OnlineMarket.DataAccessLayer.Entities;
 using OnlineMarket.DataAccessLayer.Interfaces;
-using System;
 
 namespace OnlineMarket.DataAccessLayer
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private OnlineMarketContext _context;
+        private readonly OnlineMarketContext _context;
 
-        private IRepository<Deal> _dealRepository;
+        private readonly IRepository<Deal> _dealRepository;
 
-        private IRepository<Resource> _resourceRepository;
+        private readonly IRepository<Resource> _resourceRepository;
 
-        private IRepository<User> _userRepository;
+        private readonly IRepository<User> _userRepository;
 
-        private IRepository<UserResources> _userResourcesRepository;
+        private readonly IRepository<UserResources> _userResourcesRepository;
 
-        private bool _disposed = false;
+        private bool _disposed;
 
-        public UnitOfWork(OnlineMarketContext context, IRepository<Deal> dealRepository, IRepository<Resource> resourceRepository, IRepository<User> userRepository, IRepository<UserResources> userResourcesRepository)
+        public UnitOfWork(OnlineMarketContext context, IRepository<Deal> dealRepository,
+            IRepository<Resource> resourceRepository, IRepository<User> userRepository,
+            IRepository<UserResources> userResourcesRepository)
         {
             _context = context;
             _dealRepository = dealRepository;
@@ -74,25 +76,23 @@ namespace OnlineMarket.DataAccessLayer
             _context.SaveChanges();
         }
 
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_disposed) return;
-
-            if (disposing)
-            {
-                if (_context != null)
-                    _context.Dispose();
-
-                _disposed = true;
-            }
-        }
-
         public void Dispose()
         {
             if (!_disposed)
             {
                 Dispose(true);
                 GC.SuppressFinalize(this);
+            }
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed) return;
+
+            if (disposing)
+            {
+                _context?.Dispose();
+                _disposed = true;
             }
         }
     }

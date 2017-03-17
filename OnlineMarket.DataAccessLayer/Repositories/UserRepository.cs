@@ -1,15 +1,15 @@
-﻿using OnlineMarket.DataAccessLayer.Entities;
-using OnlineMarket.DataAccessLayer.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using OnlineMarket.DataAccessLayer.Entities;
+using OnlineMarket.DataAccessLayer.Interfaces;
 
 namespace OnlineMarket.DataAccessLayer.Repositories
 {
     public class UserRepository : IRepository<User>
     {
-        private OnlineMarketContext _context;
+        private readonly OnlineMarketContext _context;
 
         public UserRepository(OnlineMarketContext context)
         {
