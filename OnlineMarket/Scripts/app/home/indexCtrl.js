@@ -25,7 +25,10 @@
             if (result.data.success) {
                 $rootScope.resources = result.data.operations;
                 profitSum();
-                getNewPrices();
+                $timeout(function () {
+                    getNewPrices();
+                },200)
+                
             } else {
                 alert(result.data.message);
             }

@@ -18,6 +18,8 @@ namespace OnlineMarket.Servicies
 
         private const double _maxValue = 50.0;
 
+        private const int _timeInterval = 100000;
+
         public double[] CurrentPrices { get; set; }
 
         private PricesGenerator(IResourceService resourceService, IHubContext hubContext)
@@ -56,7 +58,7 @@ namespace OnlineMarket.Servicies
             while(true)
             {
                 _appHub.Clients.All.addNewPrices(GetNewPrices((int)count,random));
-                Thread.Sleep(100000);
+                Thread.Sleep(_timeInterval);
             }
         }
     }
