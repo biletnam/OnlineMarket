@@ -3,9 +3,7 @@
 
     app.factory("indexedDbService", indexedDbService);
 
-    indexedDbService.$inject = ["apiService", "$timeout"];
-
-    function indexedDbService(apiService, $timeout) {
+    function indexedDbService() {
         var db = null;
 
         var init = new Promise(function (resolve, reject) {
@@ -16,7 +14,7 @@
                 db.createObjectStore("deals", { keyPath: "id", autoIncrement: true });
                 db.createObjectStore("userResources", { keyPath: "title"});
             };
-            request.onsuccess = function (event) {
+            request.onsuccess = function () {
                 db = request.result;
                 resolve();
             }
@@ -27,7 +25,7 @@
             var tr = db.transaction("userResources", "readwrite");
             var store = tr.objectStore("userResources");
             var request = store.getAll();
-            request.onsuccess = function (event) {
+            request.onsuccess = function () {
                 results = request.result;
                 resolve(results);
             };
@@ -75,7 +73,7 @@
                 var tr = db.transaction(["deals"], "readwrite");
                 var store = tr.objectStore("deals");
                 var request = store.add(deal);
-                request.onsuccess = function (event) {
+                request.onsuccess = function () {
                     dealLoadComplete(deal);
                 }
                 request.onerror = function () {
@@ -103,7 +101,7 @@
             addMultiple: addMultiple,
             get: get,
             getDeals: getDeals,
-            deal: deal,
+            deal: deal
         };
 
         return service;

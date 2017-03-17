@@ -1,4 +1,4 @@
-﻿(function (app) {
+﻿(function(app) {
     "use strict";
 
     app.controller("demoCtrl", demoCtrl);
@@ -17,31 +17,31 @@
 
         function getResources() {
             apiService.get("/api/operations", null,
-            resourcesLoadComplete,
-            loadFailed);
+                resourcesLoadComplete,
+                loadFailed);
         }
 
         function getBalance(deals) {
-            $timeout(function () {
+            $timeout(function() {
                 for (var i in deals) {
                     if (deals[i].purchase) {
                         $scope.balance -= deals[i].amount;
                         $scope.profitSum -= deals[i].amount;
-                        $scope.profits[indexOf($scope.resourcesToSell,deals[i].title)] -= deals[i].amount;
+                        $scope.profits[indexOf($scope.resourcesToSell, deals[i].title)] -= deals[i].amount;
                     } else {
                         $scope.balance += deals[i].amount;
                         $scope.profitSum += deals[i].amount;
-                        $scope.profits[indexOf($scope.resourcesToSell,deals[i].title)] += deals[i].amount;
-                    } 
+                        $scope.profits[indexOf($scope.resourcesToSell, deals[i].title)] += deals[i].amount;
+                    }
                 }
-            }) 
+            });
         }
 
         function getNewPrices() {
             if ($scope.userData.username != null) {
                 apiService.get("/api/operations/sendcurrentprices", null,
-                pricesLoadComplete,
-                null);
+                    pricesLoadComplete,
+                    null);
             }
         }
 
@@ -66,24 +66,24 @@
             } else {
                 alert(result.data.message);
             }
-           
+
         }
 
         function checkResults(results) {
-            $timeout(function () {
-                if (results.length == 0) {
+            $timeout(function() {
+                if (results.length === 0) {
                     initializeResourcesToSell();
                     indexedDbService.addMultiple($scope.resourcesToSell);
                 } else {
                     $scope.resourcesToSell = results;
                 }
-            })
+            });
         }
 
-        function loadFailed(result) {
-            $timeout(function () {
+        function loadFailed() {
+            $timeout(function() {
                 alert("Something is wrong, please, try later.");
-            })
+            });
         }
 
         function initializeResourcesToSell() {
@@ -93,16 +93,16 @@
         }
 
         function buyResource(title, quantity, price) {
-            indexedDbService.deal({ title: title, quantity: quantity, amount: quantity * price, purchase: true }, buyResourceComplete, loadFailed)
+            indexedDbService.deal({ title: title, quantity: quantity, amount: quantity * price, purchase: true }, buyResourceComplete, loadFailed);
         }
 
         function sellResource(title, quantity) {
             var price = $rootScope.resourcesToBuy[indexOf($rootScope.resourcesToBuy, title)].Price;
-            indexedDbService.deal({ title: title, quantity: quantity, amount: quantity * price, purchase: false }, sellResourceComplete, loadFailed)
+            indexedDbService.deal({ title: title, quantity: quantity, amount: quantity * price, purchase: false }, sellResourceComplete, loadFailed);
         }
 
         function buyResourceComplete(deal) {
-            $timeout(function () {
+            $timeout(function() {
                 $scope.balance -= deal.amount;
                 indexedDbService.addResource({ title: deal.title, quantity: deal.quantity }, loadFailed);
                 var i = indexOf($scope.resourcesToSell, deal.title);
@@ -113,24 +113,23 @@
         }
 
         function sellResourceComplete(deal) {
-            $timeout(function () {
+            $timeout(function() {
                 $scope.balance += deal.amount;
                 indexedDbService.removeResource({ title: deal.title, quantity: deal.quantity }, loadFailed);
                 var i = indexOf($scope.resourcesToSell, deal.title);
                 $scope.resourcesToSell[i].quantity -= deal.quantity;
                 $scope.profits[i] += deal.amount;
                 $scope.profitSum += deal.amount;
-            })
+            });
         }
 
         function indexOf(resources, title) {
             for (var i = 0; i < resources.length; i++) {
-                if (resources[i].Title == title || resources[i].title == title) {
+                if (resources[i].Title === title || resources[i].title === title) {
                     return i;
                 }
             }
         }
-
     }
 
 })(angular.module("onlineMarket"));

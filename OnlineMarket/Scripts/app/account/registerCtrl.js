@@ -1,4 +1,4 @@
-﻿(function (app) {
+﻿(function(app) {
     "use strict";
 
     app.controller("registerCtrl", registerCtrl);
@@ -10,7 +10,7 @@
         $scope.user = {};
 
         function register() {
-            membershipService.register($scope.user, registerCompleted)
+            membershipService.register($scope.user, registerCompleted);
         }
 
         function registerCompleted(result) {
@@ -18,8 +18,7 @@
                 membershipService.saveCredentials($scope.user);
                 $scope.userData.displayUserInfo();
                 $location.path("/");
-            }
-            else {
+            } else {
                 alert(result.data.message);
             }
         }

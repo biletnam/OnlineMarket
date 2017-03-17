@@ -1,4 +1,4 @@
-﻿(function (app) {
+﻿(function(app) {
     "use strict";
 
     app.controller("archiveCtrl", archiveCtrl);
@@ -12,8 +12,8 @@
 
         function getarchive() {
             apiService.get("/api/archive/getarchive", { email: $scope.userData.username },
-            archiveLoadComplete,
-            archiveLoadFailed);
+                archiveLoadComplete,
+                archiveLoadFailed);
         }
 
         function archiveLoadComplete(result) {

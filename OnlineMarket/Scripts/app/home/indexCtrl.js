@@ -1,4 +1,4 @@
-﻿(function (app) {
+﻿(function(app) {
     "use strict";
 
     app.controller("indexCtrl", indexCtrl);
@@ -16,8 +16,8 @@
         function getResources() {
             if ($scope.userData.username != null) {
                 apiService.get("/api/operations", { email: $scope.userData.username },
-                resourcesLoadComplete,
-                loadFailed);
+                    resourcesLoadComplete,
+                    loadFailed);
             }
         }
 
@@ -25,10 +25,10 @@
             if (result.data.success) {
                 $rootScope.resources = result.data.operations;
                 profitSum();
-                $timeout(function () {
+                $timeout(function() {
                     getNewPrices();
-                },200)
-                
+                }, 200);
+
             } else {
                 alert(result.data.message);
             }
@@ -37,8 +37,8 @@
         function getNewPrices() {
             if ($scope.userData.username != null) {
                 apiService.get("/api/operations/sendcurrentprices", null,
-                pricesLoadComplete,
-                null);
+                    pricesLoadComplete,
+                    null);
             }
         }
 
@@ -63,7 +63,7 @@
             apiService.post("/api/deal", { Email: $scope.userData.username, ResourceId: resourceId, ResourceTitle: resourceTitle, Quantity: quantity, Price: price, IsPurchase: false },
                 dealComplete,
                 loadFailed);
-            }
+        }
 
         function refillBalance(amount) {
             apiService.post("/api/account/refillbalance", { Amount: amount, Email: $scope.userData.username },
@@ -90,7 +90,7 @@
                 }
             } else {
                 alert(result.data.message);
-            } 
+            }
         }
 
         function profitSum() {
@@ -98,14 +98,6 @@
             var profits = $rootScope.resources.Profit;
             for (var i in profits) {
                 $scope.profitSum += profits[i];
-            }
-        }
-
-        function indexOf(resources, title) {
-            for (var i = 0; i < resources.length; i++) {
-                if (resources[i].Title == title || resources[i].title == title) {
-                    return i;
-                }
             }
         }
     }

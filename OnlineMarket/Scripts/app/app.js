@@ -1,4 +1,4 @@
-﻿(function () {
+﻿(function() {
     "use strict";
 
     angular.module("onlineMarket", ["ngRoute", "ngCookies", "base64", "angularUtils.directives.dirPagination"])
@@ -54,8 +54,8 @@
         }
     }
 
-    isAuthenticated.$inject = ["membershipService", "$rootScope","$location"];
-     
+    isAuthenticated.$inject = ["membershipService", "$rootScope", "$location"];
+
     function isAuthenticated(membershipService, $rootScope, $location) {
         if (!membershipService.isUserLoggedIn()) {
             $rootScope.previousState = $location.path();

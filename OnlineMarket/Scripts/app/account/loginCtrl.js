@@ -1,4 +1,4 @@
-﻿(function (app) {
+﻿(function(app) {
     "use strict";
 
     app.controller("loginCtrl", loginCtrl);
@@ -10,7 +10,7 @@
         $scope.user = {};
 
         function login() {
-            membershipService.login($scope.user, loginCompleted)
+            membershipService.login($scope.user, loginCompleted);
         }
 
         function loginCompleted(result) {
@@ -21,8 +21,7 @@
                     $location.path($rootScope.previousState);
                 else
                     $location.path("/");
-            }
-            else {
+            } else {
                 alert(result.data.message);
             }
         }

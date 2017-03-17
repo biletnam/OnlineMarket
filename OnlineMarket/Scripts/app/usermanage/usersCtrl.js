@@ -1,4 +1,4 @@
-﻿(function (app) {
+﻿(function(app) {
     "use strict";
 
     app.controller("usersCtrl", usersCtrl);
@@ -13,8 +13,8 @@
 
         function getUsers() {
             apiService.get("/api/usermanager", null,
-            usersLoadComplete,
-            loadFailed);
+                usersLoadComplete,
+                loadFailed);
         }
 
         function usersLoadComplete(result) {
@@ -30,9 +30,9 @@
         }
 
         function changeRole(userId, role) {
-            apiService.post("/api/usermanager", angular.toJson({ Id: userId, RoleId: role}),
-            changingComplete,
-            loadFailed);
+            apiService.post("/api/usermanager", angular.toJson({ Id: userId, RoleId: role }),
+                changingComplete,
+                loadFailed);
         }
 
         function changingComplete(result) {

@@ -48,15 +48,6 @@
             $http.defaults.headers.common.Authorization = "";
         };
 
-        function loginFailed(response) {
-            notificationService.displayError(response.data);
-        }
-
-        function registrationFailed(response) {
-
-            notificationService.displayError("Registration failed. Try again.");
-        }
-
         function isUserLoggedIn() {
             return $rootScope.repository.loggedUser != null;
         }
@@ -64,7 +55,7 @@
         function isUserAdmin(user, completed) {
             apiService.get("/api/account", user,
                 completed,
-                null)
+                null);
         }
 
         return service;

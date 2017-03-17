@@ -16,7 +16,7 @@
                     .then(function (result) {
                         success(result);
                     }, function (error) {
-                        if (error.status == "401") {
+                        if (error.status === "401") {
                             $rootScope.previousState = $location.path();
                             $location.path("/login");
                         }
@@ -31,7 +31,7 @@
                     .then(function (result) {
                         success(result);
                     }, function (error) {
-                        if (error.status == "401") {
+                        if (error.status === "401") {
                             $rootScope.previousState = $location.path();
                             $location.path("/login");
                         }

@@ -1,4 +1,4 @@
-﻿(function (app) {
+﻿(function(app) {
     "use strict";
 
     app.controller("rootCtrl", rootCtrl);
@@ -14,26 +14,25 @@
 
         var hub = $.connection.appHub;
 
-        $.connection.hub.start().done(function () {});
+        $.connection.hub.start().done(function() {});
 
-        hub.client.addActivity = function (message) {
+        hub.client.addActivity = function(message) {
             $timeout(function() {
                 if ($scope.activities != undefined) {
                     $scope.activities.unshift(message);
                 }
             });
-        }
-
-        hub.client.addUser = function (user) {
+        };
+        hub.client.addUser = function(user) {
             if ($rootScope.users != undefined) {
                 $rootScope.users.push(user);
                 $rootScope.$apply();
             }
         };
 
-        hub.client.addNewPrices = function (prices) {
+        hub.client.addNewPrices = function(prices) {
             $timeout(function() {
-                if ($rootScope.resources != undefined && $rootScope.resources.ResourcesToBuy != undefined) {
+                    if ($rootScope.resources != undefined && $rootScope.resources.ResourcesToBuy != undefined) {
                         for (var i in $rootScope.resources.ResourcesToBuy) {
                             $rootScope.resources.ResourcesToBuy[i].Price = prices[i];
                         }
@@ -47,14 +46,14 @@
                     }
                 },
                 0);
-            
-        }
+
+        };
 
         function displayUserInfo() {
             $scope.userData.isUserLoggedIn = membershipService.isUserLoggedIn();
             if ($scope.userData.isUserLoggedIn) {
                 $scope.userData.username = $rootScope.repository.loggedUser.username;
-                membershipService.isUserAdmin({ email: $scope.userData.username }, userIsAdmin)
+                membershipService.isUserAdmin({ email: $scope.userData.username }, userIsAdmin);
             }
         }
 
