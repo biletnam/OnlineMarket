@@ -3,6 +3,7 @@ using Microsoft.AspNet.SignalR;
 using OnlineMarket.BusinessLogicLayer.Interfaces;
 using OnlineMarket.Interfaces;
 using OnlineMarket.Models;
+using OnlineMarket.Servicies;
 using System;
 using System.Linq;
 using System.Net;
@@ -26,14 +27,14 @@ namespace OnlineMarket.Controllers
 
         private ILog _logger;
 
-        public OperationsController(IResourceService resourceService, IUserResourcesService userResourcesService, IDealService dealService, IPricesGenerator pricesGenerator, IHubContext hubContext, ILog logger)
+        public OperationsController(IResourceService resourceService, IUserResourcesService userResourcesService, IDealService dealService, IHubContext hubContext, ILog logger)
         {
             _resourceService = resourceService;
             _userResourcesService = userResourcesService;
             _dealService = dealService;
-            _pricesGenerator = pricesGenerator;
             _appHub = hubContext;
             _logger = logger;
+            _pricesGenerator = PricesGenerator.GetInstance(_resourceService, _appHub);
         }
 
         [HttpGet]

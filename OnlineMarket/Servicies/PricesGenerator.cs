@@ -8,6 +8,8 @@ namespace OnlineMarket.Servicies
 {
     public class PricesGenerator : IPricesGenerator
     {
+        private static IPricesGenerator _instance;
+
         private IResourceService _resourceService;
 
         private IHubContext _appHub;
@@ -18,13 +20,21 @@ namespace OnlineMarket.Servicies
 
         public double[] CurrentPrices { get; set; }
 
-        public PricesGenerator(IResourceService resourceService, IHubContext hubContext)
+        private PricesGenerator(IResourceService resourceService, IHubContext hubContext)
         {
             _resourceService = resourceService;
             _appHub = hubContext;
             var count = _resourceService.GetResources().Count;
             CurrentPrices = new double[count];
-            ThreadPool.QueueUserWorkItem(Generate,count);
+            ThreadPool.QueueUserWorkItem(Generate, count);
+        }
+
+        public static IPricesGenerator GetInstance(IResourceService resourceService, IHubContext hubContext)
+        {
+            if (_instance == null)
+                _instance = new PricesGenerator(resourceService, hubContext);
+
+            return _instance;
         }
 
         private double[] GetNewPrices(int count, Random random)

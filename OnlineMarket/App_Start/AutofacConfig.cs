@@ -45,10 +45,6 @@ namespace OnlineMarket.App_Start
             builder.RegisterType<OnlineMarketContext>()
                    .InstancePerRequest();
 
-            builder.RegisterType<PricesGenerator>()
-                .As<IPricesGenerator>()
-                .InstancePerRequest();
-
             builder.RegisterType<UserRepository>()
                 .As<IRepository<User>>()
                 .InstancePerRequest();
