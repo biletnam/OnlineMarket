@@ -11,11 +11,8 @@ using OnlineMarket.DataAccessLayer.Entities;
 using OnlineMarket.DataAccessLayer.Interfaces;
 using OnlineMarket.DataAccessLayer.Repositories;
 using OnlineMarket.Hubs;
-using OnlineMarket.Interfaces;
-using OnlineMarket.Servicies;
 using OnlineMarket.Utilities.Interfaces;
 using OnlineMarket.Utilities.Servicies;
-using System;
 using System.Reflection;
 using System.Web.Http;
 
@@ -27,20 +24,19 @@ namespace OnlineMarket.App_Start
 
         public static void Initialize(HttpConfiguration config, IDependencyResolver dependencyResolver)
         {
-            Initialize(config, dependencyResolver, RegisterServices(new ContainerBuilder(),dependencyResolver));
+            Initialize(config, RegisterServices(new ContainerBuilder(), dependencyResolver));
         }
 
-        public static void Initialize(HttpConfiguration config, IDependencyResolver dependencyResolver, IContainer container)
+        public static void Initialize(HttpConfiguration config, IContainer container)
         {
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
-            dependencyResolver = new AutofacDependencyResolver(container);
         }
 
-        private static IContainer RegisterServices(ContainerBuilder builder, IDependencyResolver ds)
+        private static IContainer RegisterServices(ContainerBuilder builder, IDependencyResolver dependencyResolver)
         {
-            builder.Register(i => ds.Resolve<IConnectionManager>().GetHubContext<AppHub>()).ExternallyOwned();
+            builder.Register(i => dependencyResolver.Resolve<IConnectionManager>().GetHubContext<AppHub>()).ExternallyOwned();
 
-            builder.Register(c => LogManager.GetLogger(typeof(Object))).As<ILog>();
+            builder.Register(c => LogManager.GetLogger(typeof(object))).As<ILog>();
 
             builder.RegisterType<OnlineMarketContext>()
                    .InstancePerRequest();
