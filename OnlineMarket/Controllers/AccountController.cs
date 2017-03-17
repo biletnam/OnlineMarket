@@ -1,25 +1,23 @@
-﻿using AutoMapper;
-using log4net;
-using Microsoft.AspNet.SignalR;
-using OnlineMarket.BusinessLogicLayer;
-using OnlineMarket.BusinessLogicLayer.Interfaces;
-using OnlineMarket.DataAccessLayer.Entities;
-using OnlineMarket.Models;
-using System;
+﻿using System;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using AutoMapper;
+using log4net;
+using Microsoft.AspNet.SignalR;
+using OnlineMarket.BusinessLogicLayer.Interfaces;
+using OnlineMarket.Models;
 
 namespace OnlineMarket.Controllers
 {
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
-        private IMembershipService _membershipService;
+        private readonly IMembershipService _membershipService;
 
-        private IHubContext _appHub;
+        private readonly IHubContext _appHub;
 
-        private ILog _logger;
+        private readonly ILog _logger;
 
         public AccountController(IMembershipService membershipService, IHubContext hubContext, ILog logger)
         {
@@ -34,18 +32,22 @@ namespace OnlineMarket.Controllers
         {
             try
             {
-                if (!ModelState.IsValid) return request.CreateResponse(HttpStatusCode.BadRequest, new { success = false, message = "Input all fields." });
+                if (!ModelState.IsValid)
+                    return request.CreateResponse(HttpStatusCode.BadRequest,
+                        new {success = false, message = "Input all fields."});
 
-                MembershipContext membershipContext = _membershipService.ValidateUser(loginViewModel.Email, loginViewModel.Password);
+                var membershipContext = _membershipService.ValidateUser(loginViewModel.Email, loginViewModel.Password);
 
-                if (membershipContext.User == null) return request.CreateResponse(HttpStatusCode.OK, new { success = false, message = "Check email and password" });
-
-                return request.CreateResponse(HttpStatusCode.OK, new { success = true });
+                return membershipContext.User == null
+                    ? request.CreateResponse(HttpStatusCode.OK,
+                        new {success = false, message = "Check email and password"})
+                    : request.CreateResponse(HttpStatusCode.OK, new {success = true});
             }
             catch (Exception e)
             {
                 _logger.Error(e);
-                return request.CreateResponse(HttpStatusCode.OK, new { success = false, message = "Can't login." });
+
+                return request.CreateResponse(HttpStatusCode.OK, new {success = false, message = "Can't login."});
             }
         }
 
@@ -55,18 +57,23 @@ namespace OnlineMarket.Controllers
         {
             try
             {
-                if (!ModelState.IsValid) return request.CreateResponse(HttpStatusCode.BadRequest, new { success = false, message = "Input all fields." });
+                if (!ModelState.IsValid)
+                    return request.CreateResponse(HttpStatusCode.BadRequest,
+                        new {success = false, message = "Input all fields."});
 
-                var tryFindUser = _membershipService.GetUserByEmail(registrationViewModel.Email);
+                _membershipService.GetUserByEmail(registrationViewModel.Email);
 
-                return request.CreateResponse(HttpStatusCode.OK, new { success = false, message = "You can't use this login." });   
+                return request.CreateResponse(HttpStatusCode.OK,
+                    new {success = false, message = "You can't use this login."});
             }
             catch
             {
-                User user = _membershipService.CreateUser(registrationViewModel.Email, registrationViewModel.Password);
+                var user = _membershipService.CreateUser(registrationViewModel.Email, registrationViewModel.Password);
                 _appHub.Clients.All.addUser(Mapper.Map<UserViewModel>(user));
 
-                return user != null ? request.CreateResponse(HttpStatusCode.OK, new { success = true }) : request.CreateResponse(HttpStatusCode.OK, new { success = false, message="Can't create user." });
+                return user != null
+                    ? request.CreateResponse(HttpStatusCode.OK, new {success = true})
+                    : request.CreateResponse(HttpStatusCode.OK, new {success = false, message = "Can't create user."});
             }
         }
 
@@ -75,31 +82,37 @@ namespace OnlineMarket.Controllers
         {
             try
             {
-                return request.CreateResponse(HttpStatusCode.OK, new { success = true, isAdmin = _membershipService.IsUserAdmin(email)});
+                return request.CreateResponse(HttpStatusCode.OK,
+                    new {success = true, isAdmin = _membershipService.IsUserAdmin(email)});
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 _logger.Error(e);
-                return request.CreateResponse(HttpStatusCode.OK, new { success = false, message = "Can't check user's rights." });
+
+                return request.CreateResponse(HttpStatusCode.OK,
+                    new {success = false, message = "Can't check user's rights."});
             }
         }
 
         [Route("refillbalance")]
         [HttpPost]
-        public HttpResponseMessage RefillBalance(HttpRequestMessage request, [FromBody]UpdateBalanceViewModel updateBalanceViewModel)
+        public HttpResponseMessage RefillBalance(HttpRequestMessage request,
+            [FromBody] UpdateBalanceViewModel updateBalanceViewModel)
         {
             try
             {
                 var user = _membershipService.GetUserByEmail(updateBalanceViewModel.Email);
                 _membershipService.UpdateUserBalance(user, updateBalanceViewModel.Amount, true);
-                return request.CreateResponse(HttpStatusCode.OK, new { success = true, amount = updateBalanceViewModel.Amount, add = true });
+
+                return request.CreateResponse(HttpStatusCode.OK,
+                    new {success = true, amount = updateBalanceViewModel.Amount, add = true});
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 _logger.Error(e);
-                return request.CreateResponse(HttpStatusCode.OK, new { success = false, message = "Can't refill balance" });
+
+                return request.CreateResponse(HttpStatusCode.OK, new {success = false, message = "Can't refill balance"});
             }
         }
     }
-
 }

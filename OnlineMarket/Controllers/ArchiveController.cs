@@ -1,22 +1,22 @@
-﻿using AutoMapper;
-using log4net;
-using OnlineMarket.BusinessLogicLayer.Interfaces;
-using OnlineMarket.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using AutoMapper;
+using log4net;
+using OnlineMarket.BusinessLogicLayer.Interfaces;
+using OnlineMarket.Models;
 
 namespace OnlineMarket.Controllers
 {
     public class ArchiveController : ApiController
     {
-        private IDealService _dealService;
+        private readonly IDealService _dealService;
 
-        private const int _recentActivitiesCount = 5;
+        private const int RecentActivitiesCount = 5;
 
-        private ILog _logger;
+        private readonly ILog _logger;
 
         public ArchiveController(IDealService dealService, ILog logger)
         {
@@ -30,12 +30,15 @@ namespace OnlineMarket.Controllers
             try
             {
                 var deals = _dealService.GetDealsByUser(email);
-                return request.CreateResponse(HttpStatusCode.OK, new { success = true, archive = Mapper.Map<IList<ArchiveViewModel>>(deals)}); 
+
+                return request.CreateResponse(HttpStatusCode.OK,
+                    new {success = true, archive = Mapper.Map<IList<ArchiveViewModel>>(deals)});
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 _logger.Error(e);
-                return request.CreateResponse(HttpStatusCode.OK, new { success = false, message = "Can't load archive." });
+
+                return request.CreateResponse(HttpStatusCode.OK, new {success = false, message = "Can't load archive."});
             }
         }
 
@@ -44,21 +47,24 @@ namespace OnlineMarket.Controllers
         {
             try
             {
-                var activities = _dealService.GetActivities(_recentActivitiesCount);
+                var activities = _dealService.GetActivities(RecentActivitiesCount);
                 var activitiesToString = new List<string>();
 
                 for (var i = activities.Count - 1; i >= 0; i--)
                 {
                     var dealType = activities[i].DealType.Type == "Purchase" ? "bought" : "sold";
-                    activitiesToString.Add($"{activities[i].Quantity} items of {activities[i].Resource.Title} were {dealType}.");
+                    activitiesToString.Add(
+                        $"{activities[i].Quantity} items of {activities[i].Resource.Title} were {dealType}.");
                 }
 
-                return request.CreateResponse(HttpStatusCode.OK, new { success = true, activities = activitiesToString });
+                return request.CreateResponse(HttpStatusCode.OK, new {success = true, activities = activitiesToString});
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 _logger.Error(e);
-                return request.CreateResponse(HttpStatusCode.OK, new { success = false, message = "Can't load recent activities." });
+
+                return request.CreateResponse(HttpStatusCode.OK,
+                    new {success = false, message = "Can't load recent activities."});
             }
         }
     }
