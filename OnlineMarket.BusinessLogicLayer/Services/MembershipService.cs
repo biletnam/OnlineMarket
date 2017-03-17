@@ -1,21 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Principal;
 using OnlineMarket.BusinessLogicLayer.Interfaces;
 using OnlineMarket.DataAccessLayer.Entities;
 using OnlineMarket.DataAccessLayer.Interfaces;
-using System.Linq;
-using System.Security.Principal;
 using OnlineMarket.Utilities.Interfaces;
 
 namespace OnlineMarket.BusinessLogicLayer.Services
 {
     public class MembershipService : IMembershipService
     {
-        private IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
-        private IEncryptionService _encryptionService;
+        private readonly IEncryptionService _encryptionService;
 
-        private enum Roles { Administrator = 1, User, Banned }
+        private enum Roles
+        {
+            Administrator = 1,
+            User,
+            Banned
+        }
 
         public MembershipService(IUnitOfWork unitOfWork, IEncryptionService encryptionService)
         {
@@ -36,7 +41,7 @@ namespace OnlineMarket.BusinessLogicLayer.Services
                 Password = _encryptionService.EncryptPassword(password, passwordSalt),
                 Salt = passwordSalt,
                 Balance = 0,
-                RoleId = (int)Roles.User
+                RoleId = (int) Roles.User
             };
             _unitOfWork.UserRepository.Add(user);
             AddUserResources(user);
@@ -57,8 +62,7 @@ namespace OnlineMarket.BusinessLogicLayer.Services
 
         public bool IsUserAdmin(string email)
         {
-            var r = GetUserByEmail(email).RoleId == (int)Roles.Administrator;
-            return GetUserByEmail(email).RoleId == (int)Roles.Administrator;
+            return GetUserByEmail(email).RoleId == (int) Roles.Administrator;
         }
 
         public void ChangeUserRole(int userId, int roleId)
@@ -81,31 +85,36 @@ namespace OnlineMarket.BusinessLogicLayer.Services
 
             var userList = _unitOfWork.UserRepository.Find(u => u.Email == email);
 
-            if (userList.Count == 0 || !isUserValid(userList.First(), password)) return membershipContext;
+            if (userList.Count == 0 || !IsUserValid(userList.First(), password)) return membershipContext;
 
             var user = userList.First();
             membershipContext.User = user;
             var identity = new GenericIdentity(user.Email);
-            membershipContext.Principal = new GenericPrincipal(identity, new[] { user.Role.Title });
+            membershipContext.Principal = new GenericPrincipal(identity, new[] {user.Role.Title});
 
             return membershipContext;
         }
 
-        private bool isPasswordValid(User user, string password)
+        private bool IsPasswordValid(User user, string password)
         {
             return string.Equals(_encryptionService.EncryptPassword(password, user.Salt), user.Password);
         }
 
-        private bool isUserValid(User user, string password)
+        private bool IsUserValid(User user, string password)
         {
-            return isPasswordValid(user, password) ? !(user.RoleId == (int)Roles.Banned) : false;
+            return IsPasswordValid(user, password) && user.RoleId != (int) Roles.Banned;
         }
 
         private void AddUserResources(User user)
         {
             foreach (var resource in _unitOfWork.ResourceRepository.GetAll())
             {
-                _unitOfWork.UserResourcesRepository.Add(new UserResources { UserId = user.Id, ResourceId = resource.Id, Quantity = 0 });
+                _unitOfWork.UserResourcesRepository.Add(new UserResources
+                {
+                    UserId = user.Id,
+                    ResourceId = resource.Id,
+                    Quantity = 0
+                });
             }
         }
 
