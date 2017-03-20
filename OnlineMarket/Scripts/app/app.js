@@ -42,6 +42,14 @@
                 templateUrl: "scripts/app/error/notfound.html",
                 controller: "notfoundCtrl"
             })
+            .when("/checkEmail", {
+                templateUrl: "scripts/app/account/checkEmail.html",
+                controller: "checkEmailCtrl"
+            })
+            .when("/confirm/:email/:code", {
+                templateUrl: "scripts/app/account/confirm.html",
+                controller: "confirmCtrl"
+            })
             .otherwise({ redirectTo: "/error" });
     }
 

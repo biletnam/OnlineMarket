@@ -1,4 +1,7 @@
-﻿using Autofac;
+﻿using System.Configuration;
+using System.Reflection;
+using System.Web.Http;
+using Autofac;
 using Autofac.Integration.SignalR;
 using Autofac.Integration.WebApi;
 using log4net;
@@ -13,8 +16,6 @@ using OnlineMarket.DataAccessLayer.Repositories;
 using OnlineMarket.Hubs;
 using OnlineMarket.Utilities.Interfaces;
 using OnlineMarket.Utilities.Servicies;
-using System.Reflection;
-using System.Web.Http;
 
 namespace OnlineMarket.App_Start
 {
@@ -34,28 +35,29 @@ namespace OnlineMarket.App_Start
 
         private static IContainer RegisterServices(ContainerBuilder builder, IDependencyResolver dependencyResolver)
         {
-            builder.Register(i => dependencyResolver.Resolve<IConnectionManager>().GetHubContext<AppHub>()).ExternallyOwned();
+            builder.Register(i => dependencyResolver.Resolve<IConnectionManager>().GetHubContext<AppHub>())
+                .ExternallyOwned();
 
-            builder.Register(c => LogManager.GetLogger(typeof(object))).As<ILog>();
+            builder.Register(c => LogManager.GetLogger(typeof (object))).As<ILog>();
 
             builder.RegisterType<OnlineMarketContext>()
-                   .InstancePerRequest();
+                .InstancePerRequest();
 
             builder.RegisterType<UserRepository>()
                 .As<IRepository<User>>()
                 .InstancePerRequest();
 
             builder.RegisterType<DealRepository>()
-               .As<IRepository<Deal>>()
-               .InstancePerRequest();
+                .As<IRepository<Deal>>()
+                .InstancePerRequest();
 
             builder.RegisterType<ResourceRepository>()
-               .As<IRepository<Resource>>()
-               .InstancePerRequest();
+                .As<IRepository<Resource>>()
+                .InstancePerRequest();
 
             builder.RegisterType<UserResourcesRepository>()
-               .As<IRepository<UserResources>>()
-               .InstancePerRequest();
+                .As<IRepository<UserResources>>()
+                .InstancePerRequest();
 
             builder.RegisterType<UnitOfWork>()
                 .As<IUnitOfWork>()
@@ -63,6 +65,12 @@ namespace OnlineMarket.App_Start
 
             builder.RegisterType<EncryptionService>()
                 .As<IEncryptionService>()
+                .InstancePerRequest();
+
+            builder.RegisterType<SendEmailService>()
+                .As<ISendEmailService>()
+                .WithParameter("email", ConfigurationManager.AppSettings["email"])
+                .WithParameter("password", ConfigurationManager.AppSettings["password"])
                 .InstancePerRequest();
 
             builder.RegisterType<MembershipService>()

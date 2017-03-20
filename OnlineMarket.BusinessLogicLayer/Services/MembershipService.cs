@@ -30,16 +30,14 @@ namespace OnlineMarket.BusinessLogicLayer.Services
 
         public User CreateUser(string email, string password)
         {
-            var existingUser = _unitOfWork.UserRepository.Find(u => u.Email == email);
-
-            if (existingUser == null) throw new Exception("Username is already in use");
-
             var passwordSalt = _encryptionService.CreateSalt();
             var user = new User
             {
                 Email = email,
                 Password = _encryptionService.EncryptPassword(password, passwordSalt),
                 Salt = passwordSalt,
+                IsConfirmEmail = false,
+                ConfirmCode = Guid.NewGuid().ToString(),
                 Balance = 0,
                 RoleId = (int) Roles.User
             };
@@ -57,7 +55,7 @@ namespace OnlineMarket.BusinessLogicLayer.Services
 
         public User GetUserByEmail(string email)
         {
-            return _unitOfWork.UserRepository.Find(u => u.Email == email).First();
+            return _unitOfWork.UserRepository.Find(u => u.Email == email).FirstOrDefault();
         }
 
         public bool IsUserAdmin(string email)
@@ -81,16 +79,31 @@ namespace OnlineMarket.BusinessLogicLayer.Services
 
         public MembershipContext ValidateUser(string email, string password)
         {
-            var membershipContext = new MembershipContext();
+            var user = GetUserByEmail(email);
 
-            var userList = _unitOfWork.UserRepository.Find(u => u.Email == email);
+            if (user == null || !IsUserValid(user, password)) return null;
 
-            if (userList.Count == 0 || !IsUserValid(userList.First(), password)) return membershipContext;
+            return CreateMembershipContext(user);
+        }
 
-            var user = userList.First();
-            membershipContext.User = user;
+        public MembershipContext ConfirmEmail(string email, string code)
+        {
+            var user = GetUserByEmail(email);
+
+            if (user == null) return null;
+
+            user.IsConfirmEmail = true;
+            _unitOfWork.UserRepository.Update(user);
+            _unitOfWork.SaveChanges();
+
+            return CreateMembershipContext(user);
+        }
+
+        private MembershipContext CreateMembershipContext(User user)
+        {
+            var membershipContext = new MembershipContext {User = user};
             var identity = new GenericIdentity(user.Email);
-            membershipContext.Principal = new GenericPrincipal(identity, new[] {user.Role.Title});
+            membershipContext.Principal = new GenericPrincipal(identity, new[] { user.Role.Title });
 
             return membershipContext;
         }
@@ -99,10 +112,15 @@ namespace OnlineMarket.BusinessLogicLayer.Services
         {
             return string.Equals(_encryptionService.EncryptPassword(password, user.Salt), user.Password);
         }
+  
+        private bool IsEmailConfirmed(string email)
+        {
+            return GetUserByEmail(email).IsConfirmEmail;
+        }
 
         private bool IsUserValid(User user, string password)
         {
-            return IsPasswordValid(user, password) && user.RoleId != (int) Roles.Banned;
+            return IsPasswordValid(user, password) && IsEmailConfirmed(user.Email) && user.RoleId != (int)Roles.Banned;
         }
 
         private void AddUserResources(User user)

@@ -14,6 +14,10 @@ namespace OnlineMarket.DataAccessLayer.Entities
 
         public string Salt { get; set; }
 
+        public bool IsConfirmEmail { get; set; }
+
+        public string ConfirmCode { get; set; }
+
         public int RoleId { get; set; }
 
         [ForeignKey("RoleId")]

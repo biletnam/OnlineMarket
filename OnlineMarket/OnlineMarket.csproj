@@ -271,6 +271,10 @@
     <Content Include="Scripts\angular-touch.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\app\account\checkEmail.html" />
+    <Content Include="Scripts\app\account\checkEmailCtrl.js" />
+    <Content Include="Scripts\app\account\confirm.html" />
+    <Content Include="Scripts\app\account\confirmCtrl.js" />
     <Content Include="Scripts\app\account\login.html" />
     <Content Include="Scripts\app\account\loginCtrl.js" />
     <Content Include="Scripts\app\account\register.html" />

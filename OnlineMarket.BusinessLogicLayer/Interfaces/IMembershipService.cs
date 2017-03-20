@@ -19,6 +19,8 @@ namespace OnlineMarket.BusinessLogicLayer.Interfaces
 
         MembershipContext ValidateUser(string username, string password);
 
+        MembershipContext ConfirmEmail(string email, string code);
+
         void UpdateUserBalance(User user, double amount, bool add);
     }
 }

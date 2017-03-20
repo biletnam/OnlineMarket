@@ -40,9 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\ISendEmailService.cs" />
     <Compile Include="Servicies\EncryptionService.cs" />
     <Compile Include="Interfaces\IEncryptionService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Servicies\SendEmailService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
