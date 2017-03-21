@@ -1074,6 +1074,10 @@
       <Project>{a4fa720c-d4a9-4fde-8a53-66379735c87c}</Project>
       <Name>OnlineMarket.BusinessLogicLayer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\OnlineMarket.Core\OnlineMarket.Core.csproj">
+      <Project>{6b08e081-2b4b-4feb-b619-64259307bc06}</Project>
+      <Name>OnlineMarket.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OnlineMarket.DataAccessLayer\OnlineMarket.DataAccessLayer.csproj">
       <Project>{4056ec74-150e-4ca4-aed0-82b72b77b388}</Project>
       <Name>OnlineMarket.DataAccessLayer</Name>

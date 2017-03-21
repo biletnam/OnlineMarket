@@ -7,14 +7,13 @@ using AutoMapper;
 using log4net;
 using OnlineMarket.BusinessLogicLayer.Interfaces;
 using OnlineMarket.Models;
+using OnlineMarket.Core;
 
 namespace OnlineMarket.Controllers
 {
     public class ArchiveController : ApiController
     {
         private readonly IDealService _dealService;
-
-        private const int RecentActivitiesCount = 5;
 
         private readonly ILog _logger;
 
@@ -47,7 +46,7 @@ namespace OnlineMarket.Controllers
         {
             try
             {
-                var activities = _dealService.GetActivities(RecentActivitiesCount);
+                var activities = _dealService.GetActivities(Constants.RecentActivitiesCount);
                 var activitiesToString = new List<string>();
 
                 for (var i = activities.Count - 1; i >= 0; i--)

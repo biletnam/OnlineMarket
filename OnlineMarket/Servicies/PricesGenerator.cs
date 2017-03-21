@@ -2,6 +2,7 @@
 using System.Threading;
 using Microsoft.AspNet.SignalR;
 using OnlineMarket.BusinessLogicLayer.Interfaces;
+using OnlineMarket.Core;
 using OnlineMarket.Interfaces;
 
 namespace OnlineMarket.Servicies
@@ -11,12 +12,6 @@ namespace OnlineMarket.Servicies
         private static IPricesGenerator _instance;
 
         private readonly IHubContext _appHub;
-
-        private const double MinValue = 10.0;
-
-        private const double MaxValue = 50.0;
-
-        private const int TimeInterval = 100000;
 
         public double[] CurrentPrices { get; set; }
 
@@ -39,7 +34,7 @@ namespace OnlineMarket.Servicies
 
             for (var i = 0; i < count; i++)
             {
-                prices[i] = random.NextDouble()*(MaxValue - MinValue) + MinValue;
+                prices[i] = random.NextDouble()*(Constants.MaxValue - Constants.MinValue) + Constants.MinValue;
             }
 
             CurrentPrices = prices;
@@ -52,7 +47,7 @@ namespace OnlineMarket.Servicies
             while (true)
             {
                 _appHub.Clients.All.addNewPrices(GetNewPrices((int) count, random));
-                Thread.Sleep(TimeInterval);
+                Thread.Sleep(Constants.TimeInterval);
             }
         }
     }
