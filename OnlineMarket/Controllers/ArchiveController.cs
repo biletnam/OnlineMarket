@@ -37,7 +37,7 @@ namespace OnlineMarket.Controllers
             {
                 _logger.Error(e);
 
-                return request.CreateResponse(HttpStatusCode.OK, new {success = false, message = "Can't load archive."});
+                return request.CreateResponse(HttpStatusCode.OK, new {success = false, message = Messages.CantLoadArchive });
             }
         }
 
@@ -63,7 +63,7 @@ namespace OnlineMarket.Controllers
                 _logger.Error(e);
 
                 return request.CreateResponse(HttpStatusCode.OK,
-                    new {success = false, message = "Can't load recent activities."});
+                    new {success = false, message = Messages.CantLoadActivities });
             }
         }
     }

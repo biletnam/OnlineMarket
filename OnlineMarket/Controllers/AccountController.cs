@@ -7,6 +7,7 @@ using AutoMapper;
 using log4net;
 using Microsoft.AspNet.SignalR;
 using OnlineMarket.BusinessLogicLayer.Interfaces;
+using OnlineMarket.Core;
 using OnlineMarket.Models;
 using OnlineMarket.Utilities.Interfaces;
 
@@ -38,17 +39,17 @@ namespace OnlineMarket.Controllers
         {
             try
             {
-                if (!ModelState.IsValid) return ReturnFalseResponse(request, "Input all fields.");
+                if (!ModelState.IsValid) return ReturnFalseResponse(request, Messages.ValidationMessage);
 
                 var membershipContext = _membershipService.ValidateUser(loginViewModel.Email, loginViewModel.Password);
 
-                return ReturnResponse(membershipContext.User == null, request, "Check email and password.");
+                return ReturnResponse(membershipContext.User == null, request, Messages.CheckInput);
             }
             catch (Exception e)
             {
                 _logger.Error(e);
 
-                return ReturnFalseResponse(request, "Can't login.");
+                return ReturnFalseResponse(request, Messages.CantLogin);
             }
         }
 
@@ -58,10 +59,10 @@ namespace OnlineMarket.Controllers
         {
             try
             {
-                if (!ModelState.IsValid) return ReturnFalseResponse(request, "Input all fields.");
+                if (!ModelState.IsValid) return ReturnFalseResponse(request, Messages.ValidationMessage);
 
                 if (_membershipService.GetUserByEmail(registrationViewModel.Email) != null)
-                    return ReturnFalseResponse(request, "You can't use this login.");
+                    return ReturnFalseResponse(request, Messages.ExistingUserName);
 
                 var user = _membershipService.CreateUser(registrationViewModel.Email, registrationViewModel.Password);
                 _sendEmailService.Send(user.Email, GetConfirmLink(user.Email, user.ConfirmCode));
@@ -73,7 +74,7 @@ namespace OnlineMarket.Controllers
             {
                 _logger.Error(e);
 
-                return ReturnFalseResponse(request, "Can't create user.");
+                return ReturnFalseResponse(request, Messages.CantCreateUser);
             }
         }
 
@@ -89,7 +90,7 @@ namespace OnlineMarket.Controllers
             {
                 _logger.Error(e);
 
-                return ReturnFalseResponse(request, "Can't check user's rights.");
+                return ReturnFalseResponse(request, Messages.CantCheckRights);
             }
         }
 
@@ -111,7 +112,7 @@ namespace OnlineMarket.Controllers
             {
                 _logger.Error(e);
 
-                return ReturnFalseResponse(request, "Can't refill balance");
+                return ReturnFalseResponse(request, Messages.CantRefillBalance);
             }
         }
 

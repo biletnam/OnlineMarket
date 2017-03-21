@@ -6,6 +6,7 @@ using System.Web.Http;
 using log4net;
 using Microsoft.AspNet.SignalR;
 using OnlineMarket.BusinessLogicLayer.Interfaces;
+using OnlineMarket.Core;
 using OnlineMarket.Interfaces;
 using OnlineMarket.Models;
 using OnlineMarket.Servicies;
@@ -61,7 +62,7 @@ namespace OnlineMarket.Controllers
                 _logger.Error(e);
 
                 return request.CreateResponse(HttpStatusCode.OK,
-                    new {success = false, message = "Can't get resources and profits."});
+                    new {success = false, message = Messages.CantLoadResources });
             }
         }
 
@@ -77,7 +78,7 @@ namespace OnlineMarket.Controllers
             {
                 _logger.Error(e);
 
-                return request.CreateResponse(HttpStatusCode.OK, new {success = false, message = "Can't get resources"});
+                return request.CreateResponse(HttpStatusCode.OK, new {success = false, message = Messages.CantLoadResources });
             }
         }
 
@@ -94,7 +95,7 @@ namespace OnlineMarket.Controllers
             {
                 _logger.Error(e);
                 return request.CreateResponse(HttpStatusCode.OK,
-                    new {success = false, message = "Can't send new prices"});
+                    new {success = false, message = Messages.CantSendPrices });
             }
         }
     }

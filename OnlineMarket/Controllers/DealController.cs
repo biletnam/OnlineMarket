@@ -5,6 +5,7 @@ using System.Web.Http;
 using log4net;
 using Microsoft.AspNet.SignalR;
 using OnlineMarket.BusinessLogicLayer.Interfaces;
+using OnlineMarket.Core;
 using OnlineMarket.DataAccessLayer.Entities;
 using OnlineMarket.Models;
 
@@ -63,7 +64,7 @@ namespace OnlineMarket.Controllers
             {
                 _logger.Error(e);
 
-                return request.CreateResponse(HttpStatusCode.OK, new {success = false, message = "Can't execute deal."});
+                return request.CreateResponse(HttpStatusCode.OK, new {success = false, message = Messages.CantExecuteDeal });
             }
         }
 

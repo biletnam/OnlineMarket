@@ -6,6 +6,7 @@ using System.Web.Http;
 using AutoMapper;
 using log4net;
 using OnlineMarket.BusinessLogicLayer.Interfaces;
+using OnlineMarket.Core;
 using OnlineMarket.Models;
 
 namespace OnlineMarket.Controllers
@@ -33,7 +34,7 @@ namespace OnlineMarket.Controllers
             catch (Exception e)
             {
                 _logger.Error(e);
-                return request.CreateResponse(HttpStatusCode.OK, new {success = false, message = "Can't load users."});
+                return request.CreateResponse(HttpStatusCode.OK, new {success = false, message = Messages.CantLoadUsers});
             }
         }
 
@@ -48,7 +49,7 @@ namespace OnlineMarket.Controllers
             catch (Exception e)
             {
                 _logger.Error(e);
-                return request.CreateResponse(HttpStatusCode.OK, new {success = false, message = "Can't change role."});
+                return request.CreateResponse(HttpStatusCode.OK, new {success = false, message = Messages.CantChangeRole});
             }
         }
     }
