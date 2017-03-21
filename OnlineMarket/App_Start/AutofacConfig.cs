@@ -71,6 +71,8 @@ namespace OnlineMarket.App_Start
                 .As<ISendEmailService>()
                 .WithParameter("email", ConfigurationManager.AppSettings["email"])
                 .WithParameter("password", ConfigurationManager.AppSettings["password"])
+                .WithParameter("host",ConfigurationManager.AppSettings["host"])
+                .WithParameter("port", int.Parse(ConfigurationManager.AppSettings["port"]))
                 .InstancePerRequest();
 
             builder.RegisterType<MembershipService>()

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -134,7 +135,7 @@ namespace OnlineMarket.Controllers
 
         private string GetConfirmLink(string email, string code)
         {
-            return $"http://localhost:52068/confirm/{email}/{code};";
+            return $"{ConfigurationManager.AppSettings["link"]}/confirm/{email}/{code};";
         }
 
         private HttpResponseMessage ReturnResponse(bool condition, HttpRequestMessage request, string falseMessage)
