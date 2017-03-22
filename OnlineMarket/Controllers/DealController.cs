@@ -13,28 +13,25 @@ namespace OnlineMarket.Controllers
 {
     public class DealController : ApiController
     {
-        private readonly IDealService _dealService;
-
-        private readonly IUserResourcesService _userResourcesService;
-
-        private readonly IMembershipService _membershipService;
-
         private readonly IHubContext _appHub;
+
+        private readonly IDealService _dealService;
 
         private readonly ILog _logger;
 
-        public DealController(IDealService dealService, IUserResourcesService userResourcesService,
-            IMembershipService membershipService, IHubContext hubContext, ILog logger)
+        private readonly IMembershipService _membershipService;
+
+        public DealController(IDealService dealService, IMembershipService membershipService, IHubContext hubContext,
+            ILog logger)
         {
             _dealService = dealService;
-            _userResourcesService = userResourcesService;
             _membershipService = membershipService;
             _appHub = hubContext;
             _logger = logger;
         }
 
         [HttpPost]
-        public HttpResponseMessage Post(HttpRequestMessage request, [FromBody] DealViewModel dealViewModel)
+        public HttpResponseMessage Post(HttpRequestMessage request, DealViewModel dealViewModel)
         {
             try
             {
@@ -48,31 +45,16 @@ namespace OnlineMarket.Controllers
                     _dealService.AddSaleDeal(DealFromViewModel(user, dealViewModel));
                 }
 
-                UpdateUserInformation(user, dealViewModel);
-
-                return request.CreateResponse(HttpStatusCode.OK,
-                    new
-                    {
-                        success = true,
-                        amount = dealViewModel.Quantity*dealViewModel.Price,
-                        add = !dealViewModel.IsPurchase,
-                        id = dealViewModel.ResourceId,
-                        quantity = dealViewModel.Quantity
-                    });
+                _appHub.Clients.All.addActivity(AddRecentActivity(dealViewModel));
+                return ReturnResponseForDeal(request, dealViewModel);
             }
             catch (Exception e)
             {
                 _logger.Error(e);
 
-                return request.CreateResponse(HttpStatusCode.OK, new {success = false, message = Messages.CantExecuteDeal });
+                return request.CreateResponse(HttpStatusCode.OK,
+                    new {success = false, message = Messages.CantExecuteDeal});
             }
-        }
-
-        private void UpdateUserInformation(User user, DealViewModel dealViewModel)
-        {
-            _userResourcesService.UpdateUserResources(UserResourcesFromViewModel(user, dealViewModel), dealViewModel.IsPurchase);
-            _membershipService.UpdateUserBalance(user, dealViewModel.Price*dealViewModel.Quantity,!dealViewModel.IsPurchase);
-            _appHub.Clients.All.addActivity(AddRecentActivity(dealViewModel));
         }
 
         private string AddRecentActivity(DealViewModel dealViewModel)
@@ -87,20 +69,24 @@ namespace OnlineMarket.Controllers
             return new Deal
             {
                 UserId = user.Id,
+                User = user,
                 ResourceId = dealViewModel.ResourceId,
                 Amount = dealViewModel.Price*dealViewModel.Quantity,
                 Quantity = dealViewModel.Quantity
             };
         }
 
-        private UserResources UserResourcesFromViewModel(User user, DealViewModel dealViewModel)
+        private HttpResponseMessage ReturnResponseForDeal(HttpRequestMessage request, DealViewModel dealViewModel)
         {
-            return new UserResources
-            {
-                UserId = user.Id,
-                ResourceId = dealViewModel.ResourceId,
-                Quantity = dealViewModel.Quantity
-            };
+            return request.CreateResponse(HttpStatusCode.OK,
+                new
+                {
+                    success = true,
+                    amount = dealViewModel.Quantity*dealViewModel.Price,
+                    add = !dealViewModel.IsPurchase,
+                    id = dealViewModel.ResourceId,
+                    quantity = dealViewModel.Quantity
+                });
         }
     }
 }

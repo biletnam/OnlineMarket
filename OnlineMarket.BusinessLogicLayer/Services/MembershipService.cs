@@ -42,7 +42,6 @@ namespace OnlineMarket.BusinessLogicLayer.Services
                 RoleId = (int) Roles.User
             };
             _unitOfWork.UserRepository.Add(user);
-            AddUserResources(user);
             _unitOfWork.SaveChanges();
 
             return user;
@@ -121,26 +120,6 @@ namespace OnlineMarket.BusinessLogicLayer.Services
         private bool IsUserValid(User user, string password)
         {
             return IsPasswordValid(user, password) && IsEmailConfirmed(user.Email) && user.RoleId != (int)Roles.Banned;
-        }
-
-        private void AddUserResources(User user)
-        {
-            foreach (var resource in _unitOfWork.ResourceRepository.GetAll())
-            {
-                _unitOfWork.UserResourcesRepository.Add(new UserResources
-                {
-                    UserId = user.Id,
-                    ResourceId = resource.Id,
-                    Quantity = 0
-                });
-            }
-        }
-
-        public void UpdateUserBalance(User user, double amount, bool add)
-        {
-            user.Balance = add ? user.Balance + amount : user.Balance - amount;
-            _unitOfWork.UserRepository.Update(user);
-            _unitOfWork.SaveChanges();
         }
     }
 }

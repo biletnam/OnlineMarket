@@ -5,7 +5,7 @@ namespace OnlineMarket.BusinessLogicLayer.Interfaces
 {
     public interface IUserResourcesService
     {
-        void UpdateUserResources(UserResources item, bool isPurchase);
+        void AddUserResources(User user);
 
         IList<UserResources> GetUserResources(string email);
     }

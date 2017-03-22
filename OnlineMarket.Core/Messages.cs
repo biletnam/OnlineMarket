@@ -28,8 +28,6 @@
 
         public const string CantLoadUsers = "Can't load users.";
 
-        public const string CantChangeRole = "Can't change user's role."
-
-
+        public const string CantChangeRole = "Can't change user's role.";
     }
 }

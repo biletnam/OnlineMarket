@@ -14,5 +14,7 @@ namespace OnlineMarket.BusinessLogicLayer.Interfaces
         void AddSaleDeal(Deal deal);
 
         double[] GetProfits(string email);
+
+        void UpdateUserBalance(User user, double amount, bool isPurchase);
     }
 }

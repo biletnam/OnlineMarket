@@ -24,13 +24,19 @@ namespace OnlineMarket.Controllers
 
         private readonly ISendEmailService _sendEmailService;
 
+        private readonly IUserResourcesService _userResourcesService;
+
+        private readonly IDealService _dealService;
+
         public AccountController(IMembershipService membershipService, IHubContext hubContext, ILog logger,
-            ISendEmailService sendEmailService)
+            ISendEmailService sendEmailService, IUserResourcesService userResourcesService, IDealService dealService)
         {
             _membershipService = membershipService;
             _appHub = hubContext;
             _logger = logger;
             _sendEmailService = sendEmailService;
+            _userResourcesService = userResourcesService;
+            _dealService = dealService;
         }
 
         [Route("login")]
@@ -64,9 +70,7 @@ namespace OnlineMarket.Controllers
                 if (_membershipService.GetUserByEmail(registrationViewModel.Email) != null)
                     return ReturnFalseResponse(request, Messages.ExistingUserName);
 
-                var user = _membershipService.CreateUser(registrationViewModel.Email, registrationViewModel.Password);
-                _sendEmailService.Send(user.Email, GetConfirmLink(user.Email, user.ConfirmCode));
-                _appHub.Clients.All.addUser(Mapper.Map<UserViewModel>(user));
+                CreateUser(registrationViewModel);
 
                 return request.CreateResponse(HttpStatusCode.OK, new {success = true});
             }
@@ -103,7 +107,7 @@ namespace OnlineMarket.Controllers
             {
                 var user = _membershipService.GetUserByEmail(updateBalanceViewModel.Email);
 
-                _membershipService.UpdateUserBalance(user, updateBalanceViewModel.Amount, true);
+                _dealService.UpdateUserBalance(user, updateBalanceViewModel.Amount, false);
 
                 return request.CreateResponse(HttpStatusCode.OK,
                     new {success = true, amount = updateBalanceViewModel.Amount, add = true});
@@ -132,6 +136,14 @@ namespace OnlineMarket.Controllers
 
                 return ReturnFalseResponse(request, null);
             }
+        }
+
+        private void CreateUser(RegistrationViewModel registrationViewModel)
+        {
+            var user = _membershipService.CreateUser(registrationViewModel.Email, registrationViewModel.Password);
+            _userResourcesService.AddUserResources(user);
+            _sendEmailService.Send(user.Email, GetConfirmLink(user.Email, user.ConfirmCode));
+            _appHub.Clients.All.addUser(Mapper.Map<UserViewModel>(user));
         }
 
         private string GetConfirmLink(string email, string code)

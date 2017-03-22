@@ -25,15 +25,25 @@ namespace OnlineMarket.BusinessLogicLayer.Services
         {
             deal.DealTypeId = (int) DealTypes.Purchase;
             _unitOfWork.DealRepository.Add(deal);
-            _unitOfWork.SaveChanges();
+            UpdateUserResources(deal, deal.UserId, deal.DealTypeId == (int)DealTypes.Purchase);
+            UpdateUserBalance(deal.User, deal.Amount, deal.DealTypeId == (int)DealTypes.Purchase);
         }
 
         public void AddSaleDeal(Deal deal)
         {
-            deal.DealTypeId = (int) DealTypes.Sale;
+            deal.DealTypeId = (int)DealTypes.Sale;
             _unitOfWork.DealRepository.Add(deal);
+            UpdateUserResources(deal, deal.UserId, deal.DealTypeId == (int)DealTypes.Purchase);
+            UpdateUserBalance(deal.User, deal.Amount, deal.DealTypeId == (int)DealTypes.Purchase);
+        }
+
+        public void UpdateUserBalance(User user, double amount, bool isPurchase)
+        {
+            user.Balance = isPurchase ? user.Balance - amount : user.Balance + amount;
+            _unitOfWork.UserRepository.Update(user);
             _unitOfWork.SaveChanges();
         }
+
 
         public IList<Deal> GetActivities(int count)
         {
@@ -62,6 +72,19 @@ namespace OnlineMarket.BusinessLogicLayer.Services
             }
 
             return profits;
+        }
+
+        private void UpdateUserResources(Deal deal, int userId, bool isPurchase)
+        {
+            var userResource =
+                _unitOfWork.UserResourcesRepository.Find(
+                    ur => ur.UserId == userId && ur.ResourceId == deal.ResourceId).First();
+
+            userResource.Quantity = isPurchase
+                ? userResource.Quantity + deal.Quantity
+                : userResource.Quantity - deal.Quantity;
+
+            _unitOfWork.UserResourcesRepository.Update(userResource);
         }
     }
 }
