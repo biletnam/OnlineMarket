@@ -24,13 +24,18 @@ namespace OnlineMarket.BusinessLogicLayer.Services
         {
             foreach (var resource in _unitOfWork.ResourceRepository.GetAll())
             {
-                _unitOfWork.UserResourcesRepository.Add(new UserResources
-                {
-                    UserId = user.Id,
-                    ResourceId = resource.Id,
-                    Quantity = 0
-                });
+                _unitOfWork.UserResourcesRepository.Add(CreateUserResource(user.Id, resource.Id));
             }
+        }
+
+        private UserResources CreateUserResource(int userId, int resourceId)
+        {
+            return new UserResources
+            {
+                UserId = userId,
+                ResourceId = resourceId,
+                Quantity = 0
+            };
         }
     }
 }

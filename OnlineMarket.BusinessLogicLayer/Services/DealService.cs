@@ -23,18 +23,14 @@ namespace OnlineMarket.BusinessLogicLayer.Services
 
         public void AddPurchaseDeal(Deal deal)
         {
-            deal.DealTypeId = (int) DealTypes.Purchase;
-            _unitOfWork.DealRepository.Add(deal);
-            UpdateUserResources(deal, deal.UserId, deal.DealTypeId == (int)DealTypes.Purchase);
-            UpdateUserBalance(deal.User, deal.Amount, deal.DealTypeId == (int)DealTypes.Purchase);
+            if (deal.Amount > deal.User.Balance) return;
+            
+            AddDeal(deal, (int)DealTypes.Purchase);
         }
 
         public void AddSaleDeal(Deal deal)
         {
-            deal.DealTypeId = (int)DealTypes.Sale;
-            _unitOfWork.DealRepository.Add(deal);
-            UpdateUserResources(deal, deal.UserId, deal.DealTypeId == (int)DealTypes.Purchase);
-            UpdateUserBalance(deal.User, deal.Amount, deal.DealTypeId == (int)DealTypes.Purchase);
+            AddDeal(deal, (int)DealTypes.Sale);
         }
 
         public void UpdateUserBalance(User user, double amount, bool isPurchase)
@@ -72,6 +68,14 @@ namespace OnlineMarket.BusinessLogicLayer.Services
             }
 
             return profits;
+        }
+
+        private void AddDeal(Deal deal, int dealType)
+        {
+            deal.DealTypeId = dealType;
+            _unitOfWork.DealRepository.Add(deal);
+            UpdateUserResources(deal, deal.UserId, deal.DealTypeId == (int)DealTypes.Purchase);
+            UpdateUserBalance(deal.User, deal.Amount, deal.DealTypeId == (int)DealTypes.Purchase);
         }
 
         private void UpdateUserResources(Deal deal, int userId, bool isPurchase)

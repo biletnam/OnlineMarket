@@ -17,11 +17,12 @@
         $.connection.hub.start().done(function() {});
 
         hub.client.addActivity = function(message) {
-            $timeout(function() {
+
                 if ($scope.activities != undefined) {
                     $scope.activities.unshift(message);
+                    $scope.$apply();
                 }
-            });
+
         };
         hub.client.addUser = function(user) {
             if ($rootScope.users != undefined) {
@@ -31,7 +32,7 @@
         };
 
         hub.client.addNewPrices = function(prices) {
-            $timeout(function() {
+
                     if ($rootScope.resources != undefined && $rootScope.resources.ResourcesToBuy != undefined) {
                         for (var i in $rootScope.resources.ResourcesToBuy) {
                             $rootScope.resources.ResourcesToBuy[i].Price = prices[i];
@@ -44,9 +45,7 @@
                         }
                         $rootScope.$apply();
                     }
-                },
-                0);
-
+                
         };
 
         function displayUserInfo() {

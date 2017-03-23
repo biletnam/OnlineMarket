@@ -1646,3 +1646,77 @@ INFO  2017-03-21 12:19:02,763  2859ms gActionFilterAttribute OnActionExecuting  
 INFO  2017-03-21 12:19:03,288  3384ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Archive, action GetRecentActivities
 INFO  2017-03-21 12:19:05,208  5304ms gActionFilterAttribute OnActionExecuting  - Executing controller Archive, action GetRecentActivities
 INFO  2017-03-21 12:19:05,210  5306ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Archive, action GetRecentActivities
+INFO  2017-03-22 09:57:10,166  2740ms gActionFilterAttribute OnActionExecuting  - Executing controller Archive, action GetRecentActivities
+INFO  2017-03-22 09:57:11,181  3755ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Archive, action GetRecentActivities
+INFO  2017-03-22 09:57:12,887  5461ms gActionFilterAttribute OnActionExecuting  - Executing controller Account, action Login
+INFO  2017-03-22 09:57:12,937  5511ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Account, action Login
+INFO  2017-03-22 09:57:12,995  5569ms gActionFilterAttribute OnActionExecuting  - Executing controller Account, action Get
+INFO  2017-03-22 09:57:12,995  5569ms gActionFilterAttribute OnActionExecuting  - Executing controller Operations, action Get
+INFO  2017-03-22 09:57:12,999  5573ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Account, action Get
+INFO  2017-03-22 09:57:13,090  5664ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Operations, action Get
+INFO  2017-03-22 09:57:13,355  5929ms gActionFilterAttribute OnActionExecuting  - Executing controller Operations, action SendCurrentPrices
+INFO  2017-03-22 09:57:13,365  5939ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Operations, action SendCurrentPrices
+INFO  2017-03-22 09:57:22,117 14691ms gActionFilterAttribute OnActionExecuting  - Executing controller Deal, action Post
+INFO  2017-03-22 09:57:22,199 14773ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Deal, action Post
+INFO  2017-03-22 09:57:26,049 18623ms gActionFilterAttribute OnActionExecuting  - Executing controller Account, action Get
+INFO  2017-03-22 09:57:26,049 18623ms gActionFilterAttribute OnActionExecuting  - Executing controller Archive, action GetRecentActivities
+INFO  2017-03-22 09:57:26,051 18625ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Account, action Get
+INFO  2017-03-22 09:57:26,053 18627ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Archive, action GetRecentActivities
+INFO  2017-03-22 09:57:26,111 18685ms gActionFilterAttribute OnActionExecuting  - Executing controller Operations, action Get
+INFO  2017-03-22 09:57:26,120 18694ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Operations, action Get
+INFO  2017-03-22 09:57:26,380 18954ms gActionFilterAttribute OnActionExecuting  - Executing controller Operations, action SendCurrentPrices
+INFO  2017-03-22 09:57:26,380 18954ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Operations, action SendCurrentPrices
+INFO  2017-03-22 09:57:37,961 30535ms gActionFilterAttribute OnActionExecuting  - Executing controller Deal, action Post
+INFO  2017-03-22 09:57:38,000 30574ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Deal, action Post
+INFO  2017-03-22 09:57:49,505 42080ms gActionFilterAttribute OnActionExecuting  - Executing controller Deal, action Post
+INFO  2017-03-22 09:57:49,551 42126ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Deal, action Post
+INFO  2017-03-22 09:58:05,943 58517ms gActionFilterAttribute OnActionExecuting  - Executing controller Deal, action Post
+INFO  2017-03-22 09:58:06,005 58579ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Deal, action Post
+INFO  2017-03-22 09:58:14,269 66843ms gActionFilterAttribute OnActionExecuting  - Executing controller Account, action Get
+INFO  2017-03-22 09:58:14,269 66843ms gActionFilterAttribute OnActionExecuting  - Executing controller Archive, action GetRecentActivities
+INFO  2017-03-22 09:58:14,271 66845ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Account, action Get
+INFO  2017-03-22 09:58:14,278 66852ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Archive, action GetRecentActivities
+INFO  2017-03-22 09:58:14,329 66903ms gActionFilterAttribute OnActionExecuting  - Executing controller Operations, action Get
+INFO  2017-03-22 09:58:14,337 66911ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Operations, action Get
+INFO  2017-03-22 09:58:14,598 67172ms gActionFilterAttribute OnActionExecuting  - Executing controller Operations, action SendCurrentPrices
+INFO  2017-03-22 09:58:14,598 67172ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Operations, action SendCurrentPrices
+INFO  2017-03-22 09:58:37,119 89694ms gActionFilterAttribute OnActionExecuting  - Executing controller Account, action RefillBalance
+INFO  2017-03-22 09:58:37,150 89725ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Account, action RefillBalance
+INFO  2017-03-22 09:58:39,220 91794ms gActionFilterAttribute OnActionExecuting  - Executing controller Account, action Get
+INFO  2017-03-22 09:58:39,224 91798ms gActionFilterAttribute OnActionExecuting  - Executing controller Archive, action GetRecentActivities
+INFO  2017-03-22 09:58:39,226 91800ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Account, action Get
+INFO  2017-03-22 09:58:39,259 91833ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Archive, action GetRecentActivities
+INFO  2017-03-22 09:58:39,283 91857ms gActionFilterAttribute OnActionExecuting  - Executing controller Operations, action Get
+INFO  2017-03-22 09:58:39,308 91882ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Operations, action Get
+INFO  2017-03-22 09:58:39,560 92134ms gActionFilterAttribute OnActionExecuting  - Executing controller Operations, action SendCurrentPrices
+INFO  2017-03-22 09:58:39,560 92134ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Operations, action SendCurrentPrices
+INFO  2017-03-23 15:54:06,823  2921ms gActionFilterAttribute OnActionExecuting  - Executing controller Archive, action GetRecentActivities
+INFO  2017-03-23 15:54:06,880  2978ms gActionFilterAttribute OnActionExecuting  - Executing controller Account, action Get
+INFO  2017-03-23 15:54:07,392  3490ms gActionFilterAttribute OnActionExecuting  - Executing controller Operations, action Get
+INFO  2017-03-23 15:54:07,452  3550ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Account, action Get
+INFO  2017-03-23 15:54:07,460  3558ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Archive, action GetRecentActivities
+INFO  2017-03-23 15:54:07,542  3640ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Operations, action Get
+INFO  2017-03-23 15:54:07,816  3914ms gActionFilterAttribute OnActionExecuting  - Executing controller Operations, action SendCurrentPrices
+INFO  2017-03-23 15:54:07,823  3921ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Operations, action SendCurrentPrices
+INFO  2017-03-23 15:54:16,680 12778ms gActionFilterAttribute OnActionExecuting  - Executing controller Deal, action Post
+INFO  2017-03-23 15:54:16,739 12837ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Deal, action Post
+INFO  2017-03-23 15:54:25,890 21988ms gActionFilterAttribute OnActionExecuting  - Executing controller Deal, action Post
+INFO  2017-03-23 15:54:25,906 22004ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Deal, action Post
+INFO  2017-03-23 15:54:35,544 31642ms gActionFilterAttribute OnActionExecuting  - Executing controller Deal, action Post
+INFO  2017-03-23 15:54:35,584 31682ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Deal, action Post
+INFO  2017-03-23 15:54:39,221 35319ms gActionFilterAttribute OnActionExecuting  - Executing controller Deal, action Post
+INFO  2017-03-23 15:54:39,250 35348ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Deal, action Post
+INFO  2017-03-23 15:54:44,475 40573ms gActionFilterAttribute OnActionExecuting  - Executing controller Deal, action Post
+INFO  2017-03-23 15:54:44,487 40585ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Deal, action Post
+INFO  2017-03-23 15:56:48,007 164105ms gActionFilterAttribute OnActionExecuting  - Executing controller Archive, action GetRecentActivities
+INFO  2017-03-23 15:56:48,007 164105ms gActionFilterAttribute OnActionExecuting  - Executing controller Account, action Get
+INFO  2017-03-23 15:56:48,011 164109ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Account, action Get
+INFO  2017-03-23 15:56:48,017 164115ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Archive, action GetRecentActivities
+INFO  2017-03-23 15:56:48,061 164159ms gActionFilterAttribute OnActionExecuting  - Executing controller Operations, action Get
+INFO  2017-03-23 15:56:48,074 164172ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Operations, action Get
+INFO  2017-03-23 15:56:48,316 164414ms gActionFilterAttribute OnActionExecuting  - Executing controller Operations, action SendCurrentPrices
+INFO  2017-03-23 15:56:48,316 164414ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Operations, action SendCurrentPrices
+INFO  2017-03-23 15:57:52,998 229096ms gActionFilterAttribute OnActionExecuting  - Executing controller Deal, action Post
+INFO  2017-03-23 15:57:53,052 229150ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Deal, action Post
+INFO  2017-03-23 15:58:00,099 236197ms gActionFilterAttribute OnActionExecuting  - Executing controller Deal, action Post
+INFO  2017-03-23 15:58:00,141 236239ms gActionFilterAttribute OnActionExecuted   - Finished executing controller Deal, action Post

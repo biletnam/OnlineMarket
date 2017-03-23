@@ -22,15 +22,12 @@ namespace OnlineMarket.BusinessLogicLayer.Services
         public void AddResource(Resource resource)
         {
             _unitOfWork.ResourceRepository.Add(resource);
+
             foreach (var user in _unitOfWork.UserRepository.GetAll())
             {
-                _unitOfWork.UserResourcesRepository.Add(new UserResources
-                {
-                    UserId = user.Id,
-                    ResourceId = resource.Id,
-                    Quantity = 0
-                });
+                _unitOfWork.UserResourcesRepository.Add(CreateUserResource(user.Id, resource.Id));
             }
+
             _unitOfWork.SaveChanges();
         }
 
@@ -39,6 +36,16 @@ namespace OnlineMarket.BusinessLogicLayer.Services
             resource.Price = price;
             _unitOfWork.ResourceRepository.Update(resource);
             _unitOfWork.SaveChanges();
+        }
+
+        private UserResources CreateUserResource(int userId, int resourceId)
+        {
+            return new UserResources
+            {
+                UserId = userId,
+                ResourceId = resourceId,
+                Quantity = 0
+            };
         }
     }
 }
