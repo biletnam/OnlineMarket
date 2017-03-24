@@ -53,7 +53,7 @@
         }
 
         function isUserAdmin(user, completed) {
-            apiService.get("/api/account", user,
+            apiService.get("/api/account/isadmin", user,
                 completed,
                 null);
         }

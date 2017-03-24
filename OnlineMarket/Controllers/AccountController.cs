@@ -83,7 +83,8 @@ namespace OnlineMarket.Controllers
         }
 
         [HttpGet]
-        public HttpResponseMessage Get(HttpRequestMessage request, string email)
+        [Route("isadmin")]
+        public HttpResponseMessage IsAdmin(HttpRequestMessage request, string email)
         {
             try
             {
