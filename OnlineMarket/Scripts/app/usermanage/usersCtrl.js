@@ -12,7 +12,7 @@
         getUsers();
 
         function getUsers() {
-            apiService.get("/api/usermanager", null,
+            apiService.get("/api/usermanager/getusers", null,
                 usersLoadComplete,
                 loadFailed);
         }
@@ -30,7 +30,7 @@
         }
 
         function changeRole(userId, role) {
-            apiService.post("/api/usermanager", angular.toJson({ Id: userId, RoleId: role }),
+            apiService.post("/api/usermanager/changerole", angular.toJson({ Id: userId, RoleId: role }),
                 changingComplete,
                 loadFailed);
         }

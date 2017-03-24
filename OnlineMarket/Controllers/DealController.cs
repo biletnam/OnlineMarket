@@ -11,6 +11,7 @@ using OnlineMarket.Models;
 
 namespace OnlineMarket.Controllers
 {
+    [RoutePrefix("api/deal")]
     public class DealController : ApiController
     {
         private readonly IHubContext _appHub;
@@ -31,7 +32,8 @@ namespace OnlineMarket.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage Post(HttpRequestMessage request, DealViewModel dealViewModel)
+        [Route("senddeal")]
+        public HttpResponseMessage SendDeal(HttpRequestMessage request, DealViewModel dealViewModel)
         {
             try
             {

@@ -15,8 +15,6 @@
 
         function registerCompleted(result) {
             if (result.data.success) {
-                //membershipService.saveCredentials($scope.user);
-                //$scope.userData.displayUserInfo();
                 $location.path("/checkEmail");
             } else {
                 alert(result.data.message);

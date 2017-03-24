@@ -3,9 +3,9 @@
 
     app.controller("indexCtrl", indexCtrl);
 
-    indexCtrl.$inject = ["$scope", "$rootScope", "apiService", "$timeout"];
+    indexCtrl.$inject = ["$scope", "$rootScope", "apiService"];
 
-    function indexCtrl($scope, $rootScope, apiService, $timeout) {
+    function indexCtrl($scope, $rootScope, apiService) {
         $scope.buyResource = buyResource;
         $scope.sellResource = sellResource;
         $scope.refillBalance = refillBalance;
@@ -15,7 +15,7 @@
 
         function getResources() {
             if ($scope.userData.username != null) {
-                apiService.get("/api/operations", { email: $scope.userData.username },
+                apiService.get("/api/operations/getoperations", { email: $scope.userData.username },
                     resourcesLoadComplete,
                     loadFailed);
             }
@@ -25,9 +25,7 @@
             if (result.data.success) {
                 $rootScope.resources = result.data.operations;
                 profitSum();
-                $timeout(function() {
                     getNewPrices();
-                }, 200);
 
             } else {
                 alert(result.data.message);
@@ -43,6 +41,7 @@
         }
 
         function pricesLoadComplete(result) {
+            
             if (!(result.data.success)) {
                 alert(result.data.message);
             }
@@ -53,14 +52,14 @@
         }
 
         function buyResource(resourceId, resourceTitle, quantity, price) {
-            apiService.post("/api/deal", { Email: $scope.userData.username, ResourceId: resourceId, ResourceTitle: resourceTitle, Quantity: quantity, Price: price, IsPurchase: true },
+            apiService.post("/api/deal/senddeal", { Email: $scope.userData.username, ResourceId: resourceId, ResourceTitle: resourceTitle, Quantity: quantity, Price: price, IsPurchase: true },
                 dealComplete,
                 loadFailed);
 
         }
 
         function sellResource(resourceId, resourceTitle, quantity, price) {
-            apiService.post("/api/deal", { Email: $scope.userData.username, ResourceId: resourceId, ResourceTitle: resourceTitle, Quantity: quantity, Price: price, IsPurchase: false },
+            apiService.post("/api/deal/senddeal", { Email: $scope.userData.username, ResourceId: resourceId, ResourceTitle: resourceTitle, Quantity: quantity, Price: price, IsPurchase: false },
                 dealComplete,
                 loadFailed);
         }

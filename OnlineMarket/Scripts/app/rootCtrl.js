@@ -2,9 +2,9 @@
     "use strict";
 
     app.controller("rootCtrl", rootCtrl);
-    rootCtrl.$inject = ["$scope", "$location", "membershipService", "$rootScope", "apiService", "$timeout"];
+    rootCtrl.$inject = ["$scope", "$location", "membershipService", "$rootScope", "apiService"];
 
-    function rootCtrl($scope, $location, membershipService, $rootScope, apiService, $timeout) {
+    function rootCtrl($scope, $location, membershipService, $rootScope, apiService) {
         $scope.userData = {};
         $scope.userData.displayUserInfo = displayUserInfo;
         $scope.logout = logout;
@@ -17,11 +17,10 @@
         $.connection.hub.start().done(function() {});
 
         hub.client.addActivity = function(message) {
-
-                if ($scope.activities != undefined) {
-                    $scope.activities.unshift(message);
-                    $scope.$apply();
-                }
+            if ($scope.activities != undefined) {
+                $scope.activities.unshift(message);
+                $scope.$apply();
+            }
 
         };
         hub.client.addUser = function(user) {
@@ -33,19 +32,20 @@
 
         hub.client.addNewPrices = function(prices) {
 
-                    if ($rootScope.resources != undefined && $rootScope.resources.ResourcesToBuy != undefined) {
-                        for (var i in $rootScope.resources.ResourcesToBuy) {
-                            $rootScope.resources.ResourcesToBuy[i].Price = prices[i];
-                        }
-                        $rootScope.$apply();
-                    }
-                    if ($rootScope.resourcesToBuy != undefined) {
-                        for (var i in $rootScope.resourcesToBuy) {
-                            $rootScope.resourcesToBuy[i].Price = prices[i];
-                        }
-                        $rootScope.$apply();
-                    }
-                
+            if ($rootScope.resources != undefined && $rootScope.resources.ResourcesToBuy != undefined) {
+                for (var i in $rootScope.resources.ResourcesToBuy) {
+                    $rootScope.resources.ResourcesToBuy[i].Price = prices[i];
+                    
+                }
+            }
+            if ($rootScope.resourcesToBuy != undefined) {
+                for (var i in $rootScope.resourcesToBuy) {
+                    $rootScope.resourcesToBuy[i].Price = prices[i];
+                }
+            }
+
+            $rootScope.$apply();
+
         };
 
         function displayUserInfo() {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -7,6 +8,7 @@ using log4net;
 using Microsoft.AspNet.SignalR;
 using OnlineMarket.BusinessLogicLayer.Interfaces;
 using OnlineMarket.Core;
+using OnlineMarket.DataAccessLayer.Entities;
 using OnlineMarket.Interfaces;
 using OnlineMarket.Models;
 using OnlineMarket.Servicies;
@@ -40,11 +42,12 @@ namespace OnlineMarket.Controllers
         }
 
         [HttpGet]
-        public HttpResponseMessage Get(HttpRequestMessage request, string email)
+        [Route("getoperations")]
+        public HttpResponseMessage GetOperations(HttpRequestMessage request, string email)
         {
             try
             {
-                var resourcesToBuy = _resourceService.GetResources();
+                var resourcesToBuy = GetResources();
                 var resourcesToSell = _userResourcesService.GetUserResources(email);
                 var profits = _dealService.GetProfits(email);
                 var operationViewModel = new OperationsViewModel
@@ -67,7 +70,8 @@ namespace OnlineMarket.Controllers
         }
 
         [HttpGet]
-        public HttpResponseMessage Get(HttpRequestMessage request)
+        [Route("getdemo")]
+        public HttpResponseMessage GetDemo(HttpRequestMessage request)
         {
             try
             {
@@ -97,6 +101,18 @@ namespace OnlineMarket.Controllers
                 return request.CreateResponse(HttpStatusCode.OK,
                     new {success = false, message = Messages.CantSendPrices });
             }
+        }
+
+        private IList<Resource> GetResources()
+        {
+            var resourcesToBuy = _resourceService.GetResources();
+
+            for (var i = 0; i < resourcesToBuy.Count; i++)
+            {
+                resourcesToBuy[i].Price = _pricesGenerator.CurrentPrices[i];
+            }
+
+            return resourcesToBuy;
         }
     }
 }

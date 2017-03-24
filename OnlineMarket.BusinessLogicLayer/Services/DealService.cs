@@ -30,6 +30,8 @@ namespace OnlineMarket.BusinessLogicLayer.Services
 
         public void AddSaleDeal(Deal deal)
         {
+            if (deal.Quantity == 0) return;
+
             AddDeal(deal, (int)DealTypes.Sale);
         }
 

@@ -11,6 +11,7 @@ using OnlineMarket.Models;
 
 namespace OnlineMarket.Controllers
 {
+    [RoutePrefix("api/usermanager")]
     public class UserManagerController : ApiController
     {
         private readonly IMembershipService _membershipService;
@@ -24,7 +25,8 @@ namespace OnlineMarket.Controllers
         }
 
         [HttpGet]
-        public HttpResponseMessage Get(HttpRequestMessage request)
+        [Route("getusers")]
+        public HttpResponseMessage GetUsers(HttpRequestMessage request)
         {
             try
             {
@@ -39,7 +41,8 @@ namespace OnlineMarket.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage Post(HttpRequestMessage request, [FromBody] UserViewModel userViewModel)
+        [Route("changerole")]
+        public HttpResponseMessage ChangeRole(HttpRequestMessage request, [FromBody] UserViewModel userViewModel)
         {
             try
             {

@@ -16,7 +16,7 @@
         getResources();
 
         function getResources() {
-            apiService.get("/api/operations", null,
+            apiService.get("/api/operations/getdemo", null,
                 resourcesLoadComplete,
                 loadFailed);
         }
